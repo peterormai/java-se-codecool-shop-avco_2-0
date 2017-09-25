@@ -39,6 +39,14 @@ public class CartDaoMem implements CartDao{
 
     }
 
+    public static void lineItemTest(){
+        for (LineItem lineItem : lineItems){
+            System.out.print("id: " + lineItem.getId());
+            System.out.print(" name: " + lineItem.getProductName());
+            System.out.println(" quantity: " + lineItem.getQuantity());
+        }
+    }
+
     @Override
     public void remove(int id) {
 
