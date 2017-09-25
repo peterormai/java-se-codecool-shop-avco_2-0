@@ -20,9 +20,22 @@ public class CartDaoMem implements CartDao{
     private CartDaoMem() {
     }
 
-
     @Override
-    public void add(Product cart) {
+    public void add(Product product) {
+        String searchingName = product.getName();
+        boolean isNotIn = true;
+
+        for (LineItem lineItem: lineItems){
+            if (lineItem.getProductName().equals(searchingName)){
+                int newQuantity = lineItem.getQuantity()+1;
+                lineItem.setQuantity(newQuantity);
+                isNotIn = false;
+            }
+        }
+        if (isNotIn){
+            LineItem newLineItem = new LineItem(product.getId(),product.getName(), product.getDefaultPrice());
+            lineItems.add(newLineItem);
+        }
 
     }
 
