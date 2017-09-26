@@ -37,7 +37,7 @@
         </div>
         <div><strong>Product categories:</strong></div>
         <div th:each="cat : ${categories}">
-            <a th:attr="href='/' + ${#strings.toLowerCase(cat.name)}" >[[${cat.name}]]</a>
+            <a th:attr="href='/' + ${cat.id}">[[${cat.name}]]</a>
         </div>
     </div>
     <div class="item col-xs-10 col-lg-10">
