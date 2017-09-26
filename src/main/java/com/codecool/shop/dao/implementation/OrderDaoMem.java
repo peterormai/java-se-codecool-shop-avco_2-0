@@ -1,23 +1,23 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.CartDao;
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartDaoMem implements CartDao{
-    private static CartDaoMem ourInstance = null;
+public class OrderDaoMem implements OrderDao {
+    private static OrderDaoMem ourInstance = null;
     private static List<LineItem> lineItems = new ArrayList();
 
-    public static CartDaoMem getInstance() {
+    public static OrderDaoMem getInstance() {
         if (ourInstance == null){
-            ourInstance = new CartDaoMem();
+            ourInstance = new OrderDaoMem();
         }
         return ourInstance;
     }
 
-    private CartDaoMem() {
+    private OrderDaoMem() {
     }
 
     @Override
