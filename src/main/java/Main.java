@@ -22,7 +22,6 @@ public class Main {
         populateData();
 
         //Redundant elements:
-        get("/productsbysupplier/:name", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/index", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
