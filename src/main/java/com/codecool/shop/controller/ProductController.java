@@ -24,24 +24,20 @@ public class ProductController {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
+        int id = 1;
         Map params = new HashMap<>();
-        params.put("category", productCategoryDataStore.find(1));
-        params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-        params.put("suppliers", supplierDataStore.getAll());
+        params.put("supplier", "notRelevant");
         params.put("type", "category");
-        return new ModelAndView(params, "product/index");
-    }
-
-    public static ModelAndView renderProdBySupp(Request req, Response res) {
-        int id = Integer.parseInt(req.queryParams("id"));
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-
-        Map params = new HashMap<>();
-        params.put("supplier", supplierDataStore.find(id));
+        params.put("products", productDataStore.getBy(productCategoryDataStore.find(id)));
+        params.put("category", productCategoryDataStore.find(id));
         params.put("suppliers", supplierDataStore.getAll());
-        params.put("products", productDataStore.getBy(supplierDataStore.find(id)));
-        params.put("type", "supplier");
+
+        if (req.queryParams("type") != null) {
+            id = Integer.parseInt(req.queryParams("id"));
+            params.put("type", "supplier");
+            params.put("supplier", supplierDataStore.find(id));
+            params.put("products", productDataStore.getBy(supplierDataStore.find(id)));
+        }
         return new ModelAndView(params, "product/index");
     }
 }

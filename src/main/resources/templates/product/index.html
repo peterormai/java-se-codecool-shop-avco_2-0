@@ -38,7 +38,7 @@
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item" th:each="supp : ${suppliers}">
-                    <a class="nav-link active" th:href="@{http://localhost:8888/productsbysupplier/__${supp.name}__(id = ${supp.id})}" th:text="${supp.name}">Supplier Type</a>
+                    <a class="nav-link active" th:href="@{http://localhost:8888/productsbysupplier/__${supp.name}__(id = ${supp.id}, type = 'supplier')}" th:text="${supp.name}">Supplier Type</a>
                 </li>
             </ul>
         </nav>

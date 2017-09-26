@@ -21,19 +21,11 @@ public class Main {
         // populate some data for the memory storage
         populateData();
 
-        // Always start with more specific routes
-        get("/hello", (req, res) -> "Hello World");
-
-        //Supplier sort
-        get("/productsbysupplier/:name", (req, res) -> new ThymeleafTemplateEngine().render(ProductController.renderProdBySupp(req, res)));
-
-
-        // Always add generic routes to the end
+        //Redundant elements:
+        get("/productsbysupplier/:name", ProductController::renderProducts, new ThymeleafTemplateEngine());
+        get("/index", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
-        // Equivalent with above
-        get("/index", (Request req, Response res) -> new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) ));
 
-        // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
 
