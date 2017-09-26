@@ -40,6 +40,14 @@ public class CartDaoMem implements CartDao{
 
     }
 
+    public int numberOfLineItems() {
+        int numberOfItems = 0;
+        for (LineItem lineItem: lineItems) {
+            numberOfItems += lineItem.getQuantity();
+        }
+        return numberOfItems;
+    }
+
     public static void lineItemTest(){
         for (LineItem lineItem : lineItems){
             System.out.print("id: " + lineItem.getId());
