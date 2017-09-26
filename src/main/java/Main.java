@@ -24,9 +24,7 @@ public class Main {
         // Always add generic routes to the end
         get("/", ProductController::renderProducts);
         get("/index", ProductController::renderProducts);
-        get("/add-to-cart/:id", (req,res) -> {
-            return addNewItem(req, res);
-        });
+        get("/add-to-cart/:id", ProductController::addNewItemToCart);
 
         get("/:categoryID", ProductController::renderProducts);
 
@@ -34,14 +32,7 @@ public class Main {
         enableDebugScreen();
     }
 
-    private static Object addNewItem(Request req, Response res) {
-        CartDao cartDao = CartDaoMem.getInstance();
-        String itemId = req.params("id");
-        Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
-        cartDao.add(product);
-        res.redirect("/");
-        return null;
-    }
+
 
     public static void populateData() {
 

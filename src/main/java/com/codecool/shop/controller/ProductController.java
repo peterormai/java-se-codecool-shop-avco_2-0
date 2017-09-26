@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -7,6 +8,7 @@ import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 
+import com.codecool.shop.model.Product;
 import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
@@ -39,6 +41,15 @@ public class ProductController {
 
     private static String renderTemplate(Map model, String template) {
         return new ThymeleafTemplateEngine().render(new ModelAndView(model, template));
+    }
+
+    public static Object addNewItemToCart(Request req, Response res) {
+        CartDao cartDao = CartDaoMem.getInstance();
+        String itemId = req.params("id");
+        Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
+        cartDao.add(product);
+        res.redirect("/");
+        return null;
     }
 
 }
