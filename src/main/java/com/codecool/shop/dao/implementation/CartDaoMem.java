@@ -36,6 +36,7 @@ public class CartDaoMem implements CartDao{
             LineItem newLineItem = new LineItem(product.getId(),product.getName(), product.getDefaultPrice());
             lineItems.add(newLineItem);
         }
+        lineItemTest();
 
     }
 
