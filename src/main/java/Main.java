@@ -1,7 +1,9 @@
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
-import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.controller.CartPageController;
+import com.codecool.shop.controller.CheckoutPageController;
+import com.codecool.shop.controller.ProductPageController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
@@ -19,14 +21,13 @@ public class Main {
         populateData();
 
         // Always start with more specific routes
-        get("/add-to-cart/:id", ProductController::addNewItemToCart);
-        get("/hello", (req, res) -> "Hello World");
-        get("/review-cart", ProductController::reviewCart);
-        get("/checkout", ProductController::checkoutCart);
+        get("/add-to-cart/:id", ProductPageController.getInstance()::addNewItemToCart);
+        get("/review-cart", CartPageController.getInstance()::render);
+        get("/checkout", CheckoutPageController.getInstance()::render);
 
         // Always add generic routes to the end
-        get("/index", ProductController::renderProducts);
-        get("/", ProductController::renderProducts);
+        get("/index", ProductPageController.getInstance()::render);
+        get("/", ProductPageController.getInstance()::render);
 
         enableDebugScreen();
     }
