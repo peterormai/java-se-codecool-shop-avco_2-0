@@ -20,13 +20,14 @@ public class Main {
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
+        get("/add-to-cart/:id", ProductController::addNewItemToCart);
+        get("/review-cart", ProductController::reviewCart);
+        get("/:categoryID", ProductController::renderProducts);
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts);
         get("/index", ProductController::renderProducts);
-        get("/add-to-cart/:id", ProductController::addNewItemToCart);
 
-        get("/:categoryID", ProductController::renderProducts);
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();

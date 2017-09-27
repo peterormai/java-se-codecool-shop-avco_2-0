@@ -14,6 +14,7 @@ import spark.Response;
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +37,9 @@ public class ProductController {
             params.put("category", productCategoryDataStore.find(1));
             params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         }
+        if ("true".equals(req.queryParams("ic-request"))) {
+            return renderTemplate(params, "content");
+        }
         return renderTemplate(params, "product/index");
     }
 
@@ -48,8 +52,14 @@ public class ProductController {
         String itemId = req.params("id");
         Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
         cartDao.add(product);
-        res.redirect("/");
-        return null;
+        return renderProducts(req, res);
     }
 
+    public static Object reviewCart(Request req, Response res) {
+        CartDaoMem cartDataStore = CartDaoMem.getInstance();
+        Map<String, Object> params = new HashMap<>();
+        params.put("lineItems", cartDataStore.getAll());
+        params.put("totalPrice", cartDataStore.getTotalPrice());
+        return renderTemplate(params, "cart");
+    }
 }
