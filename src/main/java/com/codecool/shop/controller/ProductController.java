@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
@@ -25,7 +26,7 @@ public class ProductController {
     public static String renderProducts(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        OrderDaoMem cartDataStore = OrderDaoMem.getInstance();
+        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         Map<String, Object> params = new HashMap<>();
@@ -36,7 +37,7 @@ public class ProductController {
         params.put("category", productCategoryDataStore.find(id));
         params.put("suppliers", supplierDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
-        params.put("numberOfItems", cartDataStore.numberOfLineItems());
+        params.put("numberOfItems", orderDataStore.numberOfLineItems());
 
         if (req.queryParams("type") != null) {
             if (req.queryParams("type").equals("supplier")) {
@@ -70,10 +71,10 @@ public class ProductController {
     }
 
     public static Object reviewCart(Request req, Response res) {
-        CartDaoMem cartDataStore = CartDaoMem.getInstance();
+        CartDaoMem orderDataStore = CartDaoMem.getInstance();
         Map<String, Object> params = new HashMap<>();
-        params.put("lineItems", cartDataStore.getAll());
-        params.put("totalPrice", cartDataStore.getTotalPrice());
+        params.put("lineItems", orderDataStore.getAll());
+        params.put("totalPrice", orderDataStore.getTotalPrice());
         return renderTemplate(params, "cart");
     }
     public static String checkoutCart(Request req, Response res) {
