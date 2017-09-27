@@ -69,7 +69,7 @@ public class Checkout {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        checkoutMap.put("phoneNumber", phoneNumber);
+        checkoutMap.put("phoneNumber", phoneFormat(phoneNumber));
 
     }
 

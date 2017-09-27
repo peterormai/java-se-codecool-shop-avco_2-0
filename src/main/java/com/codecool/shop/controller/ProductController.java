@@ -82,6 +82,7 @@ public class ProductController {
         Map<String, String> params = new HashMap<>();
         if (Checkout.getCheckoutMap().size() != 0){
             params = Checkout.getCheckoutMap();
+            params.put("phoneNumber",params.get("phoneNumber").replace("-",""));
             return renderTemplate(params, "product/editCheckout");
         }
         return renderTemplate(params, "product/checkout");
@@ -103,6 +104,19 @@ public class ProductController {
         params.put("shippingAddress", req.queryParams("shippingAddress"));
 
         Checkout.getInstance(params);
+        Checkout.getInstance(params).setName(req.queryParams("name"));
+        Checkout.getInstance(params).setEmail(req.queryParams("email"));
+        Checkout.getInstance(params).setPhoneNumber(req.queryParams("phoneNumber"));
+        Checkout.getInstance(params).setBillingCountry(req.queryParams("billingCountry"));
+        Checkout.getInstance(params).setBillingCity(req.queryParams("billingCity"));
+        Checkout.getInstance(params).setBillingZipCode(req.queryParams("billingZipCode"));
+        Checkout.getInstance(params).setBillingAddress(req.queryParams("billingAddress"));
+        Checkout.getInstance(params).setShippingCountry(req.queryParams("shippingCountry"));
+        Checkout.getInstance(params).setShippingCity(req.queryParams("shippingCity"));
+        Checkout.getInstance(params).setShippingZipCode(req.queryParams("shippingZipCode"));
+        Checkout.getInstance(params).setShippingAddress(req.queryParams("shippingAddress"));
+
+
         params = Checkout.getCheckoutMap();
         return renderTemplate(params, "product/pay");
 

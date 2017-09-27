@@ -2,6 +2,10 @@
     margin-right: 5px;
 }
 
+.checkoutInput{
+    min-width: 40%;
+}
+
 .thumbnail {
     margin-bottom: 20px;
     padding: 0px;
