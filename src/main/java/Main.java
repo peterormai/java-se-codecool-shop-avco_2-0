@@ -1,7 +1,9 @@
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
-import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.controller.CartPageController;
+import com.codecool.shop.controller.CheckoutPageController;
+import com.codecool.shop.controller.ProductPageController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
@@ -19,18 +21,16 @@ public class Main {
         populateData();
 
         // Always start with more specific routes
-        get("/hello", (req, res) -> "Hello World");
-        get("/add-to-cart/:id", ProductController::addNewItemToCart);
-        get("/review-cart", ProductController::reviewCart);
-        get("/:categoryID", ProductController::renderProducts);
+        get("/add-to-cart/:id", ProductPageController.getInstance()::addNewItemToCart);
+        get("/review-cart", CartPageController.getInstance()::render);
+        get("/checkout", CheckoutPageController.getInstance()::render);
 
         // Always add generic routes to the end
-        get("/", ProductController::renderProducts);
-        get("/index", ProductController::renderProducts);
+        get("/index", ProductPageController.getInstance()::render);
+        get("/", ProductPageController.getInstance()::render);
 
         enableDebugScreen();
     }
-
 
 
     public static void populateData() {
@@ -45,7 +45,7 @@ public class Main {
         Supplier lenovo = new Supplier("Lenovo", "Computers");
         supplierDataStore.add(lenovo);
 
-        Supplier apple = new Supplier( "Apple", "Phones and computers");
+        Supplier apple = new Supplier("Apple", "Phones and computers");
         supplierDataStore.add(apple);
 
         //setting up a new product category
