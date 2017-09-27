@@ -77,26 +77,35 @@ public class ProductController {
         params.put("totalPrice", orderDataStore.getTotalPrice());
         return renderTemplate(params, "cart");
     }
+
     public static String checkoutCart(Request req, Response res) {
-        Map<List, Map> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
+        if (Checkout.getCheckoutMap().size() != 0){
+            params = Checkout.getCheckoutMap();
+            return renderTemplate(params, "product/editCheckout");
+        }
         return renderTemplate(params, "product/checkout");
     }
 
-    public static String payTheOrder(Request req, Response res){
+    public static String payTheOrder(Request req, Response res) {
         Map<String, String> params = new HashMap<>();
-        params.put("name",req.queryParams("name"));
-        params.put("email",req.queryParams("email"));
-        params.put("phoneNumber",req.queryParams("phoneNumber"));
-        params.put("billingCountry",req.queryParams("billingCountry"));
-        params.put("billingCity",req.queryParams("billingCity"));
-        params.put("billingZipCode",req.queryParams("billingZipCode"));
-        params.put("billingAddress",req.queryParams("billingAddress"));
-        params.put("shippingCountry",req.queryParams("shippingCountry"));
-        params.put("shippingCity",req.queryParams("shippingCity"));
-        params.put("shippingZipCode",req.queryParams("shippingZipCode"));
-        params.put("shippingAddress",req.queryParams("shippingAddress"));
+
+        params.put("name", req.queryParams("name"));
+        params.put("email", req.queryParams("email"));
+        params.put("phoneNumber", req.queryParams("phoneNumber"));
+        params.put("billingCountry", req.queryParams("billingCountry"));
+        params.put("billingCity", req.queryParams("billingCity"));
+        params.put("billingZipCode", req.queryParams("billingZipCode"));
+        params.put("billingAddress", req.queryParams("billingAddress"));
+        params.put("shippingCountry", req.queryParams("shippingCountry"));
+        params.put("shippingCity", req.queryParams("shippingCity"));
+        params.put("shippingZipCode", req.queryParams("shippingZipCode"));
+        params.put("shippingAddress", req.queryParams("shippingAddress"));
+
         Checkout.getInstance(params);
+        params = Checkout.getCheckoutMap();
         return renderTemplate(params, "product/pay");
+
     }
 
 }

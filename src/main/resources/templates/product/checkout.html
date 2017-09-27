@@ -38,29 +38,29 @@
             Checkout
         </h1>
     </div>
-    <div class="container ">
+    <div class="container">
         <h3>Name </h3>
-        <input name="name" type="text" value="Attila" required>
+        <input name="name" type="text" placeholder="Attila" required>
         <h3>Email </h3>
-        <input name="email" type="text" value="something@gmail.com" required>
+        <input name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
         <h3>Phone Number </h3>
-        <input name="phoneNumber" type="text" value="06-90-444-8888" required>
+        <input name="phoneNumber" type="text" pattern="[0-9]{10,}" placeholder="E.g 06703456789" required>
         <h3>Billing Country </h3>
-        <input name="billingCountry" type="text" value="Hungary" required>
+        <input name="billingCountry" type="text" placeholder="Hungary" required>
         <h3>Billing City </h3>
-        <input name="billingCity" type="text" value="Budapest" required>
+        <input name="billingCity" type="text" placeholder="Budapest" required>
         <h3>Billing Zip Code </h3>
-        <input name="billingZipCode" type="text" value="4444" required>
+        <input name="billingZipCode" type="text" placeholder="4444" required>
         <h3>Billing Address </h3>
-        <input name="billingAddress" type="text" value="Nagymező utca 44." required>
+        <input name="billingAddress" type="text" placeholder="Nagymező utca 44." required>
         <h3>Shipping Country </h3>
-        <input name="shippingCountry" type="text" value="Hungary" required>
+        <input name="shippingCountry" type="text" placeholder="Hungary" required>
         <h3>Shipping City </h3>
-        <input name="shippingCity" type="text" value="Budapest" required>
+        <input name="shippingCity" type="text" placeholder="Budapest" required>
         <h3>Shipping Zip Code </h3>
-        <input name="shippingZipCode" type="text" value="4444"  required>
+        <input name="shippingZipCode" type="text" placeholder="4444"  required>
         <h3>Shipping Adress</h3>
-        <input name="shippingAddress" type="text" value="Nagymező utca 44." required>
+        <input name="shippingAddress" type="text" placeholder="Nagymező utca 44." required>
 
         <br>
         <button type="submit" class="btn btn-success">Pay</button>

@@ -7,7 +7,12 @@ public class Checkout {
     private String name, email, phoneNumber;
     private String billingCountry, billingCity, billingZipCode, billingAddress;
     private String shippingCountry, shippingCity, shippingZipCode, shippingAddress;
-    private Map<String, String> checkoutMap = new HashMap<>();
+
+    public static Map<String, String> getCheckoutMap() {
+        return checkoutMap;
+    }
+
+    private static Map<String, String> checkoutMap = new HashMap<>();
     private static Checkout chekout = null;
 
     private Checkout(Map checkoutData) {
@@ -24,7 +29,7 @@ public class Checkout {
         shippingAddress = (String) checkoutData.get("shippingAddress");
         checkoutMap.put("name", name);
         checkoutMap.put("email", email);
-        checkoutMap.put("phoneNumber", phoneNumber);
+        checkoutMap.put("phoneNumber", phoneFormat(phoneNumber));
         checkoutMap.put("billingCountry", billingCountry);
         checkoutMap.put("billingCity", billingCity);
         checkoutMap.put("billingZipCode", billingZipCode);
@@ -35,6 +40,17 @@ public class Checkout {
         checkoutMap.put("shippingAddress", shippingAddress);
 
 
+    }
+
+    private static String phoneFormat(String phoneNumber) {
+        if (phoneNumber.length() == 11) {
+            phoneNumber = String.format("%s-%s-%s-%s",
+                    phoneNumber.substring(0, 2),
+                    phoneNumber.substring(2, 4),
+                    phoneNumber.substring(4, 7),
+                    phoneNumber.substring(7, 11));
+        }
+        return phoneNumber;
     }
 
     public static Checkout getInstance(Map checkoutData) {

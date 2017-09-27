@@ -35,34 +35,38 @@
 <form action="/pay" method="post">
     <div class="well well-sm">
         <h1>
-            Ship to
+            Checkout
         </h1>
     </div>
     <div class="container">
-        <h3>Customer: </h3>
+        <h3>Name </h3>
+        <input th:value="${name}" name="name" type="text" value="Attila" required>
+        <h3>Email </h3>
+        <input th:value="${email}" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+        <h3>Phone Number </h3>
+        <input th:value="${phoneNumber}" name="phoneNumber" type="text" pattern="[0-9]{10,}"
+               placeholder="E.g 06703456789" required>
+        <h3>Billing Country </h3>
+        <input th:value="${billingCountry}" name="billingCountry" type="text" value="Hungary" required>
+        <h3>Billing City </h3>
+        <input th:value="${billingCity}" name="billingCity" type="text" value="Budapest" required>
+        <h3>Billing Zip Code </h3>
+        <input th:value="${billingZipCode}" name="billingZipCode" type="text" value="4444" required>
+        <h3>Billing Address </h3>
+        <input th:value="${billingAddress}" name="billingAddress" type="text" value="Nagymező utca 44." required>
+        <h3>Shipping Country </h3>
+        <input th:value="${shippingCountry}" name="shippingCountry" type="text" value="Hungary" required>
+        <h3>Shipping City </h3>
+        <input th:value="${shippingCity}" name="shippingCity" type="text" value="Budapest" required>
+        <h3>Shipping Zip Code </h3>
+        <input th:value="${shippingZipCode}" name="shippingZipCode" type="text" value="4444" required>
+        <h3>Shipping Adress</h3>
+        <input th:value="${shippingAddress}" name="shippingAddress" type="text" value="Nagymező utca 44." required>
 
-        <h4 th:text="${name}" ></h4>
-        <div th:text="${email}" ></div>
-        <div th:text="${phoneNumber}" ></div>
-
-        <h2>Billing:</h2>
-        <div th:text="${billingCountry}" ></div>
-        <span th:text="${billingCity} " ></span>
-        <span th:text="${billingAddress}" ></span>
-        <div th:text="${billingZipCode}" ></div>
-
-        <h2>Shipping to:</h2>
-
-        <div th:text="${shippingCountry}" ></div>
-        <span th:text="${shippingCity}" ></span>
-        <span th:text="${shippingAddress}" ></span>
-        <div th:text="${shippingZipCode}" ></div>
+        <br>
+        <button type="submit" class="btn btn-success">Pay</button>
 
     </div>
-    <a href="/checkout">
-        <div class="btn btn-success">Checkout</div>
-    </a>
-    <br><button type="submit" class="btn btn-success">Submit</button>
 </form>
 <div th:replace="footer :: copy"></div>
 </body>
