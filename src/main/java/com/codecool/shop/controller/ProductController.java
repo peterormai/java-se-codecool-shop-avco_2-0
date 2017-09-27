@@ -15,7 +15,6 @@ import spark.Response;
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,6 +68,19 @@ public class ProductController {
 
     public static Object reviewCart(Request req, Response res) {
         CartDaoMem cartDataStore = CartDaoMem.getInstance();
+        if (req.queryParams("quantity") != null) {
+            String check = req.queryParams("ic-id").charAt(0) + "";
+            if (check.equals("#")) {
+                cartDataStore.changeItemValue(req.queryParams("ic-id"), req.queryParams("quantity"));
+            }
+        }
+        if (req.queryParams("id") != null) {
+            int id = Integer.parseInt(req.queryParams("id"));
+            cartDataStore.remove(id);
+        }
+        if (cartDataStore.getAll().isEmpty()) {
+            res.redirect("/index");
+        }
         Map<String, Object> params = new HashMap<>();
         params.put("lineItems", cartDataStore.getAll());
         params.put("totalPrice", cartDataStore.getTotalPrice());

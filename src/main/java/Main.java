@@ -23,6 +23,7 @@ public class Main {
         get("/add-to-cart/:id", ProductController::addNewItemToCart);
         get("/review-cart", ProductController::reviewCart);
         get("/:categoryID", ProductController::renderProducts);
+        post("/review-cart", ProductController::reviewCart);
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts);

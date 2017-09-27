@@ -59,7 +59,12 @@ public class CartDaoMem implements CartDao {
 
     @Override
     public void remove(int id) {
-
+        for (LineItem item: lineItems) {
+            if (item.getId() == id) {
+                lineItems.remove(item);
+                break;
+            }
+        }
     }
 
     @Override
@@ -73,5 +78,21 @@ public class CartDaoMem implements CartDao {
             totalPrice += lineItem.getPrice() * lineItem.getQuantity();
         }
         return totalPrice;
+    }
+
+    public boolean changeItemValue(String id, String quantity) {
+        int num = Integer.parseInt(quantity);
+        int validId = Character.getNumericValue(id.charAt(1));
+        if (num == 0) {
+            remove(validId);
+            return true;
+        } else {
+            for (LineItem item: lineItems) {
+                if (item.getId() == validId) {
+                    item.setQuantity(num);
+                }
+            }
+            return false;
+        }
     }
 }

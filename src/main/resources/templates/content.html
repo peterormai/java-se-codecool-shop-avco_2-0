@@ -6,7 +6,7 @@
     <div class="jumbotron text-center" ic-push-url="true">
         <h1>Codecool Shop</h1>
         <button th:class="${numberOfItems} > 0 ? 'btn btn-success' : 'btn btn-default'"
-                th:attr="ic-get-from='/review-cart'" ic-target=".container" ic-replace-target="true">
+                th:attr="ic-get-from='/review-cart'" ic-target="#content" ic-replace-target="true">
             <i class="fa fa-shopping-basket" aria-hidden="true"></i>
             [[${numberOfItems}]]
         </button>
