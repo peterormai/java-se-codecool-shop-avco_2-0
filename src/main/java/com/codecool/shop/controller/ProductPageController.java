@@ -4,7 +4,7 @@ import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
@@ -33,7 +33,7 @@ public class ProductPageController extends Controller {
     public String render(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
+        Order orderDataStore = Order.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         Map<String, Object> params = new HashMap<>();
@@ -65,10 +65,10 @@ public class ProductPageController extends Controller {
     }
 
     public Object addNewItemToCart(Request req, Response res) {
-        OrderDao orderDao = OrderDaoMem.getInstance();
+        Order order = Order.getInstance();
         String itemId = req.params("id");
         Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
-        orderDao.add(product);
+        order.add(product);
         return render(req, res);
     }
 }
