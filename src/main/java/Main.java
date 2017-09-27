@@ -25,10 +25,8 @@ public class Main {
         get("/", ProductController::renderProducts);
         get("/index", ProductController::renderProducts);
         get("/add-to-cart/:id", ProductController::addNewItemToCart);
-
         get("/:categoryID", ProductController::renderProducts);
 
-        // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
 
