@@ -67,10 +67,10 @@ public class ProductController {
     }
 
     public static Object reviewCart(Request req, Response res) {
-        OrderDaoMem cartDataStore = OrderDaoMem.getInstance();
+        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
         Map<String, Object> params = new HashMap<>();
-        params.put("lineItems", cartDataStore.getAll());
-        params.put("totalPrice", cartDataStore.getTotalPrice());
+        params.put("lineItems", orderDataStore.getAll());
+        params.put("totalPrice", orderDataStore.getTotalPrice());
         return renderTemplate(params, "cart");
     }
 }
