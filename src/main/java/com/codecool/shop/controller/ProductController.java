@@ -71,7 +71,7 @@ public class ProductController {
     }
 
     public static Object reviewCart(Request req, Response res) {
-        CartDaoMem orderDataStore = CartDaoMem.getInstance();
+        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
         Map<String, Object> params = new HashMap<>();
         params.put("lineItems", orderDataStore.getAll());
         params.put("totalPrice", orderDataStore.getTotalPrice());

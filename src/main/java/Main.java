@@ -19,15 +19,14 @@ public class Main {
         populateData();
 
         // Always start with more specific routes
-        get("/hello", (req, res) -> "Hello World");
         get("/add-to-cart/:id", ProductController::addNewItemToCart);
+        get("/hello", (req, res) -> "Hello World");
         get("/review-cart", ProductController::reviewCart);
-        get("/:categoryID", ProductController::renderProducts);
+        get("/checkout", ProductController::checkoutCart);
 
         // Always add generic routes to the end
-        get("/", ProductController::renderProducts);
         get("/index", ProductController::renderProducts);
-        get("/checkout", ProductController::checkoutCart);
+        get("/", ProductController::renderProducts);
 
         enableDebugScreen();
     }

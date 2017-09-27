@@ -58,6 +58,18 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void remove(int id) {
+    }
+    
+    @Override
+    public List<LineItem> getAll() {
+        return lineItems;
+    }
 
+    public float getTotalPrice() {
+        float totalPrice = 0;
+        for (LineItem lineItem : lineItems) {
+            totalPrice += lineItem.getPrice() * lineItem.getQuantity();
+        }
+        return totalPrice;
     }
 }
