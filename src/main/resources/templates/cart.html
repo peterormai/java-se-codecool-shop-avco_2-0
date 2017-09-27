@@ -1,10 +1,8 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="product/index :: layout"></head>
 <body>
-    <div class="jumbotron text-center">
-        <h1>Codecool Shop</h1>
-    </div>
-    <div class="container" th:fragment="cart">
+    <div ic-src="/review-cart" class="container">
         <h2>Cart:</h2>
         <table id="cart" class="table table-hover table-condensed">
             <thead>
@@ -28,12 +26,12 @@
                 </td>
                 <td data-th="Price" th:text="${#numbers.formatCurrency(item.price)}">$1.99</td>
                 <td data-th="Quantity">
-                    <input min="1" th:attr="ic-id='#' + ${item.getId()}" type="number" ic-post-to="/review-cart" class="form-control text-center" name="quantity" th:value="${item.quantity}">
+                    <input min="1"  th:attr="ic-id='#' + ${item.getId()}" type="number" ic-post-to="/review-cart" class="form-control text-center" name="quantity" th:value="${item.quantity}">
                 </td>
                 <td data-th="Subtotal" class="text-center" th:text="${#numbers.formatCurrency(item.price * item.quantity)}">1.99</td>
                 <td class="actions" data-th="">
                     <button class="btn btn-danger btn-sm" th:attr="ic-get-from='/review-cart?id=' + ${item.getId()}"
-                            ic-target="body">
+                            ic-target=".container">
                         <i class="fa fa-trash-o"></i>
                     </button>
                 </td>

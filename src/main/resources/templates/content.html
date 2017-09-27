@@ -1,18 +1,17 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="product/index :: layout"></head>
 <body>
-
-<div id="content" th:fragment="shop">
+<div id="content">
     <div class="jumbotron text-center" ic-push-url="true">
         <h1>Codecool Shop</h1>
-        <button th:class="${numberOfItems} > 0 ? 'btn btn-success' : 'btn btn-default'"
-                th:attr="ic-get-from='/review-cart'" ic-target="#content" ic-replace-target="true">
+        <button id="asd" th:class="${numberOfItems} > 0 ? 'btn btn-success' : 'btn btn-default'"
+                th:attr="ic-get-from='/review-cart'" ic-target="body">
             <i class="fa fa-shopping-basket" aria-hidden="true"></i>
             [[${numberOfItems}]]
         </button>
-
     </div>
-    <div class="container" th:fragment="container">
+    <div class="container">
         <div class="item col-xs-2 col-lg-2" ic-push-url="true">
             <div class="well well-sm">
                 <strong>Filters</strong>
@@ -52,7 +51,7 @@
                                     <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
-                                    <div class="btn btn-success" th:attr="ic-get-from='/add-to-cart/' + ${prod.id}" ic-target="#content" ic-replace-target="true">Add to cart</div>
+                                    <div class="btn btn-success" th:attr="ic-get-from='/add-to-cart/' + ${prod.id}" ic-target="#container" >Add to cart</div>
                                 </div>
                             </div>
                         </div>
