@@ -5,7 +5,7 @@ import com.codecool.shop.model.Product;
 
 import java.util.List;
 
-public interface CartDao {
+public interface OrderDao {
 
     void add(Product product);
     void remove(int id);
