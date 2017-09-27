@@ -25,51 +25,16 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" href="/css/custom.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intercooler-js/1.1.2/intercooler.js" defer=""></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/custom.css" />
 </head>
 <body>
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-    <button class="btn btn-success"> <i class="fa fa-shopping-basket" aria-hidden="true"></i> [[${numberOfItems}]]</button>
 
-</div>
-<div class="container">
-    <div class="item col-xs-2 col-lg-2">
-        <div class="well well-sm">
-            <strong>Filters</strong>
-        </div>
-        <div><strong>Product categories:</strong></div>
-        <div th:each="cat : ${categories}">
-            <a th:attr="href='/' + ${cat.id}">[[${cat.name}]]</a>
-        </div>
-    </div>
-    <div class="item col-xs-10 col-lg-10">
-        <div class="well well-sm">
-            <strong th:text="${category.name}">Category Title</strong>
-        </div>
-        <div id="products" class="row list-group">
-            <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-                <div class="thumbnail">
-                    <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                    <div class="caption">
-                        <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                        <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <a class="btn btn-success" th:attr="href='/add-to-cart/' + ${prod.id}" >Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div th:replace="footer :: copy"></div>
+    <div th:replace="content :: shop"></div>
+    <div th:replace="footer :: copy"></div>
+
 </body>
 </html>
 
