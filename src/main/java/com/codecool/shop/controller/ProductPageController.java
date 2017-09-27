@@ -7,23 +7,29 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
-
-import com.codecool.shop.model.Checkout;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
+
 import spark.Request;
 import spark.Response;
-import spark.ModelAndView;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class ProductController {
+public class ProductPageController extends Controller {
 
-    public static String renderProducts(Request req, Response res) {
+    private static ProductPageController productPageController = null;
+
+    private ProductPageController(){}
+
+    public static ProductPageController getInstance() {
+        if (productPageController == null) {
+            productPageController = new ProductPageController();
+        }
+        return productPageController;
+    }
+
+    public String render(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
@@ -57,29 +63,11 @@ public class ProductController {
         return renderTemplate(params, "product/index");
     }
 
-
-    private static String renderTemplate(Map model, String template) {
-        return new ThymeleafTemplateEngine().render(new ModelAndView(model, template));
-    }
-
-    public static Object addNewItemToCart(Request req, Response res) {
+    public Object addNewItemToCart(Request req, Response res) {
         OrderDao orderDao = OrderDaoMem.getInstance();
         String itemId = req.params("id");
         Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
         orderDao.add(product);
-        return renderProducts(req, res);
+        return render(req, res);
     }
-
-    public static Object reviewCart(Request req, Response res) {
-        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
-        Map<String, Object> params = new HashMap<>();
-        params.put("lineItems", orderDataStore.getAll());
-        params.put("totalPrice", orderDataStore.getTotalPrice());
-        return renderTemplate(params, "cart");
-    }
-    public static String checkoutCart(Request req, Response res) {
-        Map<List, Map> params = new HashMap<>();
-        return renderTemplate(params, "product/checkout");
-    }
-
 }
