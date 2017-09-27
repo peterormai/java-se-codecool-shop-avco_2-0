@@ -24,6 +24,7 @@ public class Main {
         get("/add-to-cart/:id", ProductPageController.getInstance()::addNewItemToCart);
         get("/review-cart", CartPageController.getInstance()::render);
         get("/checkout", CheckoutPageController.getInstance()::render);
+        post("/review-cart", CartPageController.getInstance()::render);
 
         // Always add generic routes to the end
         get("/index", ProductPageController.getInstance()::render);

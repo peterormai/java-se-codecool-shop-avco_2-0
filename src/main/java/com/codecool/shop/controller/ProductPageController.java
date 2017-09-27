@@ -20,7 +20,8 @@ public class ProductPageController extends Controller {
 
     private static ProductPageController productPageController = null;
 
-    private ProductPageController(){}
+    private ProductPageController() {
+    }
 
     public static ProductPageController getInstance() {
         if (productPageController == null) {

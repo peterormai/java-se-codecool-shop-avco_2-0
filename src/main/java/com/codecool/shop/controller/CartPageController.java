@@ -23,6 +23,23 @@ public class CartPageController extends Controller {
     @Override
     public String render(Request req, Response res) {
         OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
+
+        if (req.queryParams("quantity") != null) {
+            String check = req.queryParams("ic-id").charAt(0) + "";
+            if (check.equals("#")) {
+                orderDataStore.changeItemValue(req.queryParams("ic-id"), req.queryParams("quantity"));
+            }
+        }
+
+        if (req.queryParams("id") != null) {
+            int id = Integer.parseInt(req.queryParams("id"));
+            orderDataStore.remove(id);
+        }
+
+        if (orderDataStore.getAll().isEmpty()) {
+            return ProductPageController.getInstance().render(req, res);
+        }
+
         Map<String, Object> params = new HashMap<>();
         params.put("lineItems", orderDataStore.getAll());
         params.put("totalPrice", orderDataStore.getTotalPrice());
