@@ -19,18 +19,17 @@ public class Main {
         populateData();
 
         // Always start with more specific routes
-        get("/hello", (req, res) -> "Hello World");
         get("/add-to-cart/:id", ProductController::addNewItemToCart);
+        get("/hello", (req, res) -> "Hello World");
         get("/review-cart", ProductController::reviewCart);
-        get("/:categoryID", ProductController::renderProducts);
+        get("/checkout", ProductController::checkoutCart);
 
         // Always add generic routes to the end
-        get("/", ProductController::renderProducts);
         get("/index", ProductController::renderProducts);
+        get("/", ProductController::renderProducts);
 
         enableDebugScreen();
     }
-
 
 
     public static void populateData() {
@@ -45,7 +44,7 @@ public class Main {
         Supplier lenovo = new Supplier("Lenovo", "Computers");
         supplierDataStore.add(lenovo);
 
-        Supplier apple = new Supplier( "Apple", "Phones and computers");
+        Supplier apple = new Supplier("Apple", "Phones and computers");
         supplierDataStore.add(apple);
 
         //setting up a new product category
