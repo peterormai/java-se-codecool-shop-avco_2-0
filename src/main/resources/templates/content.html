@@ -5,12 +5,11 @@
 <div id="content" th:fragment="shop">
     <div class="jumbotron text-center" ic-push-url="true">
         <h1>Codecool Shop</h1>
-        <button th:class="${numberOfItems} > 0 ? 'btn btn-success' : 'btn btn-default'"
+        <button id="cart" th:class="${numberOfItems} > 0 ? 'btn btn-success' : 'btn btn-default'"
                 th:attr="ic-get-from='/review-cart'" ic-target=".container" ic-replace-target="true">
             <i class="fa fa-shopping-basket" aria-hidden="true"></i>
             [[${numberOfItems}]]
         </button>
-
     </div>
     <div class="container" th:fragment="container">
         <div class="item col-xs-2 col-lg-2" ic-push-url="true">
@@ -18,8 +17,9 @@
                 <strong>Filters</strong>
             </div>
             <div class="filter-title"><strong >Categories:</strong></div>
-            <div class="filter" th:each="cat : ${categories}"
-                 th:attr="ic-get-from='/?name=' + ${cat.name} + '&id=' + ${cat.id} + '&type=category'"
+            <div th:each="cat : ${categories}"
+                 th:class=" ${selected.equals(cat.name)} ? 'filter selected' : 'filter'"
+                 th:attr="ic-get-from='/filter?name=' + ${cat.name} + '&id=' + ${cat.id} + '&type=category'"
                  ic-target="#content"
                  ic-replace-target="true"
                  th:text="${cat.name}">
@@ -28,7 +28,8 @@
             <div class="filter-title"><strong>Suppliers:</strong></div>
 
             <div class="filter" th:each="supp : ${suppliers}"
-                 th:attr="ic-get-from='/?name=' + ${supp.name} + '&id=' + ${supp.id} + '&type=supplier'"
+                 th:class=" ${selected.equals(supp.name)} ? 'filter selected' : 'filter'"
+                 th:attr="ic-get-from='/filter?name=' + ${supp.name} + '&id=' + ${supp.id} + '&type=supplier'"
                  ic-target="#content"
                  ic-replace-target="true"
                  th:text="${supp.name}">
@@ -52,7 +53,11 @@
                                     <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
-                                    <div class="btn btn-success" th:attr="ic-get-from='/add-to-cart/' + ${prod.id}" ic-target="#content" ic-replace-target="true">Add to cart</div>
+                                    <button class="btn btn-success"
+                                         th:attr="ic-get-from='/add-to-cart/' + ${prod.id}"
+                                            ic-target="#cart" ic-replace-target="true">
+                                        Add to cart
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -58,6 +58,9 @@
     margin: 0 0 11px;
 }
 
+/* Filter Styles
+****************/
+
 .filter-title {
     padding: 10px;
     padding-top: 10px;
@@ -68,11 +71,17 @@
     border-radius: 2px;
 }
 
+.selected {
+    border: 1px solid #aaa;
+}
+
 .filter:hover {
     background-color: #eee;
     cursor: pointer;
 }
 
+/* Cart Styles
+****************/
 .table > tbody > tr > td, .table > tfoot > tr > td {
     vertical-align: middle;
 }

@@ -32,9 +32,15 @@ public class ProductController {
         params.put("type", "category");
         params.put("products", productDataStore.getBy(productCategoryDataStore.find(id)));
         params.put("category", productCategoryDataStore.find(id));
+        params.put("selected", productCategoryDataStore.find(id));
         params.put("suppliers", supplierDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
         params.put("numberOfItems", orderDataStore.numberOfLineItems());
+        if (req.queryParams("selected") != null) {
+            params.put("category", req.queryParams("selected"));
+            params.put("selected", req.queryParams("selected"));
+            System.out.println(params.get("selected"));
+        }
 
         if (req.queryParams("type") != null) {
             if (req.queryParams("type").equals("supplier")) {
@@ -47,6 +53,7 @@ public class ProductController {
                 params.put("category", productCategoryDataStore.find(categoryID));
                 params.put("products", productDataStore.getBy(productCategoryDataStore.find(categoryID)));
             }
+            params.put("selected", req.queryParams("name"));
         }
         if ("true".equals(req.queryParams("ic-request"))) {
             return renderTemplate(params, "content");
@@ -58,19 +65,26 @@ public class ProductController {
         return new ThymeleafTemplateEngine().render(new ModelAndView(model, template));
     }
 
-    public static Object addNewItemToCart(Request req, Response res) {
-        OrderDao orderDao = OrderDaoMem.getInstance();
+    public static String addNewItemToCart(Request req, Response res) {
+        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
         String itemId = req.params("id");
         Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
-        orderDao.add(product);
-        return renderProducts(req, res);
+        Map<String, Object> params = new HashMap<>();
+        orderDataStore.add(product);
+        params.put("numberOfItems", orderDataStore.numberOfLineItems());
+
+//        res.redirect("/content");
+//        return "";
+        return renderTemplate(params, "cartButton");
     }
 
-    public static Object reviewCart(Request req, Response res) {
-        OrderDaoMem cartDataStore = OrderDaoMem.getInstance();
+    public static String reviewCart(Request req, Response res) {
+        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
         Map<String, Object> params = new HashMap<>();
-        params.put("lineItems", cartDataStore.getAll());
-        params.put("totalPrice", cartDataStore.getTotalPrice());
+        params.put("lineItems", orderDataStore.getAll());
+        params.put("totalPrice", orderDataStore.getTotalPrice());
+        params.put("numberOfItems", orderDataStore.numberOfLineItems());
+
         return renderTemplate(params, "cart");
     }
 }
