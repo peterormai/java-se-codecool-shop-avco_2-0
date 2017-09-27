@@ -25,13 +25,13 @@ public class Main {
         get("/", ProductController::renderProducts);
         get("/index", ProductController::renderProducts);
         get("/add-to-cart/:id", ProductController::addNewItemToCart);
+        get("/checkout", ProductController::checkoutCart);
 
         get("/:categoryID", ProductController::renderProducts);
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
-
 
 
     public static void populateData() {
@@ -46,7 +46,7 @@ public class Main {
         Supplier lenovo = new Supplier("Lenovo", "Computers");
         supplierDataStore.add(lenovo);
 
-        Supplier apple = new Supplier( "Apple", "Phones and computers");
+        Supplier apple = new Supplier("Apple", "Phones and computers");
         supplierDataStore.add(apple);
 
         //setting up a new product category
