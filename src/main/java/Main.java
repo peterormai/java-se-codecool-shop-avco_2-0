@@ -23,6 +23,7 @@ public class Main {
         get("/hello", (req, res) -> "Hello World");
         get("/review-cart", ProductController::reviewCart);
         get("/checkout", ProductController::checkoutCart);
+        post("/pay", ProductController::payTheOrder);
 
         // Always add generic routes to the end
         get("/index", ProductController::renderProducts);

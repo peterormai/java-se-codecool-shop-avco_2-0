@@ -35,36 +35,32 @@
 <form action="/pay" method="post">
     <div class="well well-sm">
         <h1>
-            Checkout
+            Pay, your data
         </h1>
     </div>
-    <div class="container ">
-        <h3>Name </h3>
-        <input name="name" type="text" value="Attila" required>
-        <h3>Email </h3>
-        <input name="email" type="text" value="something@gmail.com" required>
-        <h3>Phone Number </h3>
-        <input name="phoneNumber" type="text" value="06-90-444-8888" required>
-        <h3>Billing Country </h3>
-        <input name="billingCountry" type="text" value="Hungary" required>
-        <h3>Billing City </h3>
-        <input name="billingCity" type="text" value="Budapest" required>
-        <h3>Billing Zip Code </h3>
-        <input name="billingZipCode" type="text" value="4444" required>
-        <h3>Billing Address </h3>
-        <input name="billingAddress" type="text" value="Nagymező utca 44." required>
-        <h3>Shipping Country </h3>
-        <input name="shippingCountry" type="text" value="Hungary" required>
-        <h3>Shipping City </h3>
-        <input name="shippingCity" type="text" value="Budapest" required>
-        <h3>Shipping Zip Code </h3>
-        <input name="shippingZipCode" type="text" value="4444"  required>
-        <h3>Shipping Adress</h3>
-        <input name="shippingAddress" type="text" value="Nagymező utca 44." required>
-
-        <br>
-        <button type="submit" class="btn btn-success">Pay</button>
-
+    <div class="container">
+        <h4> Name </h4>
+        <div th:text="${name}" ></div>
+        <h4>Email </h4>
+        <div th:text="${email}" ></div>
+        <h4>Phone Number </h4>
+        <div th:text="${phoneNumber}" ></div>
+        <h4>Billing Country </h4>
+        <div th:text="${billingCountry}" ></div>
+        <h4>Billing City </h4>
+        <div th:text="${billingCity}" ></div>
+        <h4>Billing Zip Code </h4>
+        <div th:text="${billingZipCode}" ></div>
+        <h4>Billing Address </h4>
+        <div th:text="${billingAddress}" ></div>
+        <h4>Shipping Country </h4>
+        <div th:text="${shippingCountry}" ></div>
+        <h4>Shipping City </h4>
+        <div th:text="${shippingCity}" ></div>
+        <h4>Shipping Zip Code </h4>
+        <div th:text="${shippingZipCode}" ></div>
+        <h4>Shipping Adress</h4>
+        <div th:text="${shippingAddress}" ></div>
     </div>
 </form>
 <div th:replace="footer :: copy"></div>

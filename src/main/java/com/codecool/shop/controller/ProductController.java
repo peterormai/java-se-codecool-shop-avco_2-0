@@ -82,4 +82,21 @@ public class ProductController {
         return renderTemplate(params, "product/checkout");
     }
 
+    public static String payTheOrder(Request req, Response res){
+        Map<String, String> params = new HashMap<>();
+        params.put("name",req.queryParams("name"));
+        params.put("email",req.queryParams("email"));
+        params.put("phoneNumber",req.queryParams("phoneNumber"));
+        params.put("billingCountry",req.queryParams("billingCountry"));
+        params.put("billingCity",req.queryParams("billingCity"));
+        params.put("billingZipCode",req.queryParams("billingZipCode"));
+        params.put("billingAddress",req.queryParams("billingAddress"));
+        params.put("shippingCountry",req.queryParams("shippingCountry"));
+        params.put("shippingCity",req.queryParams("shippingCity"));
+        params.put("shippingZipCode",req.queryParams("shippingZipCode"));
+        params.put("shippingAddress",req.queryParams("shippingAddress"));
+        Checkout.getInstance(params);
+        return renderTemplate(params, "product/pay");
+    }
+
 }
