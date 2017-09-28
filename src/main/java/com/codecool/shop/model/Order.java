@@ -19,22 +19,19 @@ public class Order {
     }
 
     public void add(Product product) {
-        String searchingName = product.getName();
         boolean isNotIn = true;
 
         for (LineItem lineItem : lineItems) {
-            if (lineItem.getProductName().equals(searchingName)) {
+            if (lineItem.getProduct().equals(product)) {
                 int newQuantity = lineItem.getQuantity() + 1;
                 lineItem.setQuantity(newQuantity);
                 isNotIn = false;
             }
         }
         if (isNotIn) {
-            LineItem newLineItem = new LineItem(product.getId(), product.getName(), product.getDefaultPrice());
+            LineItem newLineItem = new LineItem(product.getId(), product, product.getDefaultPrice());
             lineItems.add(newLineItem);
         }
-        lineItemTest();
-
     }
 
     public int numberOfLineItems() {
@@ -43,14 +40,6 @@ public class Order {
             numberOfItems += lineItem.getQuantity();
         }
         return numberOfItems;
-    }
-
-    public static void lineItemTest() {
-        for (LineItem lineItem : lineItems) {
-            System.out.print("id: " + lineItem.getId());
-            System.out.print(" name: " + lineItem.getProductName());
-            System.out.println(" quantity: " + lineItem.getQuantity());
-        }
     }
 
     public void remove(int id) {
