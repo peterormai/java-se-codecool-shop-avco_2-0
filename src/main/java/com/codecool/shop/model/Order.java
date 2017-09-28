@@ -51,6 +51,11 @@ public class Order {
         }
     }
 
+    public void removeAll() {
+        lineItems = new ArrayList<>();
+    }
+
+
     public List<LineItem> getAll() {
         return lineItems;
     }

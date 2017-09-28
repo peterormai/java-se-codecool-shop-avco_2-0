@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.model.Checkout;
+import com.codecool.shop.model.Order;
 import spark.Request;
 import spark.Response;
 
@@ -24,6 +25,8 @@ public class PaymentPageController extends Controller {
     @Override
     public String render(Request req, Response res) {
         Map<String, String> params = new HashMap<>();
+        Order orderDataStore = Order.getInstance();
+        orderDataStore.removeAll();
         return renderTemplate(params, "payment");
     }
 }
