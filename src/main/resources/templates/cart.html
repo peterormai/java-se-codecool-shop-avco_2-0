@@ -33,7 +33,7 @@
                 </td>
                 <td data-th="Price" th:text="${#numbers.formatCurrency(item.price)}">$1.99</td>
                 <td data-th="Quantity">
-                    <input min="0" th:attr="ic-id='#' + ${item.getId()}" type="number"
+                    <input min="0" th:attr="ic-id=${item.getId()}" type="number"
                            ic-post-to="/review-cart"
                            class="form-control text-center"
                            name="quantity"

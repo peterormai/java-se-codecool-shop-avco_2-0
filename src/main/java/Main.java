@@ -13,7 +13,7 @@ public class Main {
         // default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
-        port(8888);
+        port(9999);
 
         // populate some data for the memory storage
         populateData();

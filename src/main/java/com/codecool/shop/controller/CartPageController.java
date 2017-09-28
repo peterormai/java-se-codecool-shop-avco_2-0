@@ -26,10 +26,7 @@ public class CartPageController extends Controller {
         Map<String, Object> params = new HashMap<>();
 
         if (req.queryParams("quantity") != null) {
-            String check = req.queryParams("ic-id").charAt(0) + "";
-            if (check.equals("#")) {
                 orderDataStore.changeItemValue(req.queryParams("ic-id"), req.queryParams("quantity"));
-            }
         }
 
         if (req.queryParams("id") != null) {
@@ -40,7 +37,6 @@ public class CartPageController extends Controller {
         if (orderDataStore.getAll().isEmpty()) {
             params.put("emptyCart", "Your cart is empty.");
         }
-
 
         params.put("lineItems", orderDataStore.getAll());
         params.put("totalPrice", orderDataStore.getTotalPrice());

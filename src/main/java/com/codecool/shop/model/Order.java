@@ -68,19 +68,17 @@ public class Order {
         return totalPrice;
     }
 
-    public boolean changeItemValue(String id, String quantity) {
+    public void changeItemValue(String id, String quantity) {
         int num = Integer.parseInt(quantity);
-        int validId = Character.getNumericValue(id.charAt(1));
+        int validId = Integer.parseInt(id);
         if (num == 0) {
             remove(validId);
-            return true;
         } else {
             for (LineItem item: lineItems) {
                 if (item.getId() == validId) {
                     item.setQuantity(num);
                 }
             }
-            return false;
         }
     }
 }
