@@ -32,7 +32,7 @@
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
 </div>
-<form action="/pay" method="post">
+<form action="/confirmation" method="post">
     <div class="well well-sm">
         <h1>
             Checkout
@@ -63,6 +63,12 @@
         <input class="checkoutInput" name="shippingAddress" type="text" placeholder="Dont do 4" required>
 
         <br>
+        <br>
+
+        <a class="btn btn-warning" href="/review-cart" ic-push-url="true">
+            <i class="fa fa-angle-left"></i>
+            Back to Cart
+        </a>
         <button type="submit" class="btn btn-success">Pay</button>
 
     </div>

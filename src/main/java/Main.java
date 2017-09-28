@@ -1,10 +1,7 @@
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
-import com.codecool.shop.controller.CartPageController;
-import com.codecool.shop.controller.CheckoutPageController;
-import com.codecool.shop.controller.PayPageController;
-import com.codecool.shop.controller.ProductPageController;
+import com.codecool.shop.controller.*;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
@@ -26,8 +23,9 @@ public class Main {
         get("/review-cart", CartPageController.getInstance()::render);
         get("/checkout", CheckoutPageController.getInstance()::render);
         post("/review-cart", CartPageController.getInstance()::render);
-        post("/pay", PayPageController.getInstance()::render);
+        post("/confirmation", ConfirmationPageController.getInstance()::render);
         get("/filter", ProductPageController.getInstance()::render);
+        get("/payment", PaymentPageController.getInstance()::render);
 
         // Always add generic routes to the end
         get("/index", ProductPageController.getInstance()::render);

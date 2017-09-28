@@ -7,18 +7,18 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PayPageController extends Controller {
+public class ConfirmationPageController extends Controller {
 
-    private static PayPageController payPageController = null;
+    private static ConfirmationPageController confirmationPageController = null;
 
-    private PayPageController() {
+    private ConfirmationPageController() {
     }
 
-    public static PayPageController getInstance() {
-        if (payPageController == null) {
-            payPageController = new PayPageController();
+    public static ConfirmationPageController getInstance() {
+        if (confirmationPageController == null) {
+            confirmationPageController = new ConfirmationPageController();
         }
-        return payPageController;
+        return confirmationPageController;
     }
 
     @Override
@@ -52,6 +52,6 @@ public class PayPageController extends Controller {
 
 
         params = Checkout.getCheckoutMap();
-        return renderTemplate(params, "pay");
+        return renderTemplate(params, "confirmation");
     }
 }
