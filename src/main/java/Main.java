@@ -85,13 +85,16 @@ public class Main {
         //setting up products and printing it
         productDataStore.add(new Product("Identity Card (Womean)", 10001, "HUF", "If you are don't like yourself, than you can be anybody", idCard, felcsutCompany));
         productDataStore.add(new Product("Identity Card (Man)", 10002, "HUF", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, felcsutCompany));
-        productDataStore.add(new Product("Address Card", 15000, "HUF", "You can live everywhere with this card, where the location number under then 2 million", idCard, felcsutCompany));
 
-        productDataStore.add(new Product("Apple iPhone 8", 799, "USD",
-                "iPhone 8 introduces an all‑new glass design. The world’s most popular camera, now even better. " +
-                        "The smartest, most powerful chip ever in a smartphone. Wireless charging that’s truly effortless. " +
-                        "And augmented reality experiences never before possible. " +
-                        "iPhone 8. A new generation of iPhone.", addressCard, demcsakZssss));
+        productDataStore.add(new Product("Address Card", 15000, "HUF", "You can live everywhere with this card", addressCard, felcsutCompany));
+        productDataStore.add(new Product("Address Card (Family pack)", 50000, "HUF","This pack include 4 address card what you can shear with your family or friends", addressCard, felcsutCompany));
+
+        productDataStore.add(new Product("Driver Licence", 60000, "HUF", "It's just looks like driver licence, without category ", driverLicence, demcsakZssss));
+        productDataStore.add(new Product("B category - Driver Licence ", 120000, "HUF","With this driver licence you can use you slovakian car in the hungarian roads", driverLicence, demcsakZssss));
+        productDataStore.add(new Product("C category - Driver Licence ", 160000, "HUF", "With this driver licence is much easier to take the refugees in the country, and you should not  take car for police ", driverLicence, felcsutCompany));
+
+
+
     }
 
 
