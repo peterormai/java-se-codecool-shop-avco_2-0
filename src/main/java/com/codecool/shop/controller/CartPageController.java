@@ -23,6 +23,7 @@ public class CartPageController extends Controller {
     @Override
     public String render(Request req, Response res) {
         Order orderDataStore = Order.getInstance();
+        Map<String, Object> params = new HashMap<>();
 
         if (req.queryParams("quantity") != null) {
             String check = req.queryParams("ic-id").charAt(0) + "";
@@ -37,10 +38,10 @@ public class CartPageController extends Controller {
         }
 
         if (orderDataStore.getAll().isEmpty()) {
-            return ProductPageController.getInstance().render(req, res);
+            params.put("emptyCart", "Your cart is empty.");
         }
 
-        Map<String, Object> params = new HashMap<>();
+
         params.put("lineItems", orderDataStore.getAll());
         params.put("totalPrice", orderDataStore.getTotalPrice());
         return renderTemplate(params, "cart");

@@ -5,9 +5,11 @@
 <div id="content" th:fragment="shop">
     <div class="jumbotron text-center" ic-push-url="true" th:fragment="cart">
         <h1>Codecool Shop</h1>
-        <div th:replace="cartButton :: cart"></div>
     </div>
-    <div class="container-fluid" id="products" th:fragment="container">
+    <div class="container" id="products" th:fragment="container">
+        <div class="cart-button-container text-center">
+            <div th:replace="cartButton :: cart"></div>
+        </div>
         <div class="item col-sm-2" ic-push-url="true">
             <div class="well well-sm text-center-sm">
                 <strong>Filters</strong>

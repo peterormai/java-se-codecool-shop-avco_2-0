@@ -1,11 +1,19 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="product/index :: head"></div>
-<body>
-    <div class="container" th:fragment="cart">
-        <h2>Cart:</h2>
-        <table id="cart" class="table table-hover table-condensed">
-            <thead>
+<body th:fragment="cart">
+
+    <div class="container" ic-src="/review-cart">
+        <h2 th:if="${not lineItems.isEmpty()}">Cart:</h2>
+        <div id="empty-cart" class="text-center" th:if="${lineItems.isEmpty()}">
+            <h2 class="text-center"  th:text="${emptyCart}">Text</h2>
+            <a ic-push-url="true" class="btn btn-warning" href="/">
+                <i class="fa fa-angle-left"></i>
+                Continue Shopping
+            </a>
+        </div>
+        <table id="cart" class="table table-hover table-condensed" th:if="${not lineItems.isEmpty()}">
+            <thead >
             <tr>
                 <th style="width:50%">Product</th>
                 <th style="width:10%">Price</th>
@@ -25,12 +33,17 @@
                 </td>
                 <td data-th="Price" th:text="${#numbers.formatCurrency(item.price)}">$1.99</td>
                 <td data-th="Quantity">
-                    <input min="1" th:attr="ic-id='#' + ${item.getId()}" type="number" ic-post-to="/review-cart" class="form-control text-center" name="quantity" th:value="${item.quantity}">
+                    <input min="0" th:attr="ic-id='#' + ${item.getId()}" type="number"
+                           ic-post-to="/review-cart"
+                           class="form-control text-center"
+                           name="quantity"
+                           th:value="${item.quantity}">
                 </td>
                 <td data-th="Subtotal" class="text-center" th:text="${#numbers.formatCurrency(item.price * item.quantity)}">1.99</td>
                 <td class="actions text-center">
-                    <button class="btn btn-danger btn-sm" th:attr="ic-get-from='/review-cart?id=' + ${item.getId()}"
-                            ic-target="body">
+
+                    <button class="btn btn-danger btn-sm"  th:attr="ic-get-from='/review-cart?id=' + ${item.getId()}"
+                            ic-target=".container">
                         <i class="fa fa-trash-o"></i>
                     </button>
                 </td>
@@ -54,6 +67,7 @@
             </tfoot>
         </table>
     </div>
-
+    <!--<div th:replace="footer :: copy"></div>-->
+ </div>
 </body>
 </html>
