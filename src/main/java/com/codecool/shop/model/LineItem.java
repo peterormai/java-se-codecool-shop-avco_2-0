@@ -4,13 +4,13 @@ package com.codecool.shop.model;
 public class LineItem {
 
     private int id;
-    private String productName;
+    private Product product;
     private int quantity = 1;
     private float price;
 
-    public LineItem(int id, String productName, float price) {
+    public LineItem(int id, Product product, float price) {
         this.id = id;
-        this.productName = productName;
+        this.product = product;
         this.price = price;
     }
 
@@ -22,12 +22,8 @@ public class LineItem {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public Product getProduct() {
+        return product;
     }
 
     public int getQuantity() {
@@ -42,12 +38,5 @@ public class LineItem {
         return price;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public String toString() {
-        return this.getProductName();
-    }
 }
 

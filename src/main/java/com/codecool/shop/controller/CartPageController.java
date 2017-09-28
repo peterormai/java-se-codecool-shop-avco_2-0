@@ -1,6 +1,6 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Order;
 import spark.Request;
 import spark.Response;
 
@@ -22,7 +22,7 @@ public class CartPageController extends Controller {
 
     @Override
     public String render(Request req, Response res) {
-        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
+        Order orderDataStore = Order.getInstance();
 
         if (req.queryParams("quantity") != null) {
             String check = req.queryParams("ic-id").charAt(0) + "";
