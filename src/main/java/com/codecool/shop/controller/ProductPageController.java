@@ -1,6 +1,5 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -42,9 +41,15 @@ public class ProductPageController extends Controller {
         params.put("type", "category");
         params.put("products", productDataStore.getBy(productCategoryDataStore.find(id)));
         params.put("category", productCategoryDataStore.find(id));
+        params.put("selected", productCategoryDataStore.find(id));
         params.put("suppliers", supplierDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
         params.put("numberOfItems", orderDataStore.numberOfLineItems());
+        if (req.queryParams("selected") != null) {
+            params.put("category", req.queryParams("selected"));
+            params.put("selected", req.queryParams("selected"));
+            System.out.println(params.get("selected"));
+        }
 
         if (req.queryParams("type") != null) {
             if (req.queryParams("type").equals("supplier")) {
@@ -57,6 +62,7 @@ public class ProductPageController extends Controller {
                 params.put("category", productCategoryDataStore.find(categoryID));
                 params.put("products", productDataStore.getBy(productCategoryDataStore.find(categoryID)));
             }
+            params.put("selected", req.queryParams("name"));
         }
         if ("true".equals(req.queryParams("ic-request"))) {
             return renderTemplate(params, "content");
@@ -65,10 +71,12 @@ public class ProductPageController extends Controller {
     }
 
     public Object addNewItemToCart(Request req, Response res) {
-        OrderDao orderDao = OrderDaoMem.getInstance();
+        OrderDaoMem orderDao = OrderDaoMem.getInstance();
         String itemId = req.params("id");
         Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
         orderDao.add(product);
-        return render(req, res);
+        Map<String, Object> params = new HashMap<>();
+        params.put("numberOfItems", orderDao.numberOfLineItems());
+        return renderTemplate(params, "cartButton");
     }
 }

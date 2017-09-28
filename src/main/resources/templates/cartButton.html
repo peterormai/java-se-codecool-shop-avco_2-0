@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<button id="cartButton" th:class="${numberOfItems} > 0 ? 'btn btn-danger' : 'btn btn-default'"
+        th:fragment="cart"
+        th:attr="ic-get-from='/review-cart'" ic-target="#products" ic-replace-target="true"
+        ic-push-url="true">
+    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+    [[${numberOfItems}]]
+</button>
+
+</body>
+</html>

@@ -1,9 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="product/index :: head"></div>
 <body>
-    <div class="jumbotron text-center">
-        <h1>Codecool Shop</h1>
-    </div>
     <div class="container" th:fragment="cart">
         <h2>Cart:</h2>
         <table id="cart" class="table table-hover table-condensed">
@@ -17,10 +15,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${lineItems}">
+            <tr th:each="item,iterStat : ${lineItems}" th:class="${iterStat.odd} ? 'line-item odd': 'line-item'">
                 <td data-th="Product">
                     <div class="row">
-                        <!--<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>-->
                         <div class="col-sm-10">
                             <h4 class="nomargin" th:text="${item.productName}">Product 1</h4>
                         </div>
@@ -31,7 +28,7 @@
                     <input min="1" th:attr="ic-id='#' + ${item.getId()}" type="number" ic-post-to="/review-cart" class="form-control text-center" name="quantity" th:value="${item.quantity}">
                 </td>
                 <td data-th="Subtotal" class="text-center" th:text="${#numbers.formatCurrency(item.price * item.quantity)}">1.99</td>
-                <td class="actions" data-th="">
+                <td class="actions text-center">
                     <button class="btn btn-danger btn-sm" th:attr="ic-get-from='/review-cart?id=' + ${item.getId()}"
                             ic-target="body">
                         <i class="fa fa-trash-o"></i>
@@ -44,8 +41,8 @@
                 <td class="text-center"><strong th:text="${#numbers.formatCurrency(totalPrice)}">Total 1.99</strong></td>
             </tr>
             <tr>
-                <td>
-                    <a class="btn btn-warning" th:attr="href='/'">
+                <td ic-push-url="true">
+                    <a class="btn btn-warning" href="/">
                         <i class="fa fa-angle-left"></i>
                         Continue Shopping
                     </a>
@@ -57,5 +54,6 @@
             </tfoot>
         </table>
     </div>
+
 </body>
 </html>
