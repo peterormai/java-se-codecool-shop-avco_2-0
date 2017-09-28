@@ -66,6 +66,7 @@
 *****************/
 .jumbotron {
     background-color: steelblue;
+    margin-bottom: 0;
 }
 
 .jumbotron h1 {
@@ -118,7 +119,11 @@
 #cartButton {
     height: 40px;
     width: 80px;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
+}
+
+.cart-button-container {
+    padding: 20px;
 }
 
 .fa-shopping-basket {
@@ -145,6 +150,10 @@
 
 #empty-cart {
     margin-bottom: 20px;
+}
+
+.fa-trash-o {
+    font-size: 20px;
 }
 
 @media screen and (max-width: 600px) {

@@ -38,7 +38,7 @@ public class CartPageController extends Controller {
         }
 
         if (orderDataStore.getAll().isEmpty()) {
-            params.put("emptyCart", "The cart is now empty.");
+            params.put("emptyCart", "Your cart is empty.");
         }
 
 
