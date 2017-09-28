@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title>Codecool Shop</title>
+    <title>AVco.py "SHOP"</title>
 
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -30,15 +30,15 @@
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <h1>AVco.py "SHOP"</h1>
 </div>
 <form action="/confirmation" method="post">
-    <div class="well well-sm">
-        <h1>
-            Checkout
-        </h1>
-    </div>
     <div class="container">
+        <div class="well well-sm">
+            <h1>
+                Checkout
+            </h1>
+        </div>
         <h3>Name </h3>
         <input class="checkoutInput" name="name" type="text" placeholder="Andreas Smith" required>
         <h3>Email </h3>
@@ -59,17 +59,18 @@
         <input class="checkoutInput" name="shippingCity" type="text" placeholder="New York" required>
         <h3>Shipping Zip Code </h3>
         <input class="checkoutInput" name="shippingZipCode" type="text" placeholder="10044"  required>
-        <h3>Shipping Adress</h3>
+        <h3>Shipping Address</h3>
         <input class="checkoutInput" name="shippingAddress" type="text" placeholder="Dont do 4" required>
 
         <br>
         <br>
 
-        <a class="btn btn-warning" href="/review-cart" ic-push-url="true">
+        <a class="btn btn-warning" th:attr="ic-get-from='/review-cart'" ic-push-url="true"
+            ic-target=".container">
             <i class="fa fa-angle-left"></i>
             Back to Cart
         </a>
-        <button type="submit" class="btn btn-success">Pay</button>
+        <button type="submit" class="btn btn-success">Next <i class="fa fa-angle-right"></i></button>
 
     </div>
 </form>
