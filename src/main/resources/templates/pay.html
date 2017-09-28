@@ -58,13 +58,17 @@
     <div th:text="${shippingZipCode}" ></div>
 
 </div>
-<a href="/checkout">
-    <div class="btn btn-success">Checkout</div>
+
+
+<a class="btn btn-warning" href="/checkout" ic-push-url="true">
+    <i class="fa fa-angle-left"></i>
+    Back to Checkout
 </a>
-<br>
+
 <a href="/">
     <button type="button" class="btn btn-success">Submit</button>
 </a>
+
 <div th:replace="footer :: copy"></div>
 </body>
 </html>
