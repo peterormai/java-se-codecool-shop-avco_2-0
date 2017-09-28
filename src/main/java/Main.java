@@ -52,6 +52,8 @@ public class Main {
         supplierDataStore.add(demcsakZssss);
         Supplier felcsutCompany = new Supplier("Felcsút Company", "We have enough money for everything");
         supplierDataStore.add(felcsutCompany);
+        Supplier identityTChan = new Supplier("Identity-t Chan", "The biggest copy factory");
+        supplierDataStore.add(felcsutCompany);
 
         //setting up a new product category
         ProductCategory idCard = new ProductCategory("Identity Card", "Identity Card", "It's looks like the original hungarian Identity card.");
@@ -75,11 +77,14 @@ public class Main {
         ProductCategory language = new ProductCategory("Language Exam", "Document", "This document justifies, you are good enough in a language  ");
         productCategoryDataStore.add(language);
 
+        ProductCategory bkk = new ProductCategory("Bkk", "Ticket", "With this ticket you can traveling in Budapest ");
+        productCategoryDataStore.add(bkk);
+
         ProductCategory pack = new ProductCategory("Pack", "Document", "You can buy some document in pack, to be sure, that will be work well ");
         productCategoryDataStore.add(pack);
 
-        ProductCategory frenchaise = new ProductCategory("Frenchaise", "Printer", "With this special Printer you can make your own document");
-        productCategoryDataStore.add(frenchaise);
+        ProductCategory franchise = new ProductCategory("Franchaise", "Printer", "With this special Printer you can make your own document");
+        productCategoryDataStore.add(franchise);
 
 
         //setting up products and printing it
@@ -91,9 +96,32 @@ public class Main {
 
         productDataStore.add(new Product("Driver Licence", 60000, "HUF", "It's just looks like driver licence, without category ", driverLicence, demcsakZssss));
         productDataStore.add(new Product("B category - Driver Licence ", 120000, "HUF","With this driver licence you can use you slovakian car in the hungarian roads", driverLicence, demcsakZssss));
-        productDataStore.add(new Product("C category - Driver Licence ", 160000, "HUF", "With this driver licence is much easier to take the refugees in the country, and you should not  take car for police ", driverLicence, felcsutCompany));
+        productDataStore.add(new Product("C category - Driver Licence ", 160000, "HUF", "With this driver licence is much easier to take the refugees in the country, and you should not  take car for police ", driverLicence, demcsakZssss));
+
+        productDataStore.add(new Product("Érettségi", 120000, "HUF", "With this amazing document much easier get a job at awesome McDonald's, TESCO, SPAR, or at your friends ", erettsegi, schmitTpal));
+
+        productDataStore.add(new Product("Idegenvezető - OKJ", 120000, "HUF", "If you have this document you can talk with tourists about nice building. They are going to pay for that  ", okj, schmitTpal));
+        productDataStore.add(new Product("Ingatlankezelő - OKJ", 120000, "HUF", "If will be Ingatlankezelő, you will be the boss of many realtor ", okj, schmitTpal));
+
+        productDataStore.add(new Product("Diploma", 120000, "HUF", "It's just a simple diploma without university, if you boss will searching for your name ate the university he will be know it's a fail diploma", diploma, schmitTpal));
+        productDataStore.add(new Product("Közgazdász", 1800000, "HUF", "Gazdaságtudományi Műszaki és Gazdasági-és Társadalomtudományi Kar Gazdálkodási - Diploma", diploma, schmitTpal));
+        productDataStore.add(new Product("Logopédia szakos tanár és pszichopedagógia szakos terapeauta - Diploma", 1750000, "HUF", "If will be Ingatlankezelő, you will be the boss of many realtor ", diploma, schmitTpal));
+        productDataStore.add(new Product("Építészmérnök", 2000000, "HUF", " Széchenyi István Egyetem Műszaki Tudományi Kar ", diploma, schmitTpal));
+
+        productDataStore.add(new Product("English - Language Exam", 60000, "HUF", "With this document you will be english language ninja (on the paper) ", language, schmitTpal));
+        productDataStore.add(new Product("Germany - Language Exam", 60000, "HUF", "With this document you will be germany language ninja (on the paper) ", language, schmitTpal));
+        productDataStore.add(new Product("French - Language Exam", 60000, "HUF", "With this document you will be french language ninja (on the paper) ", language, schmitTpal));
+        productDataStore.add(new Product("Spain - Language Exam", 60000, "HUF", "With this document you will be spain language ninja (on the paper) ", language, schmitTpal));
+
+        productDataStore.add(new Product("Digital ticket - 30 day", 4000, "HUF", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, identityTChan));
+        productDataStore.add(new Product("Paper ticket - 30 day ", 4050, "HUF", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, identityTChan));
+        productDataStore.add(new Product("Paper ticket - 1 way ", 150, "HUF", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, identityTChan));
 
 
+        productDataStore.add(new Product("Identity Card + Address Card ", 20000, "HUF", "Your identity will be more real ", pack, schmitTpal));
+
+        productDataStore.add(new Product("Printer + shipping to you home", 12000000, "HUF", "With this printer you will able to made your own busniess, but 40% of your proift will be ours ", franchise, identityTChan));
+        productDataStore.add(new Product("Printer + shipping to border of your country ", 10000000, "HUF", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", franchise, identityTChan));
 
     }
 
