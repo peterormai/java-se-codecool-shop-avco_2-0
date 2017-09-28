@@ -44,31 +44,54 @@ public class Main {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
-
-        Supplier apple = new Supplier("Apple", "Phones and computers");
-        supplierDataStore.add(apple);
+        Supplier tSystem = new Supplier("t-System", "Digital content and services");
+        supplierDataStore.add(tSystem);
+        Supplier schmitTpal = new Supplier("SchmitTpál.zrt", "Corrupters");
+        supplierDataStore.add(schmitTpal);
+        Supplier demcsakZssss = new Supplier("DemcsákZssss.rt", "The alcohol is bad, okeeeee?");
+        supplierDataStore.add(demcsakZssss);
+        Supplier felcsutCompany = new Supplier("Felcsút Company", "We have enough money for everything");
+        supplierDataStore.add(felcsutCompany);
 
         //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(tablet);
+        ProductCategory idCard = new ProductCategory("Identity Card", "Identity Card", "It's looks like the original hungarian Identity card.");
+        productCategoryDataStore.add(idCard);
 
-        ProductCategory mobilePhone = new ProductCategory("Mobile Phone", "Hardware", "A portable telephone that can make and receive calls over a radio frequency link while the user is moving within a telephone service area.");
-        productCategoryDataStore.add(mobilePhone);
+        ProductCategory addressCard = new ProductCategory("Address Card", "Address Card", "This card contain official address");
+        productCategoryDataStore.add(addressCard);
+
+        ProductCategory driverLicence = new ProductCategory("Driver Licence", "Driver Licence", "With this awesome card, you can driving in Hungary");
+        productCategoryDataStore.add(driverLicence);
+
+        ProductCategory erettsegi = new ProductCategory("Érettségi", "Document", "This document justifies, that you finished the High School ");
+        productCategoryDataStore.add(erettsegi);
+
+        ProductCategory okj = new ProductCategory("OKJ", "Document", "This document justifies, you are good enough in one profession  ");
+        productCategoryDataStore.add(okj);
+
+        ProductCategory diploma = new ProductCategory("Diploma", "Document", "This document justifies, you are master in one profession  ");
+        productCategoryDataStore.add(diploma);
+
+        ProductCategory language = new ProductCategory("Language Exam", "Document", "This document justifies, you are good enough in a language  ");
+        productCategoryDataStore.add(language);
+
+        ProductCategory pack = new ProductCategory("Pack", "Document", "You can buy some document in pack, to be sure, that will be work well ");
+        productCategoryDataStore.add(pack);
+
+        ProductCategory frenchaise = new ProductCategory("Frenchaise", "Printer", "With this special Printer you can make your own document");
+        productCategoryDataStore.add(frenchaise);
+
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+        productDataStore.add(new Product("Identity Card (Womean)", 10001, "HUF", "If you are don't like yourself, than you can be anybody", idCard, felcsutCompany));
+        productDataStore.add(new Product("Identity Card (Man)", 10002, "HUF", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, felcsutCompany));
+        productDataStore.add(new Product("Address Card", 15000, "HUF", "You can live everywhere with this card, where the location number under then 2 million", idCard, felcsutCompany));
 
         productDataStore.add(new Product("Apple iPhone 8", 799, "USD",
                 "iPhone 8 introduces an all‑new glass design. The world’s most popular camera, now even better. " +
                         "The smartest, most powerful chip ever in a smartphone. Wireless charging that’s truly effortless. " +
                         "And augmented reality experiences never before possible. " +
-                        "iPhone 8. A new generation of iPhone.", mobilePhone, apple));
+                        "iPhone 8. A new generation of iPhone.", addressCard, demcsakZssss));
     }
 
 
