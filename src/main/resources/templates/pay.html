@@ -32,32 +32,39 @@
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
 </div>
-<form action="/checkout">
-    <div>
-        <h3>Name </h3>
-        <input id="name" type="text">
-        <h3>Email </h3>
-        <input id="email" type="text">
-        <h3>Phone Number </h3>
-        <input id="phoneNumber" type="text">
-        <h3>Billing Country </h3>
-        <input id="billingCountry" type="text">
-        <h3>Billing City </h3>
-        <input id="billingCity" type="text">
-        <h3>Billing Zip Code </h3>
-        <input id="billingZipCode" type="text">
-        <h3>Billing Address </h3>
-        <input id="billingAddress" type="text">
-        <h3>Shipping Country </h3>
-        <input id="shippingCountry" type="text">
-        <h3>Shipping City </h3>
-        <input id="shippingCity" type="text">
-        <h3>Shipping Zip Code </h3>
-        <input id="shippingZipCode" type="text">
-        <h3>Shipping Adress</h3>
-        <input id="shippingAddress" type="text">
-    </div>
-</form>
+<div class="well well-sm">
+    <h1>
+        Ship to
+    </h1>
+</div>
+<div class="container">
+    <h3>Customer: </h3>
+
+    <h4 th:text="${name}" ></h4>
+    <div th:text="${email}" ></div>
+    <div th:text="${phoneNumber}" ></div>
+
+    <h2>Billing:</h2>
+    <div th:text="${billingCountry}" ></div>
+    <span th:text="${billingCity} " ></span>
+    <span th:text="${billingAddress}" ></span>
+    <div th:text="${billingZipCode}" ></div>
+
+    <h2>Shipping to:</h2>
+
+    <div th:text="${shippingCountry}" ></div>
+    <span th:text="${shippingCity}" ></span>
+    <span th:text="${shippingAddress}" ></span>
+    <div th:text="${shippingZipCode}" ></div>
+
+</div>
+<a href="/checkout">
+    <div class="btn btn-success">Checkout</div>
+</a>
+<br>
+<a href="/">
+    <button type="button" class="btn btn-success">Submit</button>
+</a>
 <div th:replace="footer :: copy"></div>
 </body>
 </html>

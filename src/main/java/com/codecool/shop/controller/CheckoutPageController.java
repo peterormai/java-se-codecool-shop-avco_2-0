@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.model.Checkout;
 import spark.Request;
 import spark.Response;
 
@@ -22,6 +23,11 @@ public class CheckoutPageController extends Controller{
     @Override
     public String render(Request req, Response res) {
         Map<String, String> params = new HashMap<>();
-        return renderTemplate(params, "product/checkout");
+        if (Checkout.getCheckoutMap().size() != 0){
+            params = Checkout.getCheckoutMap();
+            params.put("phoneNumber",params.get("phoneNumber").replace("-",""));
+            return renderTemplate(params, "editCheckout");
+        }
+        return renderTemplate(params, "checkout");
     }
 }
