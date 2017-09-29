@@ -88,13 +88,17 @@ h4 {
 }
 
 .filter-title {
+    font-size: 16px;
+    color: #333;
     padding: 10px;
     border-radius: 2px;
+    /*background-color: #f5f5f5;*/
 }
 
 .well, .well-sm {
+    font-size: 16px;
     background-image: none;
-    background-color: #eeeeee;
+    background-color: #eee;
     border: none;
 }
 
