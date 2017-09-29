@@ -43,7 +43,7 @@ public class Order {
     }
 
     public void remove(int id) {
-        for (LineItem item: lineItems) {
+        for (LineItem item : lineItems) {
             if (item.getId() == id) {
                 lineItems.remove(item);
                 break;
@@ -74,7 +74,7 @@ public class Order {
         if (num == 0) {
             remove(validId);
         } else {
-            for (LineItem item: lineItems) {
+            for (LineItem item : lineItems) {
                 if (item.getId() == validId) {
                     item.setQuantity(num);
                 }

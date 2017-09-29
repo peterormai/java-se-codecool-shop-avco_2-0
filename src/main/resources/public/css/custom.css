@@ -2,7 +2,7 @@
     margin-right: 5px;
 }
 
-.checkoutInput{
+.checkoutInput {
     min-width: 40%;
 }
 
@@ -90,7 +90,6 @@ h4 {
 .filter-title {
     padding: 10px;
     border-radius: 2px;
-    /*background-color: #eee;*/
 }
 
 .well, .well-sm {
@@ -112,7 +111,6 @@ h4 {
 }
 
 .filter:hover {
-    /*background-color: #eee;*/
     border: 1px solid lightsteelblue;
 
     cursor: pointer;
@@ -140,7 +138,6 @@ h4 {
 
 #cartButton {
     height: 40px;
-    /*width: 80px;*/
 }
 
 .nav-buttons {
