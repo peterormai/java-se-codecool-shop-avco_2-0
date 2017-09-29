@@ -64,6 +64,20 @@
 
 /* Custom styles
 *****************/
+html {
+    box-sizing: border-box;
+}
+
+h2 {
+    border-radius: 2px;
+    background-color: #eee;
+    padding: 10px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
 .jumbotron {
     background-color: steelblue;
     margin-bottom: 0;
@@ -75,6 +89,14 @@
 
 .filter-title {
     padding: 10px;
+    border-radius: 2px;
+    /*background-color: #eee;*/
+}
+
+.well, .well-sm {
+    background-image: none;
+    background-color: #eeeeee;
+    border: none;
 }
 
 .filter {
@@ -118,8 +140,11 @@
 
 #cartButton {
     height: 40px;
-    width: 80px;
-    /*margin-top: 30px;*/
+    /*width: 80px;*/
+}
+
+.nav-buttons {
+    padding: 20px 0;
 }
 
 .cart-button-container {
@@ -132,6 +157,29 @@
 
 .footer {
     background-color: lightsteelblue;
+}
+
+label {
+    display: block;
+    padding-top: 10px;
+}
+
+input[type=text], input[type=email] {
+    height: 30px;
+    font-size: 16px;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    -webkit-appearance: none;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    border-radius: 2px;
+    padding: 0 8px;
+}
+
+.confirm-data {
+    text-align: center;
 }
 
 /* Cart styles
@@ -156,7 +204,7 @@
     font-size: 20px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     table#cart tbody td .form-control {
         width: 20%;
         display: inline !important;
@@ -171,10 +219,6 @@
         float: left;
     }
 
-    .actions .btn-danger {
-        float: right;
-    }
-
     table#cart thead {
         display: none;
     }
@@ -183,11 +227,12 @@
         display: block;
         padding: .6rem;
         min-width: 320px;
+        text-align: center;
     }
 
     table#cart tbody tr td:first-child {
-        background: #333;
         color: #fff;
+        background: #333;
     }
 
     table#cart tbody td:before {
@@ -195,6 +240,10 @@
         font-weight: bold;
         display: inline-block;
         width: 8rem;
+    }
+
+    table#cart tbody td:last-child:before {
+        width: 0;
     }
 
     table#cart tfoot td {
@@ -213,5 +262,9 @@
 @media (max-width: 768px) {
     .text-center-sm {
         text-align: center;
+    }
+
+    .button-sm {
+        margin: 20px 0;
     }
 }
