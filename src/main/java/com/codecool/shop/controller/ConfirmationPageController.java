@@ -25,7 +25,8 @@ public class ConfirmationPageController extends Controller {
     public String render(Request req, Response res) {
         Map<String, String> params = new HashMap<>();
 
-        params.put("name", req.queryParams("name"));
+        params.put("firstName", req.queryParams("firstName"));
+        params.put("lastName", req.queryParams("lastName"));
         params.put("email", req.queryParams("email"));
         params.put("phoneNumber", req.queryParams("phoneNumber"));
         params.put("billingCountry", req.queryParams("billingCountry"));
@@ -38,7 +39,8 @@ public class ConfirmationPageController extends Controller {
         params.put("shippingAddress", req.queryParams("shippingAddress"));
 
         Checkout.getInstance(params);
-        Checkout.getInstance(params).setName(req.queryParams("name"));
+        Checkout.getInstance(params).setFirstName(req.queryParams("firstName"));
+        Checkout.getInstance(params).setLastName(req.queryParams("lastName"));
         Checkout.getInstance(params).setEmail(req.queryParams("email"));
         Checkout.getInstance(params).setPhoneNumber(req.queryParams("phoneNumber"));
         Checkout.getInstance(params).setBillingCountry(req.queryParams("billingCountry"));

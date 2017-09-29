@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Checkout {
-    private String name, email, phoneNumber;
+    private String name,firstName,lastName, email, phoneNumber;
     private String billingCountry, billingCity, billingZipCode, billingAddress;
     private String shippingCountry, shippingCity, shippingZipCode, shippingAddress;
 
@@ -17,6 +17,8 @@ public class Checkout {
 
     private Checkout(Map checkoutData) {
         name = (String) checkoutData.get("name");
+        firstName = (String) checkoutData.get("firstName");
+        lastName = (String) checkoutData.get("lastName");
         email = (String) checkoutData.get("email");
         phoneNumber = (String) checkoutData.get("phoneNumber");
         billingCountry = (String) checkoutData.get("billingCountry");
@@ -27,7 +29,9 @@ public class Checkout {
         shippingCity = (String) checkoutData.get("shippingCity");
         shippingZipCode = (String) checkoutData.get("shippingZipCode");
         shippingAddress = (String) checkoutData.get("shippingAddress");
-        checkoutMap.put("name", name);
+        checkoutMap.put("name", firstName + " " + lastName);
+        checkoutMap.put("firstName", firstName);
+        checkoutMap.put("lastName", lastName);
         checkoutMap.put("email", email);
         checkoutMap.put("phoneNumber", phoneFormat(phoneNumber));
         checkoutMap.put("billingCountry", billingCountry);
@@ -58,8 +62,13 @@ public class Checkout {
         return checkout;
     }
 
-    public void setName(String name) {
-        checkoutMap.put("name", name);
+
+    public void setFirstName(String firstName) {
+        checkoutMap.put("firsName", firstName);
+    }
+
+    public void setLastName(String lastName) {
+        checkoutMap.put("lastName", lastName);
     }
 
     public void setEmail(String email) {

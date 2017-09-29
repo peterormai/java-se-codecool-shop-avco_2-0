@@ -15,19 +15,28 @@
             <div class="panel">
 
                 <div class="row">
-                    <div class="col-sm-6">
-                        <label for="name">Name: </label>
-                        <input th:value="${name}" name="name" id="name" type="text" placeholder="Andreas Smith" value="Attila" required>
+                    <div class="col-md-6">
+                        <label for="firstName">First Name: </label>
+                        <input class="checkoutInput" name="firstName" id="firstName" type="text" placeholder="Andreas" th:value="${firstName}"
+                               required>
                     </div>
-                    <div class="col-sm-6">
-                        <label for="phoneNumber">Phone Number: </label>
-                        <input th:value="${phoneNumber}" name="phoneNumber" id="phoneNumber" type="text" pattern="[0-9]{10,}" placeholder="06703456789"  required>
+                    <div class="col-md-6">
+                        <label for="lastName">Last Name: </label>
+                        <input class="checkoutInput" name="firstName" id="lastName" type="text" placeholder="Smith" th:value="${lastName}"
+                               required>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-md-6">
                         <label for="email">Email: </label>
-                        <input th:value="${email}" name="email" id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="itswillbegood@worldspace.com" required>
+                        <input class="checkoutInput" name="email" id="email" type="email"
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" th:value="${email}" placeholder="itswillbegood@worldspace.com"
+                               required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phoneNumber">Phone Number: </label>
+                        <input class="checkoutInput" name="phoneNumber" id="phoneNumber" type="text" pattern="[0-9]{10,}"
+                               placeholder="06703456789" th:value="${phoneNumber}" required>
                     </div>
                 </div>
                 <div class="row">
