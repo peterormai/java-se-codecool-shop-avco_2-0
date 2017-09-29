@@ -13,27 +13,26 @@ public class Main {
         // default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
-        port(9999);
+        port(8888);
 
         // populate some data for the memory storage
         populateData();
 
         // Always start with more specific routes
         get("/add-to-cart/:id", ProductPageController.getInstance()::addNewItemToCart);
-        get("/review-cart", CartPageController.getInstance()::render);
-        get("/checkout", CheckoutPageController.getInstance()::render);
-        post("/review-cart", CartPageController.getInstance()::render);
-        post("/confirmation", ConfirmationPageController.getInstance()::render);
         get("/filter", ProductPageController.getInstance()::render);
+        get("/review-cart", CartPageController.getInstance()::render);
+        post("/review-cart", CartPageController.getInstance()::render);
+        get("/checkout", CheckoutPageController.getInstance()::render);
+        post("/confirmation", ConfirmationPageController.getInstance()::render);
         get("/payment", PaymentPageController.getInstance()::render);
 
-        // Always add generic routes to the end
+        // Always add generic   routes to the end
         get("/index", ProductPageController.getInstance()::render);
         get("/", ProductPageController.getInstance()::render);
 
         enableDebugScreen();
     }
-
 
     public static void populateData() {
 
@@ -51,7 +50,7 @@ public class Main {
         Supplier felcsutCompany = new Supplier("Felcsút Company", "We have enough money for everything");
         supplierDataStore.add(felcsutCompany);
         Supplier identityTChan = new Supplier("Identity-t Chan", "The biggest copy factory");
-        supplierDataStore.add(felcsutCompany);
+        supplierDataStore.add(identityTChan);
 
         //setting up a new product category
         ProductCategory idCard = new ProductCategory("Identity Card", "Identity Card", "It's looks like the original hungarian Identity card.");
@@ -66,16 +65,16 @@ public class Main {
         ProductCategory erettsegi = new ProductCategory("Érettségi", "Document", "This document justifies, that you finished the High School ");
         productCategoryDataStore.add(erettsegi);
 
-        ProductCategory okj = new ProductCategory("OKJ", "Document", "This document justifies, you are good enough in one profession  ");
+        ProductCategory okj = new ProductCategory("OKJ", "Document", "This document justifies, you are good enough in one profession");
         productCategoryDataStore.add(okj);
 
-        ProductCategory diploma = new ProductCategory("Diploma", "Document", "This document justifies, you are master in one profession  ");
+        ProductCategory diploma = new ProductCategory("Diploma", "Document", "This document justifies, you are master in one profession");
         productCategoryDataStore.add(diploma);
 
-        ProductCategory language = new ProductCategory("Language Exam", "Document", "This document justifies, you are good enough in a language  ");
+        ProductCategory language = new ProductCategory("Language Exam", "Document", "This document justifies, you are good enough in a language");
         productCategoryDataStore.add(language);
 
-        ProductCategory bkk = new ProductCategory("Bkk", "Ticket", "With this ticket you can traveling in Budapest ");
+        ProductCategory bkk = new ProductCategory("BKK", "Ticket", "With this ticket you can traveling in Budapest ");
         productCategoryDataStore.add(bkk);
 
         ProductCategory pack = new ProductCategory("Pack", "Document", "You can buy some document in pack, to be sure, that will be work well ");
@@ -90,10 +89,10 @@ public class Main {
         productDataStore.add(new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, felcsutCompany));
 
         productDataStore.add(new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, felcsutCompany));
-        productDataStore.add(new Product("Address Card (Family pack)", 180, "USD","This pack include 4 address card what you can shear with your family or friends", addressCard, felcsutCompany));
+        productDataStore.add(new Product("Address Card (Family pack)", 180, "USD", "This pack include 4 address card what you can shear with your family or friends", addressCard, felcsutCompany));
 
         productDataStore.add(new Product("Driver Licence", 230, "USD", "It's just looks like driver licence, without category ", driverLicence, demcsakZssss));
-        productDataStore.add(new Product("B category - Driver Licence ", 580, "USD","With this driver licence you can use you slovakian car in the hungarian roads", driverLicence, demcsakZssss));
+        productDataStore.add(new Product("B category - Driver Licence ", 580, "USD", "With this driver licence you can use you slovakian car in the hungarian roads", driverLicence, demcsakZssss));
         productDataStore.add(new Product("C category - Driver Licence ", 580, "USD", "With this driver licence is much easier to take the refugees in the country, and you should not  take car for police ", driverLicence, demcsakZssss));
 
         productDataStore.add(new Product("Érettségi", 400, "USD", "With this amazing document much easier get a job at awesome McDonald's, TESCO, SPAR, or at your friends ", erettsegi, schmitTpal));
