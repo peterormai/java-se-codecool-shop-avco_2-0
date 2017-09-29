@@ -1,75 +1,46 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="author" content="Codecool"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <title>Codecool Shop</title>
-
-    <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://intercoolerreleases-leaddynocom.netdna-ssl.com/intercooler-1.1.2.min.js"></script>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-</head>
+<div th:replace="product/index :: head"></div>
 <body>
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
-<div class="well well-sm">
-    <h1>
-        Ship to
-    </h1>
-</div>
-<div class="container">
-    <h3>Customer: </h3>
+    <div class="jumbotron text-center">
+        <h1>AVco.py "SHOP"</h1>
+    </div>
+    <div class="container">
+        <h2 class="text-center">Confirmation</h2>
+        <div class="confirm-data text-center-sm">
+            <h3>Ship to: </h3>
+            <div th:text="${name}"></div>
+            <div th:text="${email}"></div>
+            <div th:text="${phoneNumber}"></div>
 
-    <h4 th:text="${name}" ></h4>
-    <div th:text="${email}" ></div>
-    <div th:text="${phoneNumber}" ></div>
+            <h3>Billing Address:</h3>
+            <div th:text="${billingCountry}"></div>
+            <div th:text="${billingCity} "></div>
+            <div th:text="${billingAddress}"></div>
+            <div th:text="${billingZipCode}"></div>
 
-    <h2>Billing:</h2>
-    <div th:text="${billingCountry}" ></div>
-    <span th:text="${billingCity} " ></span>
-    <span th:text="${billingAddress}" ></span>
-    <div th:text="${billingZipCode}" ></div>
+            <h3>Shipping to:</h3>
+            <div th:text="${shippingCountry}"></div>
+            <div th:text="${shippingCity}"></div>
+            <div th:text="${shippingAddress}"></div>
+            <div th:text="${shippingZipCode}"></div>
+        </div>
 
-    <h2>Shipping to:</h2>
+        <div class="row nav-buttons">
+            <div class="button-sm col-sm-6 text-center-sm">
+                <a href="/checkout" class="btn btn-warning">
+                    <i class="fa fa-angle-left"></i>
+                    Back to Checkout
+                </a>
+            </div>
 
-    <div th:text="${shippingCountry}" ></div>
-    <span th:text="${shippingCity}" ></span>
-    <span th:text="${shippingAddress}" ></span>
-    <div th:text="${shippingZipCode}" ></div>
+            <div class="button-sm col-sm-6 text-right text-center-sm">
+                <a href="/payment" class="btn btn-success">Submit Order</a>
+            </div>
+        </div>
+    </div>
 
-</div>
-
-
-<a class="btn btn-warning" href="/checkout" ic-push-url="true">
-    <i class="fa fa-angle-left"></i>
-    Back to Checkout
-</a>
-
-<a href="/payment">
-    <button type="button" class="btn btn-success">Submit</button>
-</a>
-
-<div th:replace="footer :: copy"></div>
+    <div th:replace="footer :: copy"></div>
 </body>
 </html>
 

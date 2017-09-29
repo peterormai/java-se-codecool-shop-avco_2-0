@@ -2,68 +2,71 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div id="content" th:fragment="shop">
-    <div class="jumbotron text-center" ic-push-url="true" th:fragment="cart">
-        <h1>AVco.py "SHOP"</h1>
-    </div>
-    <div class="container" id="products" th:fragment="container">
-        <div class="cart-button-container text-center">
-            <div th:replace="cartButton :: cart"></div>
+    <div id="content" th:fragment="shop">
+        <div class="jumbotron text-center" ic-push-url="true" th:fragment="cart">
+            <h1>AVco.py "SHOP"</h1>
         </div>
-        <div class="item col-sm-2" ic-push-url="true">
-            <div class="well well-sm text-center-sm">
-                <strong>Filters</strong>
+        <div class="container" id="products" th:fragment="container">
+            <h2 class="text-center">Products</h2>
+            <div class="cart-button-container text-center">
+                <div th:replace="cartButton :: cart"></div>
             </div>
-            <div class="filter-title text-center-sm"><strong >Categories:</strong></div>
-            <div th:each="cat : ${categories}"
-                 th:class=" ${selected.equals(cat.name)} ? 'filter selected text-center-sm' : 'filter text-center-sm'"
-                 th:attr="ic-get-from='/filter?name=' + ${cat.name} + '&id=' + ${cat.id} + '&type=category'"
-                 ic-target="#content"
-                 ic-replace-target="true">
-                [[${cat.name}]]
-                <a href="/" class="close-filter"><i class="fa fa-times" aria-hidden="true" th:if="${selected.equals(cat.name)}"></i></a>
-            </div>
-            <div class="filter-title text-center-sm"><strong>Suppliers:</strong></div>
-            <div class="filter" th:each="supp : ${suppliers}"
-                 th:class=" ${selected.equals(supp.name)} ? 'filter selected text-center-sm' : 'filter text-center-sm'"
-                 th:attr="ic-get-from='/filter?name=' + ${supp.name} + '&id=' + ${supp.id} + '&type=supplier'"
-                 ic-target="#content"
-                 ic-replace-target="true">
-                [[${supp.name}]]
-                <a href="/" class="close-filter"><i class="fa fa-times" aria-hidden="true" th:if="${selected.equals(supp.name)}"></i></a>
-            </div>
+            <div class="row">
+            <div class="col-sm-2" ic-push-url="true">
+                <div class="well well-sm text-center-sm">
+                    <strong>Filters</strong>
+                </div>
+                <div class="filter-title text-center-sm"><strong >Categories:</strong></div>
+                <div th:each="cat : ${categories}"
+                     th:class=" ${selected.equals(cat.name)} ? 'filter selected text-center-sm' : 'filter text-center-sm'"
+                     th:attr="ic-get-from='/filter?name=' + ${cat.name} + '&id=' + ${cat.id} + '&type=category'"
+                     ic-target="#content"
+                     ic-replace-target="true">
+                    [[${cat.name}]]
+                    <a href="/" class="close-filter"><i class="fa fa-times" aria-hidden="true" th:if="${selected.equals(cat.name)}"></i></a>
+                </div>
+                <div class="filter-title text-center-sm"><strong>Suppliers:</strong></div>
+                <div class="filter" th:each="supp : ${suppliers}"
+                     th:class=" ${selected.equals(supp.name)} ? 'filter selected text-center-sm' : 'filter text-center-sm'"
+                     th:attr="ic-get-from='/filter?name=' + ${supp.name} + '&id=' + ${supp.id} + '&type=supplier'"
+                     ic-target="#content"
+                     ic-replace-target="true">
+                    [[${supp.name}]]
+                    <a href="/" class="close-filter"><i class="fa fa-times" aria-hidden="true" th:if="${selected.equals(supp.name)}"></i></a>
+                </div>
 
-        </div>
-        <div class="item col-sm-10">
-            <div class="well well-sm text-center-sm">
-                <strong th:text="${type == 'category'}? ${category.name} : ${supplier.name}">Category Title</strong>
             </div>
-            <div id="products" class="row list-group">
-                <div class="item col-xs-12 col-sm-4" th:each="prod,iterStat : ${products}">
-                    <div class="thumbnail">
-                        <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                        <div class="caption">
-                            <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                            <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                                </div>
-                                <div class="col-xs-12 col-md-6">
-                                    <button class="btn btn-danger"
-                                         th:attr="ic-get-from='/add-to-cart/' + ${prod.id}"
-                                            ic-target="#cartButton  " ic-replace-target="true">
-                                        Add to cart
-                                    </button>
+            <div class="col-sm-10">
+                <div class="well well-sm text-center-sm">
+                    <strong th:text="${type == 'category'}? ${category.name} : ${supplier.name}">Category Title</strong>
+                </div>
+                <div id="products" class="row list-group">
+                    <div class="item col-xs-12 col-sm-4" th:each="prod,iterStat : ${products}">
+                        <div class="thumbnail">
+                            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
+                                <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <button class="btn btn-danger"
+                                             th:attr="ic-get-from='/add-to-cart/' + ${prod.id}"
+                                                ic-target="#cartButton  " ic-replace-target="true">
+                                            Add to cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 </html>

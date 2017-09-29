@@ -11,7 +11,8 @@ public class CartPageController extends Controller {
 
     private static CartPageController cartPageController = null;
 
-    private CartPageController(){}
+    private CartPageController() {
+    }
 
     public static CartPageController getInstance() {
         if (cartPageController == null) {
@@ -26,7 +27,7 @@ public class CartPageController extends Controller {
         Map<String, Object> params = new HashMap<>();
 
         if (req.queryParams("quantity") != null) {
-                orderDataStore.changeItemValue(req.queryParams("ic-id"), req.queryParams("quantity"));
+            orderDataStore.changeItemValue(req.queryParams("ic-id"), req.queryParams("quantity"));
         }
 
         if (req.queryParams("id") != null) {

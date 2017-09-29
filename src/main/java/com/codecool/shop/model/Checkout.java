@@ -13,7 +13,7 @@ public class Checkout {
     }
 
     private static Map<String, String> checkoutMap = new HashMap<>();
-    private static Checkout chekout = null;
+    private static Checkout checkout = null;
 
     private Checkout(Map checkoutData) {
         name = (String) checkoutData.get("name");
@@ -38,8 +38,6 @@ public class Checkout {
         checkoutMap.put("shippingCity", shippingCity);
         checkoutMap.put("shippingZipCode", shippingZipCode);
         checkoutMap.put("shippingAddress", shippingAddress);
-
-
     }
 
     private static String phoneFormat(String phoneNumber) {
@@ -54,10 +52,10 @@ public class Checkout {
     }
 
     public static Checkout getInstance(Map checkoutData) {
-        if (chekout == null) {
-            chekout = new Checkout(checkoutData);
+        if (checkout == null) {
+            checkout = new Checkout(checkoutData);
         }
-        return chekout;
+        return checkout;
     }
 
     public void setName(String name) {
@@ -109,5 +107,9 @@ public class Checkout {
     public void setShippingAddress(String shippingAddress) {
         checkoutMap.put("shippingAddress", shippingAddress);
 
+    }
+
+    public static Checkout getCheckout() {
+        return checkout;
     }
 }

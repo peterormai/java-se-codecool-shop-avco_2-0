@@ -50,7 +50,6 @@ public class ConfirmationPageController extends Controller {
         Checkout.getInstance(params).setShippingZipCode(req.queryParams("shippingZipCode"));
         Checkout.getInstance(params).setShippingAddress(req.queryParams("shippingAddress"));
 
-
         params = Checkout.getCheckoutMap();
         return renderTemplate(params, "confirmation");
     }
