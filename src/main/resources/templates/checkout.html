@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="product/index :: head"></div>
+<body>
+<div class="jumbotron text-center">
+    <h1>AVco.py "SHOP"</h1>
+</div>
+<div class="container">
+    <div class="text-center">
+        <h2>
+            Checkout
+        </h2>
+    </div>
+    <form action="/confirmation" method="post">
+        <div class="panel">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="firstName">First Name: </label>
+                    <input class="checkoutInput" name="firstName" id="firstName" type="text" placeholder="Andreas"
+                           required>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName">Last Name: </label>
+                    <input class="checkoutInput" name="lastName" id="lastName" type="text" placeholder="Smith"
+                           required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="email">Email: </label>
+                    <input class="checkoutInput" name="email" id="email" type="email"
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="itswillbegood@worldspace.com"
+                           required>
+                </div>
+                <div class="col-md-6">
+                    <label for="phoneNumber">Phone Number: </label>
+                    <input class="checkoutInput" name="phoneNumber" id="phoneNumber" type="text" pattern="[0-9]{10,}"
+                           placeholder="06703456789" required>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="billingCountry">Billing Country </label>
+                    <input class="checkoutInput" name="billingCountry" id="billingCountry" type="text" placeholder="USA"
+                           required>
+                    <label for="billingCity">Billing City </label>
+                    <input class="checkoutInput" name="billingCity" id="billingCity" type="text" placeholder="New York"
+                           required>
+                    <label for="billingZipCode">Billing Zip Code </label>
+                    <input class="checkoutInput" name="billingZipCode" id="billingZipCode" type="text"
+                           placeholder="10044" required>
+                    <label for="billingAddress">Billing Address </label>
+                    <input class="checkoutInput" name="billingAddress" id="billingAddress" type="text"
+                           placeholder="Dont do 4" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="shippingCountry">Shipping Country </label>
+                    <input class="checkoutInput" name="shippingCountry" id="shippingCountry" type="text"
+                           placeholder="USA" required>
+                    <label for="shippingCity">Shipping City </label>
+                    <input class="checkoutInput" name="shippingCity" id="shippingCity" type="text"
+                           placeholder="New York" required>
+                    <label for="shippingZipCode">Shipping Zip Code </label>
+                    <input class="checkoutInput" name="shippingZipCode" id="shippingZipCode" type="text"
+                           placeholder="10044" required>
+                    <label for="shippingAddress">Shipping Address</label>
+                    <input class="checkoutInput" name="shippingAddress" id="shippingAddress" type="text"
+                           placeholder="Dont do 4" required>
+                </div>
+            </div>
+            <div class="row nav-buttons">
+                <div class="button-sm col-sm-6 text-center-s">
+                    <button class="btn btn-warning" th:attr="ic-get-from='/review-cart'" ic-push-url="true"
+                            ic-target=".container">
+                        <i class="fa fa-angle-left"></i>
+                        Back to Cart
+                    </button>
+                </div>
+                <div class="button-sm col-sm-6 text-right text-center-sm">
+                    <button type="submit" class="btn btn-success">Next <i class="fa fa-angle-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:replace="footer :: copy"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+

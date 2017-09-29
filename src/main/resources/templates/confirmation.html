@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="product/index :: head"></div>
+<body>
+    <div class="jumbotron text-center">
+        <h1>AVco.py "SHOP"</h1>
+    </div>
+    <div class="container">
+        <h2 class="text-center">Confirmation</h2>
+        <div class="confirm-data text-center-sm">
+            <h3>Ship to: </h3>
+            <div th:text="${name}"></div>
+            <div th:text="${email}"></div>
+            <div th:text="${phoneNumber}"></div>
+
+            <h3>Billing Address:</h3>
+            <div th:text="${billingCountry}"></div>
+            <div th:text="${billingCity} "></div>
+            <div th:text="${billingAddress}"></div>
+            <div th:text="${billingZipCode}"></div>
+
+            <h3>Shipping to:</h3>
+            <div th:text="${shippingCountry}"></div>
+            <div th:text="${shippingCity}"></div>
+            <div th:text="${shippingAddress}"></div>
+            <div th:text="${shippingZipCode}"></div>
+        </div>
+
+        <div class="row nav-buttons">
+            <div class="button-sm col-sm-6 text-center-sm">
+                <a href="/checkout" class="btn btn-warning">
+                    <i class="fa fa-angle-left"></i>
+                    Back to Checkout
+                </a>
+            </div>
+
+            <div class="button-sm col-sm-6 text-right text-center-sm">
+                <a href="/payment" class="btn btn-success">Submit Order</a>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="footer :: copy"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
