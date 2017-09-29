@@ -178,6 +178,9 @@ input[type=text], input[type=email] {
 .confirm-data {
     text-align: center;
 }
+.confirm-data>div {
+    font-size: 16px;
+}
 
 /* Cart styles
 ****************/

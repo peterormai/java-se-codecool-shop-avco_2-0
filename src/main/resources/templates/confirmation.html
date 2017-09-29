@@ -9,26 +9,26 @@
         <h2 class="text-center">Confirmation</h2>
         <div class="confirm-data text-center-sm">
             <h3>Ship to: </h3>
-            <div th:text="${name}" ></div>
-            <div th:text="${email}" ></div>
-            <div th:text="${phoneNumber}" ></div>
+            <div th:text="${name}"></div>
+            <div th:text="${email}"></div>
+            <div th:text="${phoneNumber}"></div>
 
             <h3>Billing Address:</h3>
-            <div th:text="${billingCountry}" ></div>
-            <span th:text="${billingCity} " ></span>
-            <span th:text="${billingAddress}" ></span>
-            <div th:text="${billingZipCode}" ></div>
+            <div th:text="${billingCountry}"></div>
+            <div th:text="${billingCity} "></div>
+            <div th:text="${billingAddress}"></div>
+            <div th:text="${billingZipCode}"></div>
 
             <h3>Shipping to:</h3>
-            <div th:text="${shippingCountry}" ></div>
-            <span th:text="${shippingCity}" ></span>
-            <span th:text="${shippingAddress}" ></span>
-            <div th:text="${shippingZipCode}" ></div>
+            <div th:text="${shippingCountry}"></div>
+            <div th:text="${shippingCity}"></div>
+            <div th:text="${shippingAddress}"></div>
+            <div th:text="${shippingZipCode}"></div>
         </div>
 
         <div class="row nav-buttons">
             <div class="button-sm col-sm-6 text-center-sm">
-                <a href="/checkout" class="btn btn-warning" >
+                <a href="/checkout" class="btn btn-warning">
                     <i class="fa fa-angle-left"></i>
                     Back to Checkout
                 </a>
