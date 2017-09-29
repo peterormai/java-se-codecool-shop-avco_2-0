@@ -4,7 +4,7 @@
 <body th:fragment="cart">
     <div ic-src="/review-cart">
         <div class="container">
-            <h2 th:if="${not lineItems.isEmpty()}">Cart:</h2>
+            <h2 th:if="${not lineItems.isEmpty()}" class="text-center">Cart</h2>
             <div id="empty-cart" class="text-center" th:if="${lineItems.isEmpty()}">
                 <h2 class="text-center" th:text="${emptyCart}">Text</h2>
                 <a ic-push-url="true" class="btn btn-warning" href="/">
@@ -44,8 +44,9 @@
                         </td>
                         <td class="actions text-center">
 
-                            <button class="btn btn-danger btn-sm" th:attr="ic-get-from='/review-cart?id=' + ${item.getId()}"
-                                    ic-target=".container">
+                            <button class="btn btn-danger btn-sm button-sm" th:attr="ic-get-from='/review-cart?id=' + ${item.getId()}"
+                                    ic-target=".container"
+                                    ic-replace-target="true">
                                 <i class="fa fa-trash-o"></i>
                             </button>
                         </td>
