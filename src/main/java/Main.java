@@ -85,7 +85,7 @@ public class Main {
 
 
         //setting up products and printing it
-        productDataStore.add(new Product("Identity Card (Womean)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, felcsutCompany));
+        productDataStore.add(new Product("Identity Card (Woman)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, felcsutCompany));
         productDataStore.add(new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, felcsutCompany));
 
         productDataStore.add(new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, felcsutCompany));
