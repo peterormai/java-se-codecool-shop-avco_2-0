@@ -67,7 +67,7 @@ public class ProductPageController extends Controller {
         if ("true".equals(req.queryParams("ic-request"))) {
             return renderTemplate(params, "content");
         }
-        return renderTemplate(params, "product/index");
+        return renderTemplate(params, "content");
     }
 
     public Object addNewItemToCart(Request req, Response res) {

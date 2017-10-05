@@ -6,6 +6,9 @@ import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -22,7 +25,12 @@ public class Main {
         get("/add-to-cart/:id", ProductPageController.getInstance()::addNewItemToCart);
         get("/filter", ProductPageController.getInstance()::render);
         get("/review-cart", CartPageController.getInstance()::render);
-        post("/review-cart", CartPageController.getInstance()::render);
+        put("/review-cart", (req, res) -> {
+            Order orderDataStore = Order.getInstance();
+            float total = orderDataStore.getTotalPrice();
+            float value = orderDataStore.changeItemValue(req.queryParams("id"), req.queryParams("quantity"));
+            return value;
+        });
         get("/checkout", CheckoutPageController.getInstance()::render);
         post("/confirmation", ConfirmationPageController.getInstance()::render);
         get("/payment", PaymentPageController.getInstance()::render);
