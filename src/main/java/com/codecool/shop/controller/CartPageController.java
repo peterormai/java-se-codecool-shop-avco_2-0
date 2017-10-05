@@ -26,10 +26,6 @@ public class CartPageController extends Controller {
         Order orderDataStore = Order.getInstance();
         Map<String, Object> params = new HashMap<>();
 
-        if (req.queryParams("quantity") != null) {
-            orderDataStore.changeItemValue(req.queryParams("ic-id"), req.queryParams("quantity"));
-        }
-
         if (req.queryParams("id") != null) {
             int id = Integer.parseInt(req.queryParams("id"));
             orderDataStore.remove(id);

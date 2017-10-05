@@ -1,15 +1,23 @@
 window.addEventListener("load", function () {
-   $("input").click(function () {
+   $("input").on("change", function () {
+       var id = $(this).attr("id");
+       var quantity = $(this).val();
        $.ajax({
            url: "/review-cart",
            method: "PUT",
+           dataType: "json",
            data: {
-               quantity: $(this).val(),
-               id: $(this).attr("id")
+               quantity: quantity,
+               id: id
            },
            success: function (response) {
-                $("#subtotal").text(response);
-                console.log(response);
+               console.log($("." + id).text());
+               if (quantity == 0) {
+                   $("tr#" + id).remove();
+               } else {
+                   $("." + id).text(response["value"] + " Ft");
+               }
+               $("#total").text("Total " + response["total"] + " Ft");
            }
        });
    });

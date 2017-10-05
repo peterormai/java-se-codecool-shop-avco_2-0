@@ -72,7 +72,6 @@ public class Order {
         int num = Integer.parseInt(quantity);
         int validId = Integer.parseInt(id);
         float value = 0;
-        int quan = 0;
         if (num == 0) {
             remove(validId);
         } else {
@@ -80,10 +79,9 @@ public class Order {
                 if (item.getId() == validId) {
                     item.setQuantity(num);
                     value = item.getPrice();
-                    quan = item.getQuantity();
                 }
             }
         }
-        return value*quan;
+        return value*num;
     }
 }

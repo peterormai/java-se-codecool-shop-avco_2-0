@@ -5,9 +5,7 @@ import com.codecool.shop.controller.*;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.json.simple.JSONObject;
 
 public class Main {
 
@@ -27,9 +25,12 @@ public class Main {
         get("/review-cart", CartPageController.getInstance()::render);
         put("/review-cart", (req, res) -> {
             Order orderDataStore = Order.getInstance();
-            float total = orderDataStore.getTotalPrice();
             float value = orderDataStore.changeItemValue(req.queryParams("id"), req.queryParams("quantity"));
-            return value;
+            float total = orderDataStore.getTotalPrice();
+            JSONObject obj = new JSONObject();
+            obj.put("total", total);
+            obj.put("value", value);
+            return obj;
         });
         get("/checkout", CheckoutPageController.getInstance()::render);
         post("/confirmation", ConfirmationPageController.getInstance()::render);
