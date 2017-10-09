@@ -1,7 +1,11 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="product/index :: head"></div>
 <body th:fragment="cart">
-    <div ic-src="/review-cart">
+    <div id="content" th:fragment="shop">
+        <div class="jumbotron text-center" ic-push-url="true" th:fragment="cart">
+            <h1>AVco.py "SHOP"</h1>
+        </div>
         <div class="container">
             <h2 th:if="${not lineItems.isEmpty()}" class="text-center">Cart</h2>
             <div id="empty-cart" class="text-center" th:if="${lineItems.isEmpty()}">
@@ -75,5 +79,6 @@
             </table>
         </div>
     </div>
+    <div th:replace="footer :: copy"></div>
 </body>
 </html>
