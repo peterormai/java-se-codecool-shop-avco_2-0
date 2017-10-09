@@ -25,8 +25,8 @@ public class PaymentPageController extends Controller {
     @Override
     public String render(Request req, Response res) {
         Map<String, String> params = new HashMap<>();
-        Order orderDataStore = Order.getInstance();
-        orderDataStore.removeAll();
+//        Order orderDataStore = Order.getInstance();
+//        orderDataStore.removeAll();
         if (Checkout.getCheckout() == null) {
             res.redirect("/checkout");
         }

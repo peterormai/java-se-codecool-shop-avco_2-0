@@ -53,6 +53,7 @@ public class ConfirmationPageController extends Controller {
         Checkout.getInstance(params).setShippingAddress(req.queryParams("shippingAddress"));
 
         params = Checkout.getCheckoutMap();
+        res.redirect("/payment");
         return renderTemplate(params, "confirmation");
     }
 }

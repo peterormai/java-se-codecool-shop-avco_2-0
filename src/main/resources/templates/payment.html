@@ -5,19 +5,133 @@
     <div class="jumbotron text-center">
         <h1>AVco.py "SHOP"</h1>
     </div>
-    <div class="container text-center">
-        <h2>Payment</h2>
-        <h3>Thank you! Your order was successful! You can pay in cash to the dealer!</h3>
-        <br>
-        <img src="https://img00.deviantart.net/a63c/i/2012/089/c/1/cold_hard_cash_by_tastes_like_fry-d4uh3s5.png" alt="Smiley face" height="200" width="300">
-        <br>
-        <div class="row nav-buttons">
-            <a class="btn btn-warning" href="/" ic-push-url="true">
-                <i class="fa fa-angle-left"></i>
-                Back To Continue Shopping
-            </a>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <!-- CREDIT CARD FORM STARTS HERE -->
+                <h2 class="text-center">Payment</h2>
+                <div class="tabbable">
+                    <ul id="tab" class="nav nav-tabs row text-center" data-tabs="tabs">
+                        <li class="active col-xs-6"><a href="#credit-card" data-toggle="tab">Credit Card</a></li>
+                        <li class="col-xs-6"><a href="#paypal" data-toggle="tab">Paypal</a></li>
+                    </ul>
+                </div>
+                <div class="panel panel-default credit-card-box">
+                    <div class="panel-heading display-table">
+                        <div class="row display-tr">
+                            <h3 class="panel-title display-tr">Payment Details</h3>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="credit-card">
+                            <div class="panel-body credit-card">
+                                <img class="img-responsive" src="https://developer.paysafe.com/fileadmin/content/logos/accepted_cards_by_paysafejs.png">
+                                <form role="form" id="payment-form" method="POST" action="/submit">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="cardHolder">CARD HOLDER</label>
+                                                <input class="form-control" id="cardHolder" placeholder="Name On Card" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="cardNumber">CARD NUMBER</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" id="cardNumber" placeholder="Valid Card Number" required>
+                                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-7 col-md-7">
+                                            <div class="form-group">
+                                                <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                                <input class="form-control" id="cardExpiry" placeholder="MM/YY" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-5 col-md-5 pull-right">
+                                            <div class="form-group">
+                                                <label for="cardCVC">CV CODE</label>
+                                                <input class="form-control" id="cardCVC" placeholder="CVC" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <button class="pay btn btn-success btn-lg btn-block" type="button">Pay</button>
+                                        </div>
+                                    </div>
+                                    <div class="row nav-buttons">
+                                        <div class="col-xs-12">
+                                            <a class="btn btn-default btn-block" href="/checkout">
+                                                <i class="fa fa-angle-left"></i>
+                                                Back To Checkout
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="display:none;">
+                                        <div class="col-xs-12">
+                                            <p class="payment-errors"></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="paypal">
+                            <div class="panel-body paypal">
+                                <h3><i class="fa fa-paypal" aria-hidden="true"></i>
+                                    PayPal</h3>
+                                <form role="form" id="payment-form-paypal" method="POST" action="/submit">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="userName">USER NAME</label>
+                                                <input class="form-control" id="userName" placeholder="Your name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="password">PASSWORD</label>
+                                                <input type="password" class="form-control" id="password" placeholder="Your password" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <button class="pay btn btn-success btn-lg btn-block" type="button">Pay</button>
+                                        </div>
+                                    </div>
+                                    <div class="row nav-buttons">
+                                        <div class="col-xs-12">
+                                            <a class="btn btn-default btn-block" href="/checkout">
+                                                <i class="fa fa-angle-left"></i>
+                                                Back To Checkout
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="display:none;">
+                                        <div class="col-xs-12">
+                                            <p class="payment-errors"></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- CREDIT CARD FORM ENDS HERE -->
+            </div>
         </div>
     </div>
+
     <div th:replace="footer :: copy"></div>
 </body>
 </html>
