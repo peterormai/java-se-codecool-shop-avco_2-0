@@ -6,12 +6,10 @@ public class LineItem {
     private int id;
     private Product product;
     private int quantity = 1;
-    private float price;
 
-    public LineItem(int id, Product product, float price) {
+    public LineItem(int id, Product product) {
         this.id = id;
         this.product = product;
-        this.price = price;
     }
 
     public int getId() {
@@ -34,8 +32,8 @@ public class LineItem {
         this.quantity = quantity;
     }
 
-    public float getPrice() {
-        return price;
+    public float getLineItemsPrice() {
+        return product.getDefaultPrice() * quantity;
     }
 
 }
