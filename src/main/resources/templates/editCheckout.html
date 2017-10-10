@@ -11,7 +11,7 @@
                 Checkout
             </h2>
         </div>
-        <form action="/confirmation" method="post">
+        <form action="/payment" method="post">
             <div class="panel">
 
                 <div class="row">
@@ -59,15 +59,15 @@
                         <input th:value="${shippingZipCode}" name="shippingZipCode" id="shippingZipCode" type="text" placeholder="10044" value="4444" required>
                         <label for="shippingAddress">Shipping Address</label>
                         <input th:value="${shippingAddress}" name="shippingAddress" id="shippingAddress" type="text" placeholder="Dont do 4" value="Nagymező utca 44." required>
+                        <input type="hidden" name="checkout" id="checkout" value="done">
                     </div>
                 </div>
                 <div class="row nav-buttons">
                     <div class="button-sm col-sm-6 text-center-sm">
-                        <button class="btn btn-warning" th:attr="ic-get-from='/review-cart'" ic-push-url="true"
-                           ic-target=".container">
+                        <a class="btn btn-warning" href="/review-cart">
                             <i class="fa fa-angle-left"></i>
                             Back to Cart
-                        </button>
+                        </a>
                     </div>
                     <div class="button-sm col-sm-6 text-right text-center-sm">
                         <button type="submit" class="btn btn-success">Continue to pay  <i class="fa fa-angle-right"></i></button>

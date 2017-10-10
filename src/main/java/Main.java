@@ -24,8 +24,10 @@ public class Main {
         get("/review-cart", CartPageController.getInstance()::render);
         post("/review-cart", CartPageController.getInstance()::render);
         get("/checkout", CheckoutPageController.getInstance()::render);
-        post("/confirmation", ConfirmationPageController.getInstance()::render);
         get("/payment", PaymentPageController.getInstance()::render);
+        post("/payment", PaymentPageController.getInstance()::render);
+        get("/confirmation", ConfirmationPageController.getInstance()::render);
+        post("/confirmation", ConfirmationPageController.getInstance()::render);
 
         // Always add generic   routes to the end
         get("/index", ProductPageController.getInstance()::render);

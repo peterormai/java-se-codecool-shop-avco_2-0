@@ -11,7 +11,7 @@
             Checkout
         </h2>
     </div>
-    <form action="/confirmation" method="post">
+    <form action="/payment" method="post">
         <div class="panel">
 
             <div class="row">
@@ -68,6 +68,7 @@
                     <label for="shippingAddress">Shipping Address</label>
                     <input class="checkoutInput" name="shippingAddress" id="shippingAddress" type="text"
                            placeholder="Dont do 4" required>
+                    <input type="hidden" name="checkout" id="checkout" value="done">
                 </div>
             </div>
             <div class="row nav-buttons">
