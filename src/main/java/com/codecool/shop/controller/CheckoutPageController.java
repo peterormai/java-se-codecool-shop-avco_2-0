@@ -1,6 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.model.Checkout;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.model.OrderStatus;
 import spark.Request;
 import spark.Response;
 
@@ -24,7 +26,12 @@ public class CheckoutPageController extends Controller {
     @Override
     public String render(Request req, Response res) {
         Map<String, String> params = new HashMap<>();
-        if (Checkout.getCheckoutMap().size() != 0) {
+        Order orderDataStore = Order.getInstance();
+        if (orderDataStore.numberOfLineItems() == 0) {
+            res.redirect("/");
+        }
+
+        if (orderDataStore.getStatus() == OrderStatus.CHECKEDOUT) {
             params = Checkout.getCheckoutMap();
             params.put("phoneNumber", params.get("phoneNumber").replace("-", ""));
             return renderTemplate(params, "editCheckout");

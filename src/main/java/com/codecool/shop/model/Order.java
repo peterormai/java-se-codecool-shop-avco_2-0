@@ -7,6 +7,7 @@ public class Order {
 
     private static Order orderInstance = null;
     private static List<LineItem> lineItems = new ArrayList<>();
+    private OrderStatus status = OrderStatus.NEW;
 
     public static Order getInstance() {
         if (orderInstance == null) {
@@ -80,5 +81,15 @@ public class Order {
                 }
             }
         }
+    }
+
+    public void setStatus(OrderStatus status) {
+        System.out.println("Order status set to " + status);
+        this.status = status;
+    }
+
+    public OrderStatus getStatus() {
+        System.out.println(status);
+        return status;
     }
 }
