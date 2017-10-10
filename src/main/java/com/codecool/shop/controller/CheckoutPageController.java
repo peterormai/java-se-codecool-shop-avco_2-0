@@ -27,7 +27,7 @@ public class CheckoutPageController extends Controller {
     public String render(Request req, Response res) {
         Map<String, String> params = new HashMap<>();
         Order orderDataStore = Order.getInstance();
-        if (orderDataStore.numberOfLineItems() == 0) {
+        if (orderDataStore.numberOfItems() == 0) {
             res.redirect("/");
         }
 

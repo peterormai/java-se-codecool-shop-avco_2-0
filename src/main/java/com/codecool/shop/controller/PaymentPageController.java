@@ -33,7 +33,7 @@ public class PaymentPageController extends Controller {
             res.redirect("/");
             return "";
         }
-        if (orderDataStore.numberOfLineItems() > 0 && req.queryParams("checkout").equals("done") && orderDataStore.getStatus() != OrderStatus.CHECKEDOUT) {
+        if (orderDataStore.numberOfItems() > 0 && req.queryParams("checkout").equals("done") && orderDataStore.getStatus() != OrderStatus.CHECKEDOUT) {
             orderDataStore.setStatus(OrderStatus.CHECKEDOUT);
         } else if (!req.queryParams("checkout").equals("done")){
             res.redirect("/");

@@ -1,5 +1,10 @@
 package com.codecool.shop.model;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,5 +96,34 @@ public class Order {
     public OrderStatus getStatus() {
         System.out.println(status);
         return status;
+    }
+
+    public void JSONFileWrite() throws IOException {
+
+        JSONObject orders = new JSONObject();
+        JSONObject order = new JSONObject();
+        JSONArray lineItemsOfOrder = new JSONArray();
+        for (LineItem lineItem: lineItems) {
+            JSONObject lineItemObj = new JSONObject();
+            JSONObject productObj = new JSONObject();
+            lineItemObj.put("id", lineItem.getId());
+            lineItemObj.put("quantity", lineItem.getQuantity());
+
+            productObj.put("productName", lineItem.getProduct().getName());
+            productObj.put("defaultPrice", lineItem.getProduct().getDefaultPrice());
+            productObj.put("defaultCurrency", lineItem.getProduct().getDefaultCurrency());
+            productObj.put("productCategory", lineItem.getProduct().getProductCategory().getName());
+            productObj.put("supplier", lineItem.getProduct().getSupplier().getName());
+
+            lineItemObj.put("product", productObj);
+            lineItemsOfOrder.add(lineItemObj);
+        }
+
+        orders.put("firstOrder", order);
+        order.put("lineItems", lineItemsOfOrder);
+
+        try (FileWriter file = new FileWriter("src/main/resources/files/orders.txt")) {
+            file.write(orders.toJSONString());
+        }
     }
 }
