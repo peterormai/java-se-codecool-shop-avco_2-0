@@ -26,7 +26,7 @@
                         <div class="tab-pane active" id="credit-card">
                             <div class="panel-body credit-card">
                                 <img class="img-responsive" src="https://developer.paysafe.com/fileadmin/content/logos/accepted_cards_by_paysafejs.png">
-                                <form role="form" id="payment-form" method="POST" action="/submit">
+                                <form role="form" id="payment-form" method="POST" action="/confirmation">
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="form-group">
@@ -62,7 +62,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <button class="pay btn btn-success btn-lg btn-block" type="button">Pay</button>
+                                            <button class="pay-button btn btn-success btn-lg btn-block" type="button">
+                                                Pay [[${#numbers.formatCurrency(totalPrice)}]]
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="row nav-buttons">
@@ -105,7 +107,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <button class="pay btn btn-success btn-lg btn-block" type="button">Pay</button>
+                                            <button class="pay-button btn btn-success btn-lg btn-block" type="button">
+                                                Pay [[${#numbers.formatCurrency(totalPrice)}]]
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="row nav-buttons">
