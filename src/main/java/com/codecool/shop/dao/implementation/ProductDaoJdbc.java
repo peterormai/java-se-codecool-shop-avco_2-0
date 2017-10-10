@@ -30,15 +30,16 @@ public class ProductDaoJdbc implements ProductDao {
 
     public void add(Product product) {
         String query = "INSERT INTO products (name, description, price, " +
-                "currency, product_category_id, supplier_id) VALUES (?,?,?,?,?,?,?)";
+                "currency, picture, product_category_id, supplier_id) VALUES (?,?,?,?,?,?,?)";
         try (Connection connection = getConnection()){
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setFloat(3, product.getDefaultPrice());
             statement.setString(4, product.getDefaultCurrency().toString());
-            statement.setString(5, product.getProductCategory().getName());
-            statement.setString(6, product.getSupplier().getName());
+            statement.setString(5, "picture");
+            statement.setString(6, product.getProductCategory().getName());
+            statement.setString(7, product.getSupplier().getName());
             statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,12 +56,14 @@ public class ProductDaoJdbc implements ProductDao {
             if (resultSet.next()) {
                 int prodId = resultSet.getInt("product_category_id");
                 ProductCategory cat = ProductCategoryDAOJdbc.getInstance().find(prodId);
+                int suppId = resultSet.getInt("supplier_id");
+                Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
 
                 Product result = new Product(resultSet.getString("name"),
                         resultSet.getFloat("defaultCurrency"),
                         resultSet.getString("description"),
                         resultSet.getString("defaultCurrency"),
-                        cat, resultSet.getString("supplier"));
+                        cat, supp);
                 return result;
             }
 
@@ -90,11 +93,13 @@ public class ProductDaoJdbc implements ProductDao {
 
             while (resultSet.next()) {
                 ProductCategory cat = ProductCategoryDAOJdbc.getInstance().find(resultSet.getInt("product_category_id"));
+                int suppId = resultSet.getInt("supplier_id");
+                Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
                 Product result = new Product(resultSet.getString("name"),
                         resultSet.getFloat("defaultCurrency"),
                         resultSet.getString("description"),
                         resultSet.getString("defaultCurrency"),
-                        cat, resultSet.getString("supplier"));
+                        cat, supp);
                 products.add(result);
             }
             return products;
@@ -115,11 +120,13 @@ public class ProductDaoJdbc implements ProductDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 ProductCategory cat = ProductCategoryDAOJdbc.getInstance().find(resultSet.getInt("product_category_id"));
+                int suppId = resultSet.getInt("supplier_id");
+                Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
                 Product result = new Product(resultSet.getString("name"),
                         resultSet.getFloat("defaultCurrency"),
                         resultSet.getString("description"),
                         resultSet.getString("defaultCurrency"),
-                        cat, resultSet.getString("supplier"));
+                        cat, supp);
                 products.add(result);
                 System.out.println("Got all prods");
             }
@@ -140,11 +147,13 @@ public class ProductDaoJdbc implements ProductDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 ProductCategory cat = ProductCategoryDAOJdbc.getInstance().find(resultSet.getInt("product_category_id"));
+                int suppId = resultSet.getInt("supplier_id");
+                Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
                 Product result = new Product(resultSet.getString("name"),
                         resultSet.getFloat("defaultCurrency"),
                         resultSet.getString("description"),
                         resultSet.getString("defaultCurrency"),
-                        cat, resultSet.getString("supplier"));
+                        cat, supp);
                 products.add(result);
                 System.out.println("Got all products");
             }
