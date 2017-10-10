@@ -29,12 +29,12 @@ public class Order {
             }
         }
         if (isNotIn) {
-            LineItem newLineItem = new LineItem(product.getId(), product, product.getDefaultPrice());
+            LineItem newLineItem = new LineItem(product.getId(), product);
             lineItems.add(newLineItem);
         }
     }
 
-    public int numberOfLineItems() {
+    public int numberOfItems() {
         int numberOfItems = 0;
         for (LineItem lineItem : lineItems) {
             numberOfItems += lineItem.getQuantity();
@@ -42,7 +42,7 @@ public class Order {
         return numberOfItems;
     }
 
-    public void remove(int id) {
+    public void removeLineItem(int id) {
         for (LineItem item : lineItems) {
             if (item.getId() == id) {
                 lineItems.remove(item);
@@ -63,16 +63,16 @@ public class Order {
     public float getTotalPrice() {
         float totalPrice = 0;
         for (LineItem lineItem : lineItems) {
-            totalPrice += lineItem.getPrice() * lineItem.getQuantity();
+            totalPrice += lineItem.getLineItemsPrice();
         }
         return totalPrice;
     }
 
-    public void changeItemValue(String id, String quantity) {
+    public void changeItemQuantity (String id, String quantity) {
         int num = Integer.parseInt(quantity);
         int validId = Integer.parseInt(id);
         if (num == 0) {
-            remove(validId);
+            removeLineItem(validId);
         } else {
             for (LineItem item : lineItems) {
                 if (item.getId() == validId) {
