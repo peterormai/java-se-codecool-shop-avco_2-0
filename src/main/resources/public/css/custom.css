@@ -245,7 +245,7 @@ input[type=text], input[type=email] {
 
     table#cart tbody tr td:first-child {
         color: #fff;
-        background: #333;
+        background: steelblue;
     }
 
     table#cart tbody td:before {
@@ -285,8 +285,6 @@ input[type=text], input[type=email] {
 
 /* Payment form
  ***************/
-
-/*body { margin-top:20px; }*/
 
 .credit-card-box {
     margin-top: 20px;
@@ -333,3 +331,27 @@ input[type=text], input[type=email] {
     border-color: white;
     box-shadow: 3px 3px 5px #D3D3D3;
 }
+
+/* Confirmation page
+ *********************/
+
+#payment-success > div > div {
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+#payment-success > div > table {
+    margin-bottom: 0;
+}
+
+#payment-success > div > tfoot {
+    border: none;
+}
+
+#payment-success > div > div.row {
+    margin-top: 0;
+}
+
+
+
+
