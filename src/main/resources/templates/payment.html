@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <button class="pay-button btn btn-success btn-lg btn-block" type="button">
+                                            <button class="pay-button btn btn-success btn-lg btn-block" type="submit">
                                                 Pay [[${#numbers.formatCurrency(totalPrice)}]]
                                             </button>
                                         </div>
@@ -88,7 +88,7 @@
                             <div class="panel-body paypal">
                                 <h3><i class="fa fa-paypal" aria-hidden="true"></i>
                                     PayPal</h3>
-                                <form role="form" id="payment-form-paypal" method="POST" action="/submit">
+                                <form role="form" id="payment-form-paypal" method="POST" action="/confirmation">
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="form-group">
@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <button class="pay-button btn btn-success btn-lg btn-block" type="button">
+                                            <button class="pay-button btn btn-success btn-lg btn-block" type="submit">
                                                 Pay [[${#numbers.formatCurrency(totalPrice)}]]
                                             </button>
                                         </div>
