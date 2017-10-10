@@ -3,23 +3,19 @@ package com.codecool.shop.model;
 
 public class LineItem {
 
+    private static int idCounter = 0;
     private int id;
     private Product product;
     private int quantity = 1;
-    private float price;
 
-    public LineItem(int id, Product product, float price) {
-        this.id = id;
+    public LineItem(Product product) {
+        this.id = idCounter;
         this.product = product;
-        this.price = price;
+        idCounter++;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Product getProduct() {
@@ -34,8 +30,8 @@ public class LineItem {
         this.quantity = quantity;
     }
 
-    public float getPrice() {
-        return price;
+    public float getLineItemsPrice() {
+        return product.getDefaultPrice() * quantity;
     }
 
 }
