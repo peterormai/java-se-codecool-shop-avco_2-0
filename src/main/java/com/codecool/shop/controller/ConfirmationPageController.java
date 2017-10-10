@@ -1,9 +1,11 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.model.Checkout;
+import com.codecool.shop.model.Order;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +24,7 @@ public class ConfirmationPageController extends Controller {
     }
 
     @Override
-    public String render(Request req, Response res) {
+    public String render(Request req, Response res) throws IOException {
         Map<String, String> params = new HashMap<>();
 
         params.put("firstName", req.queryParams("firstName"));
@@ -53,6 +55,9 @@ public class ConfirmationPageController extends Controller {
         Checkout.getInstance(params).setShippingAddress(req.queryParams("shippingAddress"));
 
         params = Checkout.getCheckoutMap();
+
+        Order orderDataStore = Order.getInstance();
+        orderDataStore.JSONFileWrite();
         return renderTemplate(params, "confirmation");
     }
 }
