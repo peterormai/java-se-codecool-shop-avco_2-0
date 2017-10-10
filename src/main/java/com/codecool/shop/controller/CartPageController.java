@@ -27,12 +27,12 @@ public class CartPageController extends Controller {
         Map<String, Object> params = new HashMap<>();
 
         if (req.queryParams("quantity") != null) {
-            orderDataStore.changeItemValue(req.queryParams("ic-id"), req.queryParams("quantity"));
+            orderDataStore.changeItemQuantity(req.queryParams("ic-id"), req.queryParams("quantity"));
         }
 
         if (req.queryParams("id") != null) {
             int id = Integer.parseInt(req.queryParams("id"));
-            orderDataStore.remove(id);
+            orderDataStore.removeLineItem(id);
         }
 
         if (orderDataStore.getAll().isEmpty()) {

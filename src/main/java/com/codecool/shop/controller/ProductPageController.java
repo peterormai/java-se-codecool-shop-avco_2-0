@@ -44,7 +44,7 @@ public class ProductPageController extends Controller {
         params.put("selected", productCategoryDataStore.find(id));
         params.put("suppliers", supplierDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
-        params.put("numberOfItems", orderDataStore.numberOfLineItems());
+        params.put("numberOfItems", orderDataStore.numberOfItems());
         if (req.queryParams("selected") != null) {
             params.put("category", req.queryParams("selected"));
             params.put("selected", req.queryParams("selected"));
@@ -76,7 +76,7 @@ public class ProductPageController extends Controller {
         Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
         order.add(product);
         Map<String, Object> params = new HashMap<>();
-        params.put("numberOfItems", order.numberOfLineItems());
+        params.put("numberOfItems", order.numberOfItems());
         return renderTemplate(params, "cartButton");
     }
 }
