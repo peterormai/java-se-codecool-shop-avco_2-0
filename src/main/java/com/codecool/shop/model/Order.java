@@ -29,7 +29,7 @@ public class Order {
             }
         }
         if (isNotIn) {
-            LineItem newLineItem = new LineItem(product.getId(), product);
+            LineItem newLineItem = new LineItem(product);
             lineItems.add(newLineItem);
         }
     }

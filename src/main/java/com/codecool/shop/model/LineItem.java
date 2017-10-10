@@ -3,21 +3,19 @@ package com.codecool.shop.model;
 
 public class LineItem {
 
+    private static int idCounter = 0;
     private int id;
     private Product product;
     private int quantity = 1;
 
-    public LineItem(int id, Product product) {
-        this.id = id;
+    public LineItem(Product product) {
+        this.id = idCounter;
         this.product = product;
+        idCounter++;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Product getProduct() {
