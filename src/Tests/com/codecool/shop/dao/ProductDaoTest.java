@@ -20,6 +20,11 @@ class ProductDaoTest {
         productDao = ProductDaoMem.getInstance();
     }
 
+    @Test
+    void constructor_whenSetup_ShouldNotBeNull() {
+        assertTrue(productDao != null);
+    }
+
 
 
 }
