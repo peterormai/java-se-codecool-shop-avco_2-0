@@ -75,7 +75,7 @@ class ProductDaoTest {
     }
 
     @Test
-    void find_whenSearchForNonexistentId_shouldReturnNull() {
+    void find_whenIdDoesNotExist_shouldReturnNull() {
         int nonExistentId = 1;
         Product product = productDao.find(nonExistentId);
         assertEquals(null, product);
@@ -98,7 +98,7 @@ class ProductDaoTest {
     }
 
     @Test
-    void remove_whenIdDoesNotExist_thenShouldNotThrowException() {
+    void remove_whenIdDoesNotExist_shouldNotThrowException() {
         int nonexistentId = 0;
         Exception exception = null;
         try {
@@ -110,7 +110,7 @@ class ProductDaoTest {
     }
 
     @Test
-    void getAll_whenNoProducts_thenShouldGiveBack0() {
+    void getAll_whenNoProducts_shouldGiveBackEmptyList() {
         List<Product> expectedList = new ArrayList<>();
         List<Product> productsList = productDao.getAll();
         assertEquals(expectedList, productsList);
@@ -135,6 +135,7 @@ class ProductDaoTest {
 
         List<Product> allProducts = productDao.getAll();
 
-        assertTrue(expectedAllProducts.equals(allProducts));
+//        assertTrue(expectedAllProducts.equals(allProducts));
+        assertEquals(expectedAllProducts, allProducts);
     }
 }
