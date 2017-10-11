@@ -40,6 +40,7 @@ public class Main {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
+
         //setting up a new supplier
         Supplier tSystem = new Supplier("t-System", "Digital content and services");
         supplierDataStore.add(tSystem);
@@ -120,6 +121,15 @@ public class Main {
         productDataStore.add(new Product("Printer + shipping to you home", 40000, "USD", "With this printer you will able to made your own busniess, but 40% of your proift will be ours ", franchise, identityTChan));
         productDataStore.add(new Product("Printer + shipping to border of your country ", 35000, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", franchise, identityTChan));
 
+        for (Supplier supplier: supplierDataStore.getAll()){
+            SupplierDaoJdbc.getInstance().add(supplier);
+        }
+        for (ProductCategory productCategory: productCategoryDataStore.getAll()){
+            ProductCategoryDAOJdbc.getInstance().add(productCategory);
+        }
+        for (Product product: productDataStore.getAll()){
+            ProductDaoJdbc.getInstance().add(product);
+        }
     }
 
 
