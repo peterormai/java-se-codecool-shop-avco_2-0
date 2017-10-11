@@ -74,8 +74,7 @@ public class Order {
         return totalPrice;
     }
 
-
-    public void changeItemQuantity (String id, String quantity) {
+    public void changeItemQuantity(String id, String quantity) {
         int num = Integer.parseInt(quantity);
         int validId = Integer.parseInt(id);
         if (num == 0) {
@@ -104,7 +103,7 @@ public class Order {
         JSONObject orders = new JSONObject();
         JSONObject order = new JSONObject();
         JSONArray lineItemsOfOrder = new JSONArray();
-        for (LineItem lineItem: lineItems) {
+        for (LineItem lineItem : lineItems) {
             JSONObject lineItemObj = new JSONObject();
             JSONObject productObj = new JSONObject();
             lineItemObj.put("id", lineItem.getId());
@@ -123,7 +122,7 @@ public class Order {
         orders.put("firstOrder", order);
         order.put("lineItems", lineItemsOfOrder);
 
-        try (FileWriter file = new FileWriter("src/main/resources/files/orders.txt")) {
+        try (FileWriter file = new FileWriter("src/main/resources/log/orders.txt")) {
             file.write(orders.toJSONString());
         }
     }
