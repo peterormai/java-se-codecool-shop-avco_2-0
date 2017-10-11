@@ -9,20 +9,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Config {
+public class CreateConnection {
     private String filePath;
-    private static Config ourInstance;
+    private static CreateConnection ourInstance;
 
     private static Connection connection;
 
-    public static Config getInstance(String filePath) {
+    public static CreateConnection getInstance(String filePath) {
         if (ourInstance == null) {
-            ourInstance = new Config(filePath);
+            ourInstance = new CreateConnection(filePath);
         }
         return ourInstance;
     }
 
-    private Config(String filePath) {
+    CreateConnection(String filePath) {
         this.filePath = filePath;
         try {
             connection = createConnectionConfig();
@@ -33,6 +33,7 @@ class Config {
     }
 
     public static Connection getConnection() {
+        System.out.println("OK");
         return connection;
     }
 
@@ -40,7 +41,6 @@ class Config {
         String DATABASE = readIndexOfLines(1);
         String DB_USER = readIndexOfLines(2);
         String DB_PASSWORD = readIndexOfLines(3);
-        System.out.println(DATABASE);
         return DriverManager.getConnection(
                 DATABASE,
                 DB_USER,
@@ -59,7 +59,7 @@ class Config {
             throw new IllegalArgumentException(io);
 
         }
-        return outputList.get(index-1);
+        return outputList.get(index - 1);
     }
 
 
