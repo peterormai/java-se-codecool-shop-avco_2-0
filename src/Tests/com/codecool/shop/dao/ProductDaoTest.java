@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductDaoTest {
 
-    private static ProductDao productDao;
+    private ProductDao productDao;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         productDao = ProductDaoMem.getInstance();
     }
 
@@ -71,7 +71,7 @@ class ProductDaoTest {
         assertEquals(expectedProduct, product);
     }
 
- 
+
 
 
 }
