@@ -7,10 +7,10 @@ DROP TABLE IF EXISTS orders;
 CREATE TABLE products (
     id serial NOT NULL primary key,
     name varchar(255) NOT NULL UNIQUE,
-    description varchar(255) NOT NULL,
+    description varchar(255) default 'No description',
     price numeric CHECK (price > 0),
     currency varchar(255) NOT NULL,
-    picture varchar(255) NOT NULL,
+    picture varchar(255) NOT NULL default 'not ye',
     product_category_id int NOT NULL,
     supplier_id int NOT NULL
 );
@@ -25,7 +25,7 @@ CREATE TABLE productCategories (
 
 CREATE TABLE orders (
     id serial NOT NULL primary key,
-    user_id int NOT NULL default 1,
+    user_id serial NOT Null,
     status varchar(255) NOT NULL CHECK (status IN ('New','Done','Checked','Payed') )default 'New',
     OrderDate char(16) default to_char(LOCALTIMESTAMP, 'YYYY-MM-DD HH24:MI')
 
@@ -53,3 +53,6 @@ ADD CONSTRAINT fk_supplier_id FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
 
 ALTER TABLE ONLY lineItem
 ADD CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE;
+
+INSERT INTO orders default values;
+

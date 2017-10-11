@@ -19,7 +19,9 @@ public class Main {
         port(8888);
 
         // populate some data for the memory storage
-        exception(Exception.class, (e,request,res) -> populateData());
+
+        //Create data in database
+        //populateData();
 
         // Always start with more specific routes
         get("/add-to-cart/:id", ProductPageController.getInstance()::addNewItemToCart);
