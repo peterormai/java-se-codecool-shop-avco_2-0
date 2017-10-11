@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductDaoTest {
 
-    private ProductDao productDao;
+    private ProductDao productDao = ProductDaoMem.getInstance();
 
     @BeforeEach
     void setUp() {
-        productDao = ProductDaoMem.getInstance();
+        productDao.getAll().clear();
     }
 
     @Test
@@ -35,7 +35,7 @@ class ProductDaoTest {
 
     @Test
     void add_whenAddProduct_shouldStoreOneMore() {
-        int expectedNumberOfProducts = productDao.getAll().size() + 1;
+        int expectedNumberOfProducts = 1;
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier exampleSupplier = new Supplier("Supplier", "Description");
         Product exampleProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, exampleSupplier);
@@ -73,9 +73,10 @@ class ProductDaoTest {
 
     @Test
     void find_whenSearchForNonexistentId_shouldReturnNull() {
-        int nonExistentId = 0;
+        int nonExistentId = 1;
         Product product = productDao.find(nonExistentId);
         assertEquals(null, product);
     }
 
+  
 }
