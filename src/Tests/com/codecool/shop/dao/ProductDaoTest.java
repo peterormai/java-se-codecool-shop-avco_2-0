@@ -15,6 +15,11 @@ class ProductDaoTest {
 
     ProductDao productDao;
 
+    @BeforeEach
+    void setUp() {
+        productDao = ProductDaoMem.getInstance();
+    }
+
 
 
 }
