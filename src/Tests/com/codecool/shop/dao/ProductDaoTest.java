@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -92,5 +95,17 @@ class ProductDaoTest {
 
         int numberOfProducts = productDao.getAll().size();
         assertEquals(expectedNumberOfProducts, numberOfProducts);
+    }
+
+    @Test
+    void remove_whenIdDoesNotExist_thenShouldNotThrowException() {
+        int nonexistentId = 0;
+        Exception exception = null;
+        try {
+            productDao.remove(nonexistentId);
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertEquals(null, exception);
     }
 }
