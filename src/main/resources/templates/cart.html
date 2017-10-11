@@ -1,79 +1,78 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<body th:fragment="cart">
-    <div ic-src="/review-cart">
-        <div class="container">
-            <h2 th:if="${not lineItems.isEmpty()}" class="text-center">Cart</h2>
-            <div id="empty-cart" class="text-center" th:if="${lineItems.isEmpty()}">
-                <h2 class="text-center" th:text="${emptyCart}">Text</h2>
-                <a ic-push-url="true" class="btn btn-warning" href="/">
+<body>
+<div th:replace="index :: head"></div>
+<div class="jumbotron text-center" th:fragment="cart">
+    <h1>AVco.py "SHOP"</h1>
+</div>
+<div class="container">
+    <h2 th:if="${not lineItems.isEmpty()}" class="text-center">Cart</h2>
+    <div id="empty-cart" class="text-center" th:if="${lineItems.isEmpty()}">
+        <h2 class="text-center" th:text="${emptyCart}">Text</h2>
+        <a class="btn btn-warning" href="/">
+            <i class="fa fa-angle-left"></i>
+            Continue Shopping
+        </a>
+    </div>
+    <table id="cart" class="table table-hover table-condensed" th:if="${not lineItems.isEmpty()}">
+        <thead>
+        <tr>
+            <th style="width:50%">Product</th>
+            <th style="width:10%">Price</th>
+            <th style="width:8%">Quantity</th>
+            <th style="width:22%" class="text-center">Subtotal</th>
+            <th style="width:10%"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item,iterStat : ${lineItems}" th:class="${iterStat.odd} ? 'line-item odd': 'line-item'" th:attr="id=${item.id}" >
+            <td data-th="Product">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h4 class="nomargin" th:text="${item.getProduct.getName}">Product 1</h4>
+                    </div>
+                </div>
+            </td>
+            <td data-th="Price" th:text="${#numbers.formatCurrency(item.getProduct.getDefaultPrice)}">$1.99</td>
+            <td data-th="Quantity">
+                <input min="0" th:attr="id=${item.getId()}" type="number"
+                       class="form-control text-center"
+                       name="quantity"
+                       th:value="${item.quantity}">
+            </td>
+            <td data-th="Subtotal" id="subtotal"  th:attr="class='text-center ' + ${item.id}"
+                th:text="${#numbers.formatCurrency(item.getLineItemsPrice)}">1.99
+            </td>
+            <td class="actions text-center">
+                <button class="btn btn-danger btn-sm button-sm removeButton" th:attr="data-id=${item.getId()}">
+                    <i class="fa fa-trash-o"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr class="visible-xs">
+            <td class="text-center">
+                <strong th:text="'Total ' + ${#numbers.formatCurrency(totalPrice)}">Total $1.99</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="btn btn-warning" href="/">
                     <i class="fa fa-angle-left"></i>
                     Continue Shopping
                 </a>
-            </div>
-            <table id="cart" class="table table-hover table-condensed" th:if="${not lineItems.isEmpty()}">
-                <thead>
-                    <tr>
-                        <th style="width:50%">Product</th>
-                        <th style="width:10%">Price</th>
-                        <th style="width:8%">Quantity</th>
-                        <th style="width:22%" class="text-center">Subtotal</th>
-                        <th style="width:10%"></th>
-                    </tr>
-                </thead>
-                <tbody ic-src="/review-cart">
-                    <tr th:each="item,iterStat : ${lineItems}" th:class="${iterStat.odd} ? 'line-item odd': 'line-item'" >
-                        <td data-th="Product">
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <h4 class="nomargin" th:text="${item.getProduct.getName}">Product 1</h4>
-                                </div>
-                            </div>
-                        </td>
-                        <td data-th="Price" th:text="${#numbers.formatCurrency(item.getProduct.getDefaultPrice)}">$1.99</td>
-                        <td data-th="Quantity">
-                            <input min="0" th:attr="ic-id=${item.getId()}" type="number"
-                                   ic-post-to="/review-cart"
-                                   class="form-control text-center"
-                                   name="quantity"
-                                   th:value="${item.quantity}">
-                        </td>
-                        <td data-th="Subtotal" id="subtotal" class="text-center"
-                            th:text="${#numbers.formatCurrency(item.getLineItemsPrice)}">1.99
-                        </td>
-                        <td class="actions text-center">
-
-                            <button class="btn btn-danger btn-sm button-sm" th:attr="ic-get-from='/review-cart?id=' + ${item.getId()}"
-                                    ic-target=".container"
-                                    ic-replace-target="true">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr class="visible-xs">
-                        <td class="text-center">
-                            <strong th:text="'Total ' + ${#numbers.formatCurrency(totalPrice)}">Total $1.99</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td ic-push-url="true">
-                            <a class="btn btn-warning" href="/">
-                                <i class="fa fa-angle-left"></i>
-                                Continue Shopping
-                            </a>
-                        </td>
-                        <td colspan="2" class="hidden-xs"></td>
-                        <td class="hidden-xs text-center">
-                            <strong th:text="'Total ' + ${#numbers.formatCurrency(totalPrice)}">Total $1.99</strong>
-                        </td>
-                        <td><a href="/checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
+            </td>
+            <td colspan="2" class="hidden-xs"></td>
+            <td class="hidden-xs text-center">
+                <strong id="total" th:text="'Total ' + ${#numbers.formatCurrency(totalPrice)}">Total $1.99</strong>
+            </td>
+            <td><a href="/checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<div th:replace="footer :: copy"></div>
 </body>
 </html>

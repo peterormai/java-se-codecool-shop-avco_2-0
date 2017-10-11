@@ -5,6 +5,7 @@ import com.codecool.shop.controller.*;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
+import org.json.simple.JSONObject;
 
 public class Main {
 
@@ -22,7 +23,7 @@ public class Main {
         get("/add-to-cart/:id", ProductPageController.getInstance()::addNewItemToCart);
         get("/filter", ProductPageController.getInstance()::render);
         get("/review-cart", CartPageController.getInstance()::render);
-        post("/review-cart", CartPageController.getInstance()::render);
+        put("/review-cart", CartPageController.getInstance()::renderChangeItemQuantity);
         get("/checkout", CheckoutPageController.getInstance()::render);
         get("/payment", PaymentPageController.getInstance()::render);
         post("/payment", PaymentPageController.getInstance()::render);

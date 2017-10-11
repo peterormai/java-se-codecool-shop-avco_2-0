@@ -1,6 +1,8 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
+import org.json.simple.JSONObject;
 import spark.Request;
 import spark.Response;
 
@@ -26,10 +28,6 @@ public class CartPageController extends Controller {
         Order orderDataStore = Order.getInstance();
         Map<String, Object> params = new HashMap<>();
 
-        if (req.queryParams("quantity") != null) {
-            orderDataStore.changeItemQuantity(req.queryParams("ic-id"), req.queryParams("quantity"));
-        }
-
         if (req.queryParams("id") != null) {
             int id = Integer.parseInt(req.queryParams("id"));
             orderDataStore.removeLineItem(id);
@@ -42,5 +40,23 @@ public class CartPageController extends Controller {
         params.put("lineItems", orderDataStore.getAll());
         params.put("totalPrice", orderDataStore.getTotalPrice());
         return renderTemplate(params, "cart");
+    }
+
+    public JSONObject renderChangeItemQuantity(Request req, Response res) {
+        Order orderDataStore = Order.getInstance();
+        String id = req.queryParams("id");
+        orderDataStore.changeItemQuantity(id, req.queryParams("quantity"));
+        LineItem lineItem = orderDataStore.getLineItem(Integer.parseInt(id));
+        JSONObject obj = new JSONObject();
+        float total = orderDataStore.getTotalPrice();
+        obj.put("total", total);
+        if (lineItem != null) {
+            float value = lineItem.getLineItemsPrice();
+            obj.put("value", value);
+        } else {
+            obj.put("value", 0);
+        }
+
+        return obj;
     }
 }

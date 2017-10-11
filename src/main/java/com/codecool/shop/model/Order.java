@@ -74,6 +74,7 @@ public class Order {
         return totalPrice;
     }
 
+
     public void changeItemQuantity (String id, String quantity) {
         int num = Integer.parseInt(quantity);
         int validId = Integer.parseInt(id);
@@ -125,5 +126,15 @@ public class Order {
         try (FileWriter file = new FileWriter("src/main/resources/files/orders.txt")) {
             file.write(orders.toJSONString());
         }
+    }
+
+    public LineItem getLineItem(int id) {
+        for (LineItem item : lineItems) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+
+        return null;
     }
 }

@@ -101,7 +101,6 @@ h4 {
     color: #333;
     padding: 10px;
     border-radius: 2px;
-    /*background-color: #f5f5f5;*/
 }
 
 .well, .well-sm {
@@ -285,8 +284,6 @@ input[type=text], input[type=email] {
 
 /* Payment form
  ***************/
-
-/*body { margin-top:20px; }*/
 
 .credit-card-box {
     margin-top: 20px;
