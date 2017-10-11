@@ -3,11 +3,19 @@ package com.codecool.shop.model;
 import java.util.Currency;
 
 public class Product extends BaseModel {
+    private static int counter = 1;
 
     private float defaultPrice;
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
+
+    private String pictureRoute;
+
+
+    public String getPictureRoute() {
+        return pictureRoute;
+    }
 
 
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
@@ -15,6 +23,8 @@ public class Product extends BaseModel {
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+        this.pictureRoute = "/img/product_" +counter  + ".jpg";
+        counter++;
     }
 
     public float getDefaultPrice() { return defaultPrice; }

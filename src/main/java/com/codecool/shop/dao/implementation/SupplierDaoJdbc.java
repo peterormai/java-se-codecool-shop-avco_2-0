@@ -27,11 +27,11 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     public void add(Supplier supplier) {
         String query = "INSERT INTO suppliers (name, description) VALUES (?,?)";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, supplier.getName());
             statement.setString(2, supplier.getDescription());
-            statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     public Supplier find(int id) {
         String query = "SELECT * FROM suppliers WHERE id = ?";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -58,9 +58,27 @@ public class SupplierDaoJdbc implements SupplierDao {
         return null;
     }
 
+    public int findIdByName(String name) {
+        String query = "SELECT id FROM suppliers WHERE name = ?";
+        try (Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            Supplier supplier = null;
+            if (resultSet.next()){
+                int id = resultSet.getInt("id");
+                return id;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public void remove(int id) {
         String query = "DELETE * FROM suppliers WHERE id = ?";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             statement.executeQuery();
@@ -72,7 +90,7 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     public List<Supplier> getAll() {
         String query = "SELECT * FROM suppliers";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             List<Supplier> suppliers = new ArrayList<>();
@@ -92,14 +110,13 @@ public class SupplierDaoJdbc implements SupplierDao {
     }
 
 
-
     private Connection getConnection() throws SQLException {
-        return ConnectionManager.getInstance("src/main/resources/sql/config.txt").getConnection();
+        return new ConnectionManager("src/main/resources/sql/config.txt").getConnection();
 
     }
 
     private void executeQueryWithNoReturnValue(String query) {
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.executeQuery();
         } catch (SQLException e) {

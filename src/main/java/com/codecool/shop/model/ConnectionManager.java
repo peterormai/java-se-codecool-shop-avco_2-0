@@ -11,18 +11,9 @@ import java.util.List;
 
 public class ConnectionManager {
     private String filePath;
-    private static ConnectionManager ourInstance;
-
     private static Connection connection;
 
-    public static ConnectionManager getInstance(String filePath) {
-        if (ourInstance == null) {
-            ourInstance = new ConnectionManager(filePath);
-        }
-        return ourInstance;
-    }
-
-    ConnectionManager(String filePath) {
+    public ConnectionManager(String filePath) {
         this.filePath = filePath;
         try {
             connection = createConnectionConfig();

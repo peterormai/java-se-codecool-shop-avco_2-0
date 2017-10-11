@@ -29,16 +29,16 @@ public class ProductDaoJdbc implements ProductDao {
     public void add(Product product) {
         String query = "INSERT INTO products (name, description, price, " +
                 "currency, picture, product_category_id, supplier_id) VALUES (?,?,?,?,?,?,?)";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setFloat(3, product.getDefaultPrice());
             statement.setString(4, product.getDefaultCurrency().toString());
-            statement.setString(5, "picture");
-            statement.setString(6, product.getProductCategory().getName());
-            statement.setString(7, product.getSupplier().getName());
-            statement.executeQuery();
+            statement.setString(5, product.getPictureRoute());
+            statement.setInt(6, ProductCategoryDAOJdbc.getInstance().findIdByName(product.getProductCategory().getName()));
+            statement.setInt(7, SupplierDaoJdbc.getInstance().findIdByName(product.getSupplier().getName()));
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,7 +46,7 @@ public class ProductDaoJdbc implements ProductDao {
 
     public Product find(int id) {
         String query = "SELECT * FROM products WHERE id = ?";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -73,18 +73,18 @@ public class ProductDaoJdbc implements ProductDao {
 
     public void remove(int id) {
         String query = "DELETE * FROM products WHERE id = ?";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             statement.executeQuery();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public List<Product> getAll() {
         String query = "SELECT * FROM products";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             List<Product> products = new ArrayList<>();
@@ -112,7 +112,7 @@ public class ProductDaoJdbc implements ProductDao {
         int id = productCategory.getId();
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE product_category_id = ?";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -139,7 +139,7 @@ public class ProductDaoJdbc implements ProductDao {
         int id = supplier.getId();
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE supplier_id = ?";
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -163,12 +163,12 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     private Connection getConnection() throws SQLException {
-        return ConnectionManager.getInstance("src/main/resources/sql/config.txt").getConnection();
+        return new ConnectionManager("src/main/resources/sql/config.txt").getConnection();
 
     }
 
     private void executeQueryWithNoReturnValue(String query) {
-        try (Connection connection = getConnection()){
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.executeQuery();
         } catch (SQLException e) {
