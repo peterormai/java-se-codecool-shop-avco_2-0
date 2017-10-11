@@ -4,6 +4,7 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,15 +14,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductDaoTest {
 
-    ProductDao productDao;
+    private static ProductDao productDao;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUp() {
         productDao = ProductDaoMem.getInstance();
     }
 
     @Test
-    void constructor_whenSetup_shouldNotBeNull() {
+    void constructor_whenGetInstance_shouldNotBeNull() {
         assertTrue(productDao != null);
     }
 
@@ -48,12 +49,12 @@ class ProductDaoTest {
     @Test
     void add_whenAddOne_shouldStoreThatOne() {
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier exampleSupplier = new Supplier("Supplier", "Description");
+        Supplier exampleSupplier = new Supplier("TestSupplier", "Description");
         Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, exampleSupplier);
 
         productDao.add(expectedProduct);
 
-        Product product = productDao.find(1);
+        Product product = productDao.getBy(exampleSupplier).get(0);
         assertEquals(expectedProduct, product);
     }
 
