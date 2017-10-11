@@ -32,6 +32,19 @@ class ProductDaoTest {
         });
     }
 
+    @Test
+    void add_whenAddOne_ShouldStoreOneMore() {
+        int expectedNumberOfProducts = productDao.getAll().size() + 1;
+        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
+        Supplier exampleSupplier = new Supplier("Supplier", "Description");
+        Product exampleProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, exampleSupplier);
+
+        productDao.add(exampleProduct);
+
+        int numberOfProducts = productDao.getAll().size();
+        assertEquals(expectedNumberOfProducts, numberOfProducts);
+    }
+
    
 
 }
