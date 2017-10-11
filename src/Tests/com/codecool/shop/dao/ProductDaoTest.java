@@ -108,4 +108,12 @@ class ProductDaoTest {
         }
         assertEquals(null, exception);
     }
+
+    @Test
+    void getAll_whenNoProducts_thenShouldGiveBack0() {
+        List<Product> expectedList = new ArrayList<>();
+        List<Product> productsList = productDao.getAll();
+        assertEquals(expectedList, productsList);
+    }
+
 }
