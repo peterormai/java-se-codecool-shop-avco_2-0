@@ -48,8 +48,6 @@ public class SupplierDaoJdbc implements SupplierDao {
                 supplier = new Supplier(resultSet.getString("name"),
                         resultSet.getString("description"));
                 supplier.setId(resultSet.getInt("id"));
-                List<Product> products = ProductDaoJdbc.getInstance().getBy(supplier);
-                supplier.setProducts(new ArrayList<>(products));
             }
             return supplier;
         } catch (SQLException e) {
@@ -98,8 +96,6 @@ public class SupplierDaoJdbc implements SupplierDao {
                 Supplier supplier = new Supplier(resultSet.getString("name"),
                         resultSet.getString("description"));
                 supplier.setId(resultSet.getInt("id"));
-                List<Product> products = ProductDaoJdbc.getInstance().getBy(supplier);
-                supplier.setProducts(new ArrayList<>(products));
                 suppliers.add(supplier);
             }
             return suppliers;

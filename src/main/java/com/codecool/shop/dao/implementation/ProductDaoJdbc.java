@@ -58,9 +58,9 @@ public class ProductDaoJdbc implements ProductDao {
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
 
                 Product result = new Product(resultSet.getString("name"),
-                        resultSet.getFloat("defaultCurrency"),
+                        resultSet.getInt("price"),
                         resultSet.getString("description"),
-                        resultSet.getString("defaultCurrency"),
+                        resultSet.getString("currency"),
                         cat, supp);
                 return result;
             }
@@ -88,16 +88,17 @@ public class ProductDaoJdbc implements ProductDao {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             List<Product> products = new ArrayList<>();
-
             while (resultSet.next()) {
                 ProductCategory cat = ProductCategoryDAOJdbc.getInstance().find(resultSet.getInt("product_category_id"));
                 int suppId = resultSet.getInt("supplier_id");
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
                 Product result = new Product(resultSet.getString("name"),
-                        resultSet.getFloat("defaultCurrency"),
+                        resultSet.getInt("price"),
+                        resultSet.getString("currency"),
                         resultSet.getString("description"),
-                        resultSet.getString("defaultCurrency"),
                         cat, supp);
+                result.setPictureRoute(resultSet.getString("picture"));
+
                 products.add(result);
             }
             return products;
@@ -121,11 +122,13 @@ public class ProductDaoJdbc implements ProductDao {
                 int suppId = resultSet.getInt("supplier_id");
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
                 Product result = new Product(resultSet.getString("name"),
-                        resultSet.getFloat("defaultCurrency"),
+                        resultSet.getInt("price"),
+                        resultSet.getString("currency"),
                         resultSet.getString("description"),
-                        resultSet.getString("defaultCurrency"),
                         cat, supp);
+                result.setPictureRoute(resultSet.getString("picture"));
                 products.add(result);
+
                 System.out.println("Got all prods");
             }
             return products;
@@ -148,12 +151,13 @@ public class ProductDaoJdbc implements ProductDao {
                 int suppId = resultSet.getInt("supplier_id");
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
                 Product result = new Product(resultSet.getString("name"),
-                        resultSet.getFloat("defaultCurrency"),
+                        resultSet.getInt("price"),
                         resultSet.getString("description"),
-                        resultSet.getString("defaultCurrency"),
+                        resultSet.getString("currency"),
                         cat, supp);
                 products.add(result);
-                System.out.println("Got all products");
+                result.setPictureRoute(resultSet.getString("picture"));
+
             }
             return products;
         } catch (SQLException e) {
