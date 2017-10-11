@@ -58,11 +58,4 @@ class ProductDaoTest {
         assertEquals(expectedProduct, product);
     }
 
-//    @Test
-//    void getBy_whenGetByNull_ShouldThrowException() {
-//        assertThrows(IllegalArgumentException.class, () -> {
-//            productDao.getBy((Supplier) null);
-//        });
-//    }
-
 }
