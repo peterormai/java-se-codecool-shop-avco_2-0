@@ -18,7 +18,6 @@ $(document).ready(function () {
         })
     }
 
-
     function changeItemQuantity() {
         var id = $(this).attr("id");
         var quantity = $(this).val();
@@ -34,16 +33,16 @@ $(document).ready(function () {
                 if (quantity === "0") {
                     $("tr#" + id).remove();
                     if ($('.item-quantity').val() === undefined) {
-                        $.get('/review-cart', function(resp) {
+                        $.get('/review-cart', function (resp) {
                             var tempDiv = $('<div>').append($.parseHTML(resp));
                             var content = $('.container', tempDiv);
                             $('.container').replaceWith(content);
                         })
                     }
                 } else {
-                    $("." + id).text("$" + response["value"].toLocaleString(undefined, {maximumFractionDigits:2}) + ".00");
+                    $("." + id).text("$" + response["value"].toLocaleString(undefined, {maximumFractionDigits: 2}) + ".00");
                 }
-                $("#total").text("Total $" + response["total"].toLocaleString(undefined, {maximumFractionDigits:2}) + ".00");
+                $("#total").text("Total $" + response["total"].toLocaleString(undefined, {maximumFractionDigits: 2}) + ".00");
             }
         });
     }
@@ -57,12 +56,32 @@ $(document).ready(function () {
         })
     }
 
-
     function addListeners() {
         $('.filter').on('click', filter);
         $('.addToCart-button').on('click', addToCart);
         $(".item-quantity").on("change", changeItemQuantity);
         $('.removeButton').click(removeItem);
+        if (window.location.pathname === '/payment') {
+            var selectedCardIcon = null;
+            new Cleave('#cardNumber', {
+                creditCard: true,
+                onCreditCardTypeChanged: function (type) {
+                    if (selectedCardIcon) {
+                        selectedCardIcon.removeClass('active');
+                    }
+
+                    selectedCardIcon = $('#icon-' + type);
+
+                    if (selectedCardIcon) {
+                        selectedCardIcon.addClass('active');
+                    }
+                }
+            });
+            new Cleave('#cardExpiry', {
+                date: true,
+                datePattern: ['m', 'y']
+            });
+        }
     }
 
     addListeners()

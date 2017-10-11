@@ -25,7 +25,13 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="credit-card">
                             <div class="panel-body credit-card">
-                                <img class="img-responsive" src="https://developer.paysafe.com/fileadmin/content/logos/accepted_cards_by_paysafejs.png">
+                                <div class="card-logos">
+                                    <i id="icon-visa" class="fa fa-cc-visa icon"></i>
+                                    <i id="icon-mastercard" class="fa fa-cc-mastercard icon"></i>
+                                    <i id="icon-amex" class="fa fa-cc-amex icon"></i>
+                                    <i id="icon-discover" class="fa fa-cc-discover icon"></i>
+                                </div>
+
                                 <form role="form" id="payment-form" method="POST" action="/confirmation">
                                     <div class="row">
                                         <div class="col-xs-12">
@@ -40,8 +46,8 @@
                                             <div class="form-group">
                                                 <label for="cardNumber">CARD NUMBER</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" id="cardNumber" placeholder="Valid Card Number" required>
-                                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                    <input class="form-control" id="cardNumber" placeholder="Valid Card Number" maxlength="19" required>
+                                                    <span class="input-group-addon"><i class="fa fa-credit-card credit-card-logo"></i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -56,7 +62,7 @@
                                         <div class="col-xs-5 col-md-5 pull-right">
                                             <div class="form-group">
                                                 <label for="cardCVC">CV CODE</label>
-                                                <input class="form-control" id="cardCVC" placeholder="CVC" required>
+                                                <input class="form-control" id="cardCVC" type="text" pattern="[0-9]+" maxlength="3" placeholder="CVC" required>
                                             </div>
                                         </div>
                                     </div>
@@ -92,8 +98,8 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="form-group">
-                                                <label for="userName">USER NAME</label>
-                                                <input class="form-control" id="userName" placeholder="Your name" required>
+                                                <label for="email">EMAIL</label>
+                                                <input class="form-control" id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Your email" required>
                                             </div>
                                         </div>
                                     </div>
