@@ -3,14 +3,24 @@ package com.codecool.shop.model;
 import java.util.Currency;
 
 public class Product extends BaseModel {
-
-    private float defaultPrice;
+    private int defaultPrice;
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
 
+    private String pictureRoute;
 
-    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+
+    public String getPictureRoute() {
+        return pictureRoute;
+    }
+
+    public void setPictureRoute(String pictureRoute) {
+        this.pictureRoute = pictureRoute;
+    }
+
+
+    public Product(String name, int defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
@@ -21,7 +31,7 @@ public class Product extends BaseModel {
         return defaultPrice;
     }
 
-    public void setDefaultPrice(float defaultPrice) {
+    public void setDefaultPrice(int defaultPrice) {
         this.defaultPrice = defaultPrice;
     }
 
@@ -37,7 +47,7 @@ public class Product extends BaseModel {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
     }
 
-    public void setPrice(float price, String currency) {
+    public void setPrice(int price, String currency) {
         this.defaultPrice = price;
         this.defaultCurrency = Currency.getInstance(currency);
     }
