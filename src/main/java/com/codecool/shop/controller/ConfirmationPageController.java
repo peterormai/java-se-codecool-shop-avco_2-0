@@ -1,12 +1,18 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.model.Checkout;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
+import com.codecool.shop.model.OrderStatus;
 import spark.Request;
 import spark.Response;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ConfirmationPageController extends Controller {
 
@@ -24,11 +30,108 @@ public class ConfirmationPageController extends Controller {
 
     @Override
     public String render(Request req, Response res) throws IOException {
-        Map<String, Object> params = new HashMap<>();
-        System.out.println(params);
 
         Order orderDataStore = Order.getInstance();
+        List<LineItem> order = orderDataStore.getAll();
+
+        if (orderDataStore.getStatus() == OrderStatus.CHECKEDOUT) {
+            orderDataStore.setStatus(OrderStatus.PAID);
+        } else {
+            res.redirect("/");
+            return "";
+        }
+
+        Map<String, Object> params = new HashMap<>();
+        Map<String, String> checkoutData = Checkout.getCheckoutMap();
+
+        params.put("firstName", checkoutData.get("firstName"));
+        params.put("lastName", checkoutData.get("lastName"));
+        params.put("email", checkoutData.get("email"));
+        params.put("phoneNumber", checkoutData.get("phoneNumber"));
+        params.put("billingCountry", checkoutData.get("billingCountry"));
+        params.put("billingCity", checkoutData.get("billingCity"));
+        params.put("billingZipCode", checkoutData.get("billingZipCode"));
+        params.put("billingAddress", checkoutData.get("billingAddress"));
+        params.put("shippingCountry", checkoutData.get("shippingCountry"));
+        params.put("shippingCity", checkoutData.get("shippingCity"));
+        params.put("shippingZipCode", checkoutData.get("shippingZipCode"));
+        params.put("shippingAddress", checkoutData.get("shippingAddress"));
+
+        // Save log file
         orderDataStore.JSONFileWrite();
+        params.put("cart", orderDataStore.getAll());
+        params.put("totalPrice", orderDataStore.getTotalPrice());
+
+        // Send email to user
+        final String username = "aviation.codecoolers@gmail.com";
+        final String password = "strongPass";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(checkoutData.get("email")));
+            message.setSubject("Order receipt");
+            StringBuilder orderText = new StringBuilder();
+            for (LineItem item : order) {
+                orderText.append(" - Product Name: ");
+                orderText.append(item.getProduct().getName());
+                orderText.append(" * Price: ");
+                orderText.append(item.getProduct().getPrice());
+                orderText.append(" * Quantity: ");
+                orderText.append(item.getQuantity());
+                orderText.append(" * Subtotal: ");
+                orderText.append(item.getProduct().getDefaultPrice() * item.getQuantity());
+                orderText.append(" ");
+                orderText.append(item.getProduct().getDefaultCurrency());
+                orderText.append("\n");
+            }
+            String messageText = "Dear " + checkoutData.get("firstName") +
+                    ",\n\nthank you for your order.\n\n" +
+                    "Order:\n" +
+                    orderText +
+                    "\nTotal: " +
+                    orderDataStore.getTotalPrice() + " " +
+                    orderDataStore.getAll().stream().findFirst().get().getProduct().getDefaultCurrency() +
+                    "\n\nBilling Address:\n" +
+                    checkoutData.get("firstName") + " " + checkoutData.get("lastName") + "\n" +
+                    checkoutData.get("billingCountry") + "\n" +
+                    checkoutData.get("billingCity") + "\n" +
+                    checkoutData.get("billingZipCode") + "\n" +
+                    checkoutData.get("billingAddress") + "\n" +
+                    "\nShipping Address:\n" +
+                    checkoutData.get("shippingCountry") + "\n" +
+                    checkoutData.get("shippingCity") + "\n" +
+                    checkoutData.get("shippingZipCode") + "\n" +
+                    checkoutData.get("shippingAddress");
+            System.out.println(messageText);
+            message.setText(messageText);
+
+            Transport.send(message);
+
+            System.out.println("Done");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        orderDataStore.removeAll();
+        orderDataStore.setStatus(OrderStatus.NEW);
 
         return renderTemplate(params, "confirmation");
     }
