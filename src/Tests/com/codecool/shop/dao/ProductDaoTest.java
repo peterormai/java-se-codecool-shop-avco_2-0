@@ -25,6 +25,13 @@ class ProductDaoTest {
         assertTrue(productDao != null);
     }
 
+    @Test
+    void add_whenAddNull_ShouldThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            productDao.add(null);
+        });
+    }
 
+   
 
 }
