@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.model.ConnectionManager;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
@@ -10,9 +11,6 @@ import java.util.List;
 
 public class ProductCategoryDAOJdbc implements ProductCategoryDao{
 
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/shop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "postgres";
     private static ProductCategoryDAOJdbc instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
@@ -35,6 +33,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao{
             statement.setString(1, category.getName());
             statement.setString(2, category.getDepartment());
             statement.setString(3, category.getDescription());
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,10 +96,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao{
 
 
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                DATABASE,
-                DB_USER,
-                DB_PASSWORD);
+        return ConnectionManager.getInstance("src/main/resources/sql/config.txt").getConnection();
     }
 
     private void executeQueryWithNoReturnValue(String query) {
