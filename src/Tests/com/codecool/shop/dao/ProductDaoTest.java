@@ -71,7 +71,11 @@ class ProductDaoTest {
         assertEquals(expectedProduct, product);
     }
 
-
-
+    @Test
+    void find_whenSearchForNonexistentId_shouldReturnNull() {
+        int nonExistentId = 0;
+        Product product = productDao.find(nonExistentId);
+        assertEquals(null, product);
+    }
 
 }
