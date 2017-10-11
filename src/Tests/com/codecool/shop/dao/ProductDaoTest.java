@@ -116,4 +116,25 @@ class ProductDaoTest {
         assertEquals(expectedList, productsList);
     }
 
+    @Test
+    void getAll_shouldGiveBackAllProductsInList() {
+        ProductCategory productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
+        Supplier supplier1 = new Supplier("TestSupplier", "Description");
+        Product product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1);
+
+        ProductCategory productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
+        Supplier supplier2 = new Supplier("TestSupplier", "Description");
+        Product product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2);
+
+        List<Product> expectedAllProducts = new ArrayList<>();
+        expectedAllProducts.add(product1);
+        expectedAllProducts.add(product2);
+
+        productDao.add(product1);
+        productDao.add(product2);
+
+        List<Product> allProducts = productDao.getAll();
+
+        assertTrue(expectedAllProducts.equals(allProducts));
+    }
 }
