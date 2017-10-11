@@ -36,7 +36,7 @@
             <td data-th="Price" th:text="${#numbers.formatCurrency(item.getProduct.getDefaultPrice)}">$1.99</td>
             <td data-th="Quantity">
                 <input min="0" th:attr="id=${item.getId()}" type="number"
-                       class="form-control text-center"
+                       class="form-control text-center item-quantity"
                        name="quantity"
                        th:value="${item.quantity}">
             </td>

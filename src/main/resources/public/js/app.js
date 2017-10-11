@@ -33,7 +33,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (quantity === "0") {
                     $("tr#" + id).remove();
-                    if ($('input').val() === undefined) {
+                    if ($('.item-quantity').val() === undefined) {
                         $.get('/review-cart', function(resp) {
                             var tempDiv = $('<div>').append($.parseHTML(resp));
                             var content = $('.container', tempDiv);
@@ -61,7 +61,7 @@ $(document).ready(function () {
     function addListeners() {
         $('.filter').on('click', filter);
         $('.addToCart-button').on('click', addToCart);
-        $("input").on("change", changeItemQuantity);
+        $(".item-quantity").on("change", changeItemQuantity);
         $('.removeButton').click(removeItem);
     }
 
