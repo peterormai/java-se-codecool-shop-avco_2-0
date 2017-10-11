@@ -34,7 +34,7 @@ class ProductDaoTest {
     }
 
     @Test
-    void add_whenAddOne_shouldStoreOneMore() {
+    void add_whenAddProduct_shouldStoreOneMore() {
         int expectedNumberOfProducts = productDao.getAll().size() + 1;
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier exampleSupplier = new Supplier("Supplier", "Description");
@@ -47,7 +47,7 @@ class ProductDaoTest {
     }
 
     @Test
-    void add_whenAddOne_shouldStoreThatOne() {
+    void add_whenAddNewProduct_shouldStoreThatProduct() {
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier testSupplier = new Supplier("TestSupplier", "Description");
         Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);
@@ -59,7 +59,7 @@ class ProductDaoTest {
     }
 
     @Test
-    void find_whenSearchOne_shouldFindThatOne() {
+    void find_whenSearchForExistingId_shouldFindRelatedProduct() {
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier testSupplier = new Supplier("TestSupplier", "Description");
         Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);
@@ -70,6 +70,8 @@ class ProductDaoTest {
         Product product = productDao.find(testId);
         assertEquals(expectedProduct, product);
     }
+
+ 
 
 
 }
