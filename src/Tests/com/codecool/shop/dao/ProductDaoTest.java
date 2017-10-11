@@ -21,19 +21,19 @@ class ProductDaoTest {
     }
 
     @Test
-    void constructor_whenSetup_ShouldNotBeNull() {
+    void constructor_whenSetup_shouldNotBeNull() {
         assertTrue(productDao != null);
     }
 
     @Test
-    void add_whenAddNull_ShouldThrowException() {
+    void add_whenAddNull_shouldThrowException() {
         assertThrows(IllegalArgumentException.class, () -> {
             productDao.add(null);
         });
     }
 
     @Test
-    void add_whenAddOne_ShouldStoreOneMore() {
+    void add_whenAddOne_shouldStoreOneMore() {
         int expectedNumberOfProducts = productDao.getAll().size() + 1;
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier exampleSupplier = new Supplier("Supplier", "Description");
@@ -45,6 +45,17 @@ class ProductDaoTest {
         assertEquals(expectedNumberOfProducts, numberOfProducts);
     }
 
-   
+    @Test
+    void add_whenAddOne_shouldStoreThatOne() {
+        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
+        Supplier exampleSupplier = new Supplier("Supplier", "Description");
+        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, exampleSupplier);
 
+        productDao.add(expectedProduct);
+
+        Product product = productDao.find(1);
+        assertEquals(expectedProduct, product);
+    }
+
+   
 }
