@@ -37,7 +37,7 @@
                     <div id="products" class="row list-group equal">
                         <div class="item col-xs-12 col-sm-4" th:each="prod,iterStat : ${products}">
                             <div class="thumbnail">
-                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src= ${prod.picture}" alt="" />
+                                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src=${prod.pictureRoute}" alt="" />
                                 <div class="caption">
                                     <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
                                     <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>

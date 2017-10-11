@@ -61,7 +61,8 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getInt("price"),
                         resultSet.getString("description"),
                         resultSet.getString("currency"),
-                        cat, supp);
+                        cat, supp,
+                        resultSet.getString("picture"));
                 return result;
             }
 
@@ -96,8 +97,8 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getInt("price"),
                         resultSet.getString("currency"),
                         resultSet.getString("description"),
-                        cat, supp);
-                result.setPictureRoute(resultSet.getString("picture"));
+                        cat, supp,
+                        resultSet.getString("picture"));
 
                 products.add(result);
             }
@@ -125,8 +126,8 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getInt("price"),
                         resultSet.getString("currency"),
                         resultSet.getString("description"),
-                        cat, supp);
-                result.setPictureRoute(resultSet.getString("picture"));
+                        cat, supp,
+                        resultSet.getString("picture"));
                 products.add(result);
 
                 System.out.println("Got all prods");
@@ -154,9 +155,9 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getInt("price"),
                         resultSet.getString("description"),
                         resultSet.getString("currency"),
-                        cat, supp);
+                        cat, supp,
+                        resultSet.getString("picture"));
                 products.add(result);
-                result.setPictureRoute(resultSet.getString("picture"));
 
             }
             return products;
