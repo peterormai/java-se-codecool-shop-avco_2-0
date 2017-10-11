@@ -9,20 +9,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateConnection {
+public class ConnectionManager {
     private String filePath;
-    private static CreateConnection ourInstance;
+    private static ConnectionManager ourInstance;
 
     private static Connection connection;
 
-    public static CreateConnection getInstance(String filePath) {
+    public static ConnectionManager getInstance(String filePath) {
         if (ourInstance == null) {
-            ourInstance = new CreateConnection(filePath);
+            ourInstance = new ConnectionManager(filePath);
         }
         return ourInstance;
     }
 
-    CreateConnection(String filePath) {
+    ConnectionManager(String filePath) {
         this.filePath = filePath;
         try {
             connection = createConnectionConfig();
@@ -32,8 +32,7 @@ public class CreateConnection {
         }
     }
 
-    public static Connection getConnection() {
-        System.out.println("OK");
+    public Connection getConnection() {
         return connection;
     }
 
