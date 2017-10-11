@@ -78,5 +78,19 @@ class ProductDaoTest {
         assertEquals(null, product);
     }
 
-  
+    @Test
+    void remove_whenRemoveProduct_shouldStoreOneLess() {
+        int expectedNumberOfProducts = 0;
+
+        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
+        Supplier testSupplier = new Supplier("TestSupplier", "Description");
+        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);
+
+        productDao.add(expectedProduct);
+        int testId = productDao.getBy(testSupplier).get(0).getId();
+        productDao.remove(testId);
+
+        int numberOfProducts = productDao.getAll().size();
+        assertEquals(expectedNumberOfProducts, numberOfProducts);
+    }
 }
