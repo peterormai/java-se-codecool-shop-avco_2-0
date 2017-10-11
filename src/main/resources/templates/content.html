@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
-
     <div id="content" th:fragment="shop">
         <div class="jumbotron text-center" th:fragment="cart">
             <h1>AVco.py "SHOP"</h1>
@@ -30,13 +29,12 @@
                         [[${supp.name}]]
                         <a href="/" class="close-filter"><i class="fa fa-times" aria-hidden="true" th:if="${selected.equals(supp.name)}"></i></a>
                     </div>
-
                 </div>
                 <div class="col-sm-10">
                     <div class="well well-sm text-center-sm">
                         <strong th:text="${type == 'category'}? ${category.name} : ${supplier.name}">Category Title</strong>
                     </div>
-                    <div id="products" class="row list-group">
+                    <div id="products" class="row list-group equal">
                         <div class="item col-xs-12 col-sm-4" th:each="prod,iterStat : ${products}">
                             <div class="thumbnail">
                                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
@@ -62,5 +60,6 @@
         </div>
     </div>
 
+</div>
 </body>
 </html>

@@ -68,17 +68,20 @@ public class Order {
         return totalPrice;
     }
 
-    public void changeItemValue(String id, String quantity) {
+    public float changeItemValue(String id, String quantity) {
         int num = Integer.parseInt(quantity);
         int validId = Integer.parseInt(id);
+        float value = 0;
         if (num == 0) {
             remove(validId);
         } else {
             for (LineItem item : lineItems) {
                 if (item.getId() == validId) {
                     item.setQuantity(num);
+                    value = item.getPrice();
                 }
             }
         }
+        return value*num;
     }
 }
