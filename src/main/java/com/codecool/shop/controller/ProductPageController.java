@@ -64,9 +64,6 @@ public class ProductPageController extends Controller {
             }
             params.put("selected", req.queryParams("name"));
         }
-//        if ("true".equals(req.queryParams("ic-request"))) {
-//            return renderTemplate(params, "content");
-//        }
         return renderTemplate(params, "index");
     }
 
