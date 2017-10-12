@@ -1,10 +1,13 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.dao.implementation.ProductCategoryDAOJdbc;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +15,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductCategoryDaoTest {
 
-    private ProductCategoryDao productCategoryDao = ProductCategoryDaoMem.getInstance();
+    private Enum dataHandler;
+    private ProductCategoryDao productCategoryDao;
 
     @BeforeEach
     void setUp() {
-        productCategoryDao.getAll().clear();
+        dataHandler = Switch.getInstance().getDataHandling();
+        if(dataHandler == DataHandler.MEMORY) {
+            productCategoryDao = ProductCategoryDaoMem.getInstance();
+            productCategoryDao.getAll().clear();
+        } else {
+            productCategoryDao = ProductCategoryDAOJdbc.getInstance();
+        }
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // delete test data
+        if(dataHandler == DataHandler.DATABASE) {
+            ProductCategoryDAOJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE productcategories CASCADE;");
+        }
     }
 
     @Test
