@@ -1,8 +1,6 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,10 +13,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class SupplierDaoTest {
 
     private SupplierDao supplierDao = SupplierDaoMem.getInstance();
+    private Supplier supplier1;
+    private Supplier supplier2;
 
     @BeforeEach
     void setUp() {
         supplierDao.getAll().clear();
+
+        supplier1 = new Supplier("TestSupplier", "Description");
+        supplier2 = new Supplier("TestSupplier", "Description");
     }
 
     @Test
@@ -36,8 +39,7 @@ class SupplierDaoTest {
     @Test
     void add_whenAddSupplier_shouldStoreOneMore() {
         int expectedNumberOfSuppliers = 1;
-        Supplier exampleSupplier = new Supplier("Supplier", "Description");
-        supplierDao.add(exampleSupplier);
+        supplierDao.add(supplier1);
 
         int numberOfSuppliers = supplierDao.getAll().size();
         assertEquals(expectedNumberOfSuppliers, numberOfSuppliers);
@@ -45,21 +47,17 @@ class SupplierDaoTest {
 
     @Test
     void add_whenAddSupplier_shouldStoreThatSupplier() {
-        Supplier expectedSupplier = new Supplier("TestSupplier", "Description");
-        supplierDao.add(expectedSupplier);
-
+        supplierDao.add(supplier1);
         Supplier supplier = supplierDao.getAll().get(0);
-        assertEquals(expectedSupplier, supplier);
+        assertEquals(supplier1, supplier);
     }
 
     @Test
     void find_whenSearchForExistingId_shouldFindRelatedSupplier() {
-        Supplier expectedSupplier = new Supplier("TestSupplier", "Description");
-        supplierDao.add(expectedSupplier);
-
+        supplierDao.add(supplier1);
         int expectedSupplierId = supplierDao.getAll().get(0).getId();
         Supplier supplier = supplierDao.find(expectedSupplierId);
-        assertEquals(expectedSupplier, supplier);
+        assertEquals(supplier1, supplier);
     }
 
     @Test
@@ -72,21 +70,17 @@ class SupplierDaoTest {
     @Test
     void remove_whenRemoveSupplier_shouldStoreOneLess() {
         int expectedNumberOfSuppliers = 0;
-        Supplier testSupplier = new Supplier("TestSupplier", "Description");
 
-        supplierDao.add(testSupplier);
+        supplierDao.add(supplier1);
         int testSupplierId = supplierDao.getAll().get(0).getId();
         supplierDao.remove(testSupplierId);
-
         int numberOfSuppliers = supplierDao.getAll().size();
+
         assertEquals(expectedNumberOfSuppliers, numberOfSuppliers);
     }
 
     @Test
     void remove_whenRemoveSupplier_shouldRemoveRelatedSupplier() {
-        Supplier supplier1 = new Supplier("TestSupplier", "Description");
-        Supplier supplier2 = new Supplier("TestSupplier", "Description");
-
         List<Supplier> expectedAllSuppliers = new ArrayList<>();
         expectedAllSuppliers.add(supplier2);
 
@@ -122,9 +116,6 @@ class SupplierDaoTest {
 
     @Test
     void getAll_shouldGiveBackAllSuppliersInList() {
-        Supplier supplier1 = new Supplier("TestSupplier", "Description");
-        Supplier supplier2 = new Supplier("TestSupplier", "Description");
-
         List<Supplier> expectedAllSuppliers = new ArrayList<>();
         expectedAllSuppliers.add(supplier1);
         expectedAllSuppliers.add(supplier2);
@@ -136,5 +127,4 @@ class SupplierDaoTest {
 
         assertEquals(expectedAllSuppliers, allSuppliers);
     }
-
 }

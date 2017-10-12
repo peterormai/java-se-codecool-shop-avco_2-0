@@ -74,8 +74,8 @@ class ProductCategoryDaoTest {
         productCategoryDao.add(productCategory1);
         int testId = productCategoryDao.getAll().get(0).getId();
         productCategoryDao.remove(testId);
-
         int numberOfProductCategories = productCategoryDao.getAll().size();
+
         assertEquals(expectedNumberOfProductCategories, numberOfProductCategories);
     }
 //
