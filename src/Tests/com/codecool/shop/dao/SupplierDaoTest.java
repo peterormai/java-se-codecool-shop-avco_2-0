@@ -69,4 +69,17 @@ class SupplierDaoTest {
         assertEquals(null, supplier);
     }
 
+    @Test
+    void remove_whenRemoveSupplier_shouldStoreOneLess() {
+        int expectedNumberOfSuppliers = 0;
+        Supplier testSupplier = new Supplier("TestSupplier", "Description");
+
+        supplierDao.add(testSupplier);
+        int testSupplierId = supplierDao.getAll().get(0).getId();
+        supplierDao.remove(testSupplierId);
+
+        int numberOfSuppliers = supplierDao.getAll().size();
+        assertEquals(expectedNumberOfSuppliers, numberOfSuppliers);
+    }
+
 }
