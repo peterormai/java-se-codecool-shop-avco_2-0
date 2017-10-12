@@ -26,8 +26,12 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category) {
-        category.setId(DATA.size() + 1);
-        DATA.add(category);
+        try {
+            category.setId(DATA.size() + 1);
+            DATA.add(category);
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException("Added: null, Expected: ProductCategory");
+        }
     }
 
     @Override
