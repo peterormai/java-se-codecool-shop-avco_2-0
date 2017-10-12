@@ -35,8 +35,8 @@ public class SupplierDaoJdbc implements SupplierDao {
         } catch (SQLException e) {
             System.out.println("The database is already filled with data ");
             throw new IllegalArgumentException(e);
-        } catch (IllegalArgumentException ie){
-
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException("Added: null, Expected: Supplier");
         }
     }
 
@@ -117,7 +117,7 @@ public class SupplierDaoJdbc implements SupplierDao {
     public void executeQueryWithNoReturnValue(String query) {
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
