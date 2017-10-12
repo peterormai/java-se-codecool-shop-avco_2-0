@@ -1,4 +1,9 @@
 import com.codecool.shop.controller.*;
+import com.codecool.shop.dao.LineItemDao;
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.CreateDataForDatabase;
 
 import static spark.Spark.*;
@@ -14,17 +19,39 @@ public class Main {
         port(8888);
 
         //Create data in database
-        try {
+        String LOGIC = "MEM";
+        if (LOGIC == "MEM"){
 
-            CreateDataForDatabase.createData();
-        } catch (IllegalArgumentException ie) {
+            CreateDataForDatabase.createDaoMem();
 
+            ProductDao productDao = ProductDaoMem.getInstance();
+            ProductCategoryDao productCategoryDao = ProductCategoryDaoMem.getInstance();
+            LineItemDao lineItemDao = LineItemDaoMem.getInstance();
+            SupplierDao supplierDao = SupplierDaoMem.getInstance();
+            renderRoute(productDao, productCategoryDao,lineItemDao,supplierDao);
+        } else if (LOGIC == "JDBC"){
+            try{
+
+                CreateDataForDatabase.createData();
+            }catch (Exception e){
+
+            }
+            ProductDao productDao = ProductDaoJdbc.getInstance();
+            ProductCategoryDao productCategoryDao = ProductCategoryDAOJdbc.getInstance();
+            LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
+            SupplierDao supplierDao = SupplierDaoJdbc.getInstance();
+            renderRoute(productDao, productCategoryDao,lineItemDao,supplierDao);
         }
 
 
+
+
+    }
+
+    private static void renderRoute(ProductDao productDao, ProductCategoryDao productCategoryDao, LineItemDao lineItemDao, SupplierDao supplierDao) {
         // Always start with more specific routes
-        get("/add-to-cart/:id", ProductPageController.getInstance()::addNewItemToCart);
-        get("/filter", ProductPageController.getInstance()::render);
+        get("/add-to-cart/:id", ProductPageController.getInstance(productDao,productCategoryDao,lineItemDao,supplierDao)::addNewItemToCart);
+        get("/filter", ProductPageController.getInstance(productDao,productCategoryDao,lineItemDao,supplierDao)::render);
         get("/review-cart", CartPageController.getInstance()::render);
         put("/review-cart", CartPageController.getInstance()::renderChangeItemQuantity);
         get("/checkout", CheckoutPageController.getInstance()::render);
@@ -34,8 +61,8 @@ public class Main {
         post("/confirmation", ConfirmationPageController.getInstance()::render);
 
         // Always add generic   routes to the end
-        get("/index", ProductPageController.getInstance()::render);
-        get("/", ProductPageController.getInstance()::render);
+        get("/index", ProductPageController.getInstance(productDao,productCategoryDao,lineItemDao,supplierDao)::render);
+        get("/", ProductPageController.getInstance(productDao,productCategoryDao,lineItemDao,supplierDao)::render);
 
         enableDebugScreen();
     }
