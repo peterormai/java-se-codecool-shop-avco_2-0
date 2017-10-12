@@ -172,6 +172,14 @@ class ProductDaoTest {
         assertEquals(expectedList, productsList);
     }
 
+    @Test
+    void getBy_whenProductCategoryHasNoProduct_shouldReturnEmptyList() {
+        ProductCategory productCategoryWithoutProduct = new ProductCategory("ProductCategory", "Department", "Description");
+        List<Product> expectedList = new ArrayList<>();
+        List<Product> productsList = productDao.getBy(productCategoryWithoutProduct);
+        assertEquals(expectedList, productsList);
+    }
 
+    
 
 }
