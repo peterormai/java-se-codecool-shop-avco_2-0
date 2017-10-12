@@ -22,14 +22,15 @@ class ProductCategoryDaoTest {
 
     @BeforeEach
     void setUp() {
-        productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
-        productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
+        productCategory1 = new ProductCategory("ProductCategory1", "Department1", "Description1");
+        productCategory2 = new ProductCategory("ProductCategory2", "Department2", "Description2");
 
         dataHandler = Switch.getInstance().getDataHandling();
         if (dataHandler == DataHandler.MEMORY) {
             productCategoryDao = ProductCategoryDaoMem.getInstance();
             productCategoryDao.getAll().clear();
         } else {
+            ProductCategoryDAOJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE productcategories CASCADE;");
             productCategoryDao = ProductCategoryDAOJdbc.getInstance();
         }
     }
@@ -38,7 +39,7 @@ class ProductCategoryDaoTest {
     public void tearDown() {
         // delete test data
         if (dataHandler == DataHandler.DATABASE) {
-            ProductCategoryDAOJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE productcs CASCADE;");
+            ProductCategoryDAOJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE productcategories CASCADE;");
         }
     }
 
@@ -49,9 +50,14 @@ class ProductCategoryDaoTest {
 
     @Test
     void add_whenAddNull_shouldThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        String expectedExceptionMessage = "Added: null, Expected: ProductCategory";
+        String exceptionMessage = null;
+        try {
             productCategoryDao.add(null);
-        });
+        } catch (IllegalArgumentException e) {
+            exceptionMessage = e.getMessage();
+        }
+        assertEquals(expectedExceptionMessage, exceptionMessage);
     }
 
     @Test
