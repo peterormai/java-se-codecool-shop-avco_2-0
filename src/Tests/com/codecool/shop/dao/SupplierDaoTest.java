@@ -82,4 +82,23 @@ class SupplierDaoTest {
         assertEquals(expectedNumberOfSuppliers, numberOfSuppliers);
     }
 
+    @Test
+    void remove_whenRemoveSupplier_shouldRemoveRelatedSupplier() {
+        Supplier supplier1 = new Supplier("TestSupplier", "Description");
+        Supplier supplier2 = new Supplier("TestSupplier", "Description");
+
+        List<Supplier> expectedAllSuppliers = new ArrayList<>();
+        expectedAllSuppliers.add(supplier2);
+
+        supplierDao.add(supplier1);
+        supplierDao.add(supplier2);
+
+        int supplier1Id = supplierDao.getAll().get(0).getId();
+        supplierDao.remove(supplier1Id);
+
+        List<Supplier> allSuppliers = supplierDao.getAll();
+
+        assertEquals(expectedAllSuppliers, allSuppliers);
+    }
+
 }
