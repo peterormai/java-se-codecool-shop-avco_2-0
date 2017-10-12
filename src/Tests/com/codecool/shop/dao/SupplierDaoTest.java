@@ -2,6 +2,7 @@ package com.codecool.shop.dao;
 
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,4 +15,8 @@ class SupplierDaoTest {
         supplierDao.getAll().clear();
     }
 
+    @Test
+    void constructor_whenGetInstance_shouldNotBeNull() {
+        assertTrue(supplierDao != null);
+    }
 }
