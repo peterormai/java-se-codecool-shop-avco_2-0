@@ -113,4 +113,11 @@ class SupplierDaoTest {
         assertEquals(null, exception);
     }
 
+    @Test
+    void getAll_whenNoSuppliers_shouldGiveBackEmptyList() {
+        List<Supplier> expectedList = new ArrayList<>();
+        List<Supplier> suppliersList = supplierDao.getAll();
+        assertEquals(expectedList, suppliersList);
+    }
+
 }
