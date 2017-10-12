@@ -1,7 +1,6 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.LineItemDao;
-import com.codecool.shop.dao.implementation.LineItemDaoJdbc;
 import com.codecool.shop.model.Checkout;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.OrderStatus;
@@ -18,15 +17,17 @@ import java.util.Map;
 import java.util.Properties;
 
 public class ConfirmationPageController extends Controller {
+    private LineItemDao lineItemDao;
 
     private static ConfirmationPageController confirmationPageController = null;
 
-    private ConfirmationPageController() {
+    private ConfirmationPageController(LineItemDao lineItemDao) {
+        this.lineItemDao = lineItemDao;
     }
 
-    public static ConfirmationPageController getInstance() {
+    public static ConfirmationPageController getInstance(LineItemDao lineItemDao) {
         if (confirmationPageController == null) {
-            confirmationPageController = new ConfirmationPageController();
+            confirmationPageController = new ConfirmationPageController(lineItemDao);
         }
         return confirmationPageController;
     }
@@ -34,7 +35,7 @@ public class ConfirmationPageController extends Controller {
     @Override
     public String render(Request req, Response res) throws IOException {
 
-        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
+        LineItemDao lineItemDao = this.lineItemDao;
         List<LineItem> order = lineItemDao.getAll();
 
         if (lineItemDao.getStatus() == OrderStatus.CHECKEDOUT) {
@@ -93,11 +94,11 @@ public class ConfirmationPageController extends Controller {
             for (LineItem item : order) {
                 orderText.append(" - Product Name: ");
                 orderText.append(item.getProduct().getName());
-                orderText.append(" * Price: ");
+                orderText.append(" | Price: ");
                 orderText.append(item.getProduct().getPrice());
-                orderText.append(" * Quantity: ");
+                orderText.append(" | Quantity: ");
                 orderText.append(item.getQuantity());
-                orderText.append(" * Subtotal: ");
+                orderText.append(" | Subtotal: ");
                 orderText.append(item.getProduct().getDefaultPrice() * item.getQuantity());
                 orderText.append(" ");
                 orderText.append(item.getProduct().getDefaultCurrency());
@@ -129,7 +130,7 @@ public class ConfirmationPageController extends Controller {
             System.out.println("Done");
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+           System.out.println(e);
         }
 
 

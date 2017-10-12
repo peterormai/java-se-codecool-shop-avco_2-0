@@ -1,8 +1,8 @@
 package com.codecool.shop.controller;
 
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.io.IOException;

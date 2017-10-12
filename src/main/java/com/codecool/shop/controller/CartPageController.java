@@ -3,7 +3,6 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.implementation.LineItemDaoJdbc;
 import com.codecool.shop.model.LineItem;
-import com.codecool.shop.model.Order;
 import org.json.simple.JSONObject;
 import spark.Request;
 import spark.Response;
@@ -14,20 +13,22 @@ import java.util.Map;
 public class CartPageController extends Controller {
 
     private static CartPageController cartPageController = null;
+    private LineItemDao lineItemDao;
 
-    private CartPageController() {
+    private CartPageController( LineItemDao lineItemDao) {
+        this.lineItemDao = lineItemDao;
     }
 
-    public static CartPageController getInstance() {
+    public static CartPageController getInstance(LineItemDao lineItemDao) {
         if (cartPageController == null) {
-            cartPageController = new CartPageController();
+            cartPageController = new CartPageController(lineItemDao);
         }
         return cartPageController;
     }
 
     @Override
     public String render(Request req, Response res) {
-        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
+        LineItemDao lineItemDao = this.lineItemDao;
         Map<String, Object> params = new HashMap<>();
 
         if (req.queryParams("id") != null) {
