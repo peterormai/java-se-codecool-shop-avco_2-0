@@ -181,10 +181,17 @@ public class LineItemDaoJdbc implements LineItemDao {
 
     @Override
     public void changeItemQuantity(int id, int quantity) {
-        String query = "UPDATE lineitem SET quantity = ? WHERE id = ?";
+        String query;
         List<Integer> values = new ArrayList<>();
-        values.add(quantity);
-        values.add(id);
+        if (quantity == 0){
+            query = "DELETE FROM lineitem WHERE id = ?";
+            values.add(id);
+        } else {
+
+            query = "UPDATE lineitem SET quantity = ? WHERE id = ?";
+            values.add(quantity);
+            values.add(id);
+        }
         manageLinItemDataConnection(values, query);
     }
 
