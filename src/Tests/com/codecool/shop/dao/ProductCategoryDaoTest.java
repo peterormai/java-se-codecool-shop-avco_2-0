@@ -81,16 +81,6 @@ class ProductCategoryDaoTest {
         assertEquals(convertObjectToList(productCategory2), convertObjectToList(productCategory));
     }
 
-
-    private List convertObjectToList(ProductCategory productCategory) {
-        List<String> productCategoryList = new ArrayList<>();
-        productCategoryList.add(Integer.toString(productCategory.getId()));
-        productCategoryList.add(productCategory.getName());
-        productCategoryList.add(productCategory.getDepartment());
-        productCategoryList.add(productCategory.getDescription());
-        return productCategoryList;
-    }
-
     //
     @Test
     void find_whenSearchForExistingId_shouldFindRelatedProductCategory() {
@@ -189,6 +179,15 @@ class ProductCategoryDaoTest {
         }
 
         assertEquals(expectedAllProductCategories, allProductCategories);
+    }
+
+    private List convertObjectToList(ProductCategory productCategory) {
+        List<String> productCategoryList = new ArrayList<>();
+        productCategoryList.add(Integer.toString(productCategory.getId()));
+        productCategoryList.add(productCategory.getName());
+        productCategoryList.add(productCategory.getDepartment());
+        productCategoryList.add(productCategory.getDescription());
+        return productCategoryList;
     }
 
 }

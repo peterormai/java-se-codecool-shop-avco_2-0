@@ -71,11 +71,11 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     public void remove(int id) {
-        String query = "DELETE * FROM products WHERE id = ?";
+        String query = "DELETE FROM products WHERE id = ?";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
-            statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
