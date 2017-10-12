@@ -13,15 +13,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // default server settings
+        // Default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
         port(8888);
 
-        //Create data in database
+        // Create data in database
         String LOGIC = "JDBC";
         if (LOGIC == "MEM") {
-
             CreateDataForDatabase.createDaoMem();
             ProductDao productDao = ProductDaoMem.getInstance();
             ProductCategoryDao productCategoryDao = ProductCategoryDaoMem.getInstance();
@@ -30,10 +29,9 @@ public class Main {
             renderRoute(productDao, productCategoryDao, lineItemDao, supplierDao);
         } else if (LOGIC == "JDBC") {
             try {
-
                 CreateDataForDatabase.createData();
             } catch (Exception e) {
-
+                System.err.println(e.getMessage());
             }
             ProductDao productDao = ProductDaoJdbc.getInstance();
             ProductCategoryDao productCategoryDao = ProductCategoryDAOJdbc.getInstance();
@@ -55,7 +53,7 @@ public class Main {
         get("/confirmation", ConfirmationPageController.getInstance(lineItemDao)::render);
         post("/confirmation", ConfirmationPageController.getInstance(lineItemDao)::render);
 
-        // Always add generic   routes to the end
+        // Always add generic routes to the end
         get("/index", ProductPageController.getInstance(productDao, productCategoryDao, lineItemDao, supplierDao)::render);
         get("/", ProductPageController.getInstance(productDao, productCategoryDao, lineItemDao, supplierDao)::render);
 

@@ -15,7 +15,7 @@ public class CartPageController extends Controller {
     private static CartPageController cartPageController = null;
     private LineItemDao lineItemDao;
 
-    private CartPageController( LineItemDao lineItemDao) {
+    private CartPageController(LineItemDao lineItemDao) {
         this.lineItemDao = lineItemDao;
     }
 
@@ -43,13 +43,14 @@ public class CartPageController extends Controller {
 
         params.put("lineItems", lineItemDao.getAll());
         params.put("totalPrice", lineItemDao.getTotalPrice());
+
         return renderTemplate(params, "cart");
     }
 
     public JSONObject renderChangeItemQuantity(Request req, Response res) {
         LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
         int id = Integer.parseInt(req.queryParams("id"));
-        lineItemDao.changeItemQuantity(id,Integer.parseInt(req.queryParams("quantity")));
+        lineItemDao.changeItemQuantity(id, Integer.parseInt(req.queryParams("quantity")));
         LineItem lineItem = LineItemDaoJdbc.getInstance().get(id);
         JSONObject obj = new JSONObject();
         float total = lineItemDao.getTotalPrice();

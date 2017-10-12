@@ -4,7 +4,6 @@ import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.omg.CORBA.INTERNAL;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LineItemDaoJdbc implements LineItemDao {
+
     private static LineItemDaoJdbc lineItemDaoJdbc = null;
     private OrderStatus status = OrderStatus.NEW;
-
 
     @Override
     public OrderStatus getStatus() {
@@ -26,7 +25,6 @@ public class LineItemDaoJdbc implements LineItemDao {
     public void setStatus(OrderStatus orderStatus) {
         this.status = orderStatus;
     }
-
 
     private LineItemDaoJdbc() {
     }
@@ -51,16 +49,14 @@ public class LineItemDaoJdbc implements LineItemDao {
                 break;
             }
         }
-        if (query == "") {
+        if (query.equals("")) {
             query = "INSERT INTO lineitem(product_id,quantity,order_id)VALUES(?,?,?);";
             values.add(product.getId());
             values.add(1);
             values.add(1);
 
         }
-        manageLinItemDataConnection(values, query);
-
-
+        manageLineItemDataConnection(values, query);
     }
 
     @Override
@@ -79,12 +75,11 @@ public class LineItemDaoJdbc implements LineItemDao {
                     query = "UPDATE lineitem SET quantity = ? WHERE product_id = ?";
                     values.add(lineItem.getQuantity() - 1);
                     values.add(product.getId());
-
                 }
                 break;
             }
         }
-        manageLinItemDataConnection(values, query);
+        manageLineItemDataConnection(values, query);
 
     }
 
@@ -93,7 +88,7 @@ public class LineItemDaoJdbc implements LineItemDao {
         String query = "DELETE FROM lineitem WHERE id = ?";
         List<Integer> value = new ArrayList<>();
         value.add(id);
-        manageLinItemDataConnection(value, query);
+        manageLineItemDataConnection(value, query);
 
     }
 
@@ -101,14 +96,12 @@ public class LineItemDaoJdbc implements LineItemDao {
     public void removeAll() {
         String query = "DELETE FROM lineitem";
         List<Integer> value = new ArrayList<>();
-
-        manageLinItemDataConnection(value, query);
-
+        manageLineItemDataConnection(value, query);
     }
 
     @Override
     public LineItem get(int id) {
-        String query = "SELECT * FROM lineitem where id = ?";
+        String query = "SELECT * FROM lineitem WHERE id = ?";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
@@ -118,8 +111,8 @@ public class LineItemDaoJdbc implements LineItemDao {
                 Product product = ProductDaoJdbc.getInstance().find(product_id);
                 int quantity = resultSet.getInt("quantity");
                 int order_id = resultSet.getInt("order_id");
-                LineItem lineItem = new LineItem(id, product, quantity, order_id);
-                return lineItem;
+
+                return new LineItem(id, product, quantity, order_id);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -127,9 +120,7 @@ public class LineItemDaoJdbc implements LineItemDao {
         return null;
     }
 
-    private void manageLinItemDataConnection(List<Integer> values, String query) {
-
-
+    private void manageLineItemDataConnection(List<Integer> values, String query) {
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -176,23 +167,21 @@ public class LineItemDaoJdbc implements LineItemDao {
             totalPrice += lineItem.getLineItemsPrice();
         }
         return totalPrice;
-
     }
 
     @Override
     public void changeItemQuantity(int id, int quantity) {
         String query;
         List<Integer> values = new ArrayList<>();
-        if (quantity == 0){
+        if (quantity == 0) {
             query = "DELETE FROM lineitem WHERE id = ?";
             values.add(id);
         } else {
-
             query = "UPDATE lineitem SET quantity = ? WHERE id = ?";
             values.add(quantity);
             values.add(id);
         }
-        manageLinItemDataConnection(values, query);
+        manageLineItemDataConnection(values, query);
     }
 
     @Override
@@ -229,9 +218,7 @@ public class LineItemDaoJdbc implements LineItemDao {
 
     @Override
     public int getNumberOfItem() {
-        
         List<LineItem> lineItems = getAll();
-
         int number = 0;
         for (LineItem lineItem : lineItems) {
             number += lineItem.getQuantity();

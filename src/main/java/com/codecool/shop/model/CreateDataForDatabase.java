@@ -6,7 +6,7 @@ public class CreateDataForDatabase {
 
     public static void createDaoMem() {
 
-        //setting up a new supplier
+        // Setting up a new supplier
         Supplier tSystem = new Supplier("t-System", "Digital content and services");
         Supplier schmitTpal = new Supplier("SchmitTpál.zrt", "Corrupters");
         Supplier demcsakZssss = new Supplier("DemcsákZssss.rt", "The alcohol is bad, okeeeee?");
@@ -18,7 +18,7 @@ public class CreateDataForDatabase {
         SupplierDaoMem.getInstance().add(felcsutCompany);
         SupplierDaoMem.getInstance().add(identityTChan);
 
-        //setting up a new product category
+        // Setting up a new product category
         ProductCategory idCard = new ProductCategory("Identity Card", "Identity Card", "It's looks like the original hungarian Identity card.");
         ProductCategory addressCard = new ProductCategory("Address Card", "Address Card", "This card contain official address");
         ProductCategory driverLicence = new ProductCategory("Driver Licence", "Driver Licence", "With this awesome card, you can driving in Hungary");
@@ -41,7 +41,7 @@ public class CreateDataForDatabase {
         ProductCategoryDaoMem.getInstance().add(franchise);
 
 
-        //setting up products and printing it
+        // Setting up products and printing it
         Product product1 = (new Product("Identity Card (Womean)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, felcsutCompany, "/img/product_1.jpg"));
         Product product2 = (new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, felcsutCompany, "/img/product_2.jpg"));
         Product product3 = (new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, felcsutCompany, "/img/product_3.jpg"));
@@ -108,7 +108,7 @@ public class CreateDataForDatabase {
     }
     public static void createData() {
 
-        //setting up a new supplier
+        // Setting up a new supplier
         Supplier tSystem = new Supplier("t-System", "Digital content and services");
         Supplier schmitTpal = new Supplier("SchmitTpál.zrt", "Corrupters");
         Supplier demcsakZssss = new Supplier("DemcsákZssss.rt", "The alcohol is bad, okeeeee?");
@@ -120,7 +120,7 @@ public class CreateDataForDatabase {
         SupplierDaoJdbc.getInstance().add(felcsutCompany);
         SupplierDaoJdbc.getInstance().add(identityTChan);
 
-        //setting up a new product category
+        // Setting up a new product category
         ProductCategory idCard = new ProductCategory("Identity Card", "Identity Card", "It's looks like the original hungarian Identity card.");
         ProductCategory addressCard = new ProductCategory("Address Card", "Address Card", "This card contain official address");
         ProductCategory driverLicence = new ProductCategory("Driver Licence", "Driver Licence", "With this awesome card, you can driving in Hungary");
@@ -143,7 +143,7 @@ public class CreateDataForDatabase {
         ProductCategoryDAOJdbc.getInstance().add(franchise);
 
 
-        //setting up products and printing it
+        // Setting up products and printing it
         Product product1 = (new Product("Identity Card (Womean)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, felcsutCompany, "/img/product_1.jpg"));
         Product product2 = (new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, felcsutCompany, "/img/product_2.jpg"));
         Product product3 = (new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, felcsutCompany, "/img/product_3.jpg"));

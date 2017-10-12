@@ -2,7 +2,6 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ConnectionManager;
-import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
 import java.sql.*;
@@ -13,8 +12,6 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
 
     private static ProductCategoryDAOJdbc instance = null;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
     private ProductCategoryDAOJdbc() {
     }
 
@@ -35,10 +32,10 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
             statement.setString(3, category.getDescription());
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("The database is already filled with data ");
+            System.out.println("The database is already filled with data");
             throw new IllegalArgumentException(e);
         } catch (NullPointerException ie) {
-           throw new IllegalArgumentException("Added: null, Expected: ProductCategory");
+            throw new IllegalArgumentException("Added: null, Expected: ProductCategory");
         }
     }
 
@@ -50,8 +47,10 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
             ResultSet resultSet = statement.executeQuery();
             ProductCategory category = null;
             while (resultSet.next()) {
-                category = new ProductCategory(resultSet.getString("name"),
-                        resultSet.getString("department"), resultSet.getString("description"));
+                category = new ProductCategory(
+                        resultSet.getString("name"),
+                        resultSet.getString("department"),
+                        resultSet.getString("description"));
                 category.setId(id);
             }
             return category;
@@ -67,11 +66,9 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
-            ProductCategory category = null;
             if (resultSet.next()) {
                 return resultSet.getInt("id");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,8 +94,10 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
             ResultSet resultSet = statement.executeQuery(query);
             List<ProductCategory> categories = new ArrayList<>();
             while (resultSet.next()) {
-                ProductCategory category = new ProductCategory(resultSet.getString("name"),
-                        resultSet.getString("department"), resultSet.getString("description"));
+                ProductCategory category = new ProductCategory(
+                        resultSet.getString("name"),
+                        resultSet.getString("department"),
+                        resultSet.getString("description"));
                 category.setId(resultSet.getInt("id"));
                 categories.add(category);
             }
@@ -108,7 +107,6 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
         }
         return null;
     }
-
 
     private Connection getConnection() throws SQLException {
         return new ConnectionManager("src/main/resources/sql/config.txt").getConnection();

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LineItemDaoMem implements LineItemDao {
+
     private static LineItemDaoMem lineItemDaoMem = null;
     private static List<LineItem> lineItems = new ArrayList<>();
     private OrderStatus status = OrderStatus.NEW;
@@ -43,7 +44,6 @@ public class LineItemDaoMem implements LineItemDao {
             lineItems.add(newLineItem);
         }
     }
-
 
     @Override
     public void remove(Product product) {
@@ -101,14 +101,12 @@ public class LineItemDaoMem implements LineItemDao {
 
     @Override
     public void changeItemQuantity(int id, int quantity) {
-        int num = quantity;
-        int validId = id;
-        if (num == 0) {
-            removeLineItem(validId);
+        if (quantity == 0) {
+            removeLineItem(id);
         } else {
             for (LineItem item : lineItems) {
-                if (item.getId() == validId) {
-                    item.setQuantity(num);
+                if (item.getId() == id) {
+                    item.setQuantity(quantity);
                 }
             }
         }

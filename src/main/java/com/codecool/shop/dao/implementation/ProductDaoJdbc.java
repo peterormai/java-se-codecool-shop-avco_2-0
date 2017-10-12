@@ -14,8 +14,6 @@ public class ProductDaoJdbc implements ProductDao {
 
     private static ProductDaoJdbc instance = null;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
     private ProductDaoJdbc() {
     }
 
@@ -40,7 +38,7 @@ public class ProductDaoJdbc implements ProductDao {
             statement.setInt(7, SupplierDaoJdbc.getInstance().findIdByName(product.getSupplier().getName()));
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("The database is already filled with data ");
+            System.out.println("The database is already filled with data");
             throw new IllegalArgumentException(e);
         } catch (NullPointerException e) {
             throw new IllegalArgumentException("Added: null, Expected: Product");
@@ -122,7 +120,6 @@ public class ProductDaoJdbc implements ProductDao {
                 Product result = getResult(resultSet, cat, supp);
                 result.setId(resultSet.getInt("id"));
                 products.add(result);
-
             }
             return products;
         } catch (SQLException e) {
@@ -154,8 +151,8 @@ public class ProductDaoJdbc implements ProductDao {
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
                 Product result = new Product(resultSet.getString("name"),
                         resultSet.getInt("price"),
-                        resultSet.getString("description"),
                         resultSet.getString("currency"),
+                        resultSet.getString("description"),
                         cat, supp,
                         resultSet.getString("picture"));
                 result.setId(resultSet.getInt("id"));
@@ -171,7 +168,6 @@ public class ProductDaoJdbc implements ProductDao {
 
     private Connection getConnection() throws SQLException {
         return new ConnectionManager("src/main/resources/sql/config.txt").getConnection();
-
     }
 
     public void executeQueryWithNoReturnValue(String query) {
@@ -182,5 +178,4 @@ public class ProductDaoJdbc implements ProductDao {
             e.printStackTrace();
         }
     }
-
 }
