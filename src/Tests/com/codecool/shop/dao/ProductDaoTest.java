@@ -94,55 +94,12 @@ class ProductDaoTest {
         assertEquals(expectedNumberOfProducts, numberOfProducts);
     }
 
-//    @Test
-//    void add_whenAddProduct_shouldStoreThatProduct() {
-//        productDao.add(product1);
-//        int beforeId = productDao.getAll().get(0).getId();
-//        productDao.remove(beforeId);
-//        product2.setId(beforeId + 1);
-//        productDao.add(product2);
-//        Product product = productDao.getAll().get(0);
-//        assertEquals(convertObjectToList(product2), convertObjectToList(product));
-//    }
-//
-//    @Test
-//    void find_whenSearchForExistingId_shouldFindRelatedProduct() {
-//        productDao.add(product1);
-//        int testId = productDao.getBy(supplier1).get(0).getId();
-//        Product product = productDao.find(testId);
-//        assertEquals(product1, product);
-//    }
-
     @Test
     void find_whenProductIdDoesNotExist_shouldReturnNull() {
         int nonExistentId = 1;
         Product product = productDao.find(nonExistentId);
         assertEquals(null, product);
     }
-
-//    @Test
-//    void remove_whenRemoveProduct_shouldStoreOneLess() {
-//        int expectedNumberOfProducts = 0;
-//        productDao.add(product1);
-//        int testId = productDao.getBy(supplier1).get(0).getId();
-//        productDao.remove(testId);
-//        int numberOfProducts = productDao.getAll().size();
-//        assertEquals(expectedNumberOfProducts, numberOfProducts);
-//    }
-//
-//    @Test
-//    void remove_whenRemoveProduct_shouldRemoveRelatedProduct() {
-//        List<Product> expectedAllProducts = new ArrayList<>();
-//        expectedAllProducts.add(product2);
-//
-//        productDao.add(product1);
-//        productDao.add(product2);
-//        int product1Id = productDao.getBy(supplier1).get(0).getId();
-//        productDao.remove(product1Id);
-//        List<Product> allProducts = productDao.getAll();
-//
-//        assertEquals(expectedAllProducts, allProducts);
-//    }
 
     @Test
     void remove_whenIdDoesNotExist_shouldNotThrowException() {
@@ -164,19 +121,6 @@ class ProductDaoTest {
         assertEquals(expectedList, productsList);
     }
 
-//    @Test
-//    void getAll_shouldGiveBackAllProductsInList() {
-//        List<Product> expectedAllProducts = new ArrayList<>();
-//        expectedAllProducts.add(product1);
-//        expectedAllProducts.add(product2);
-//
-//        productDao.add(product1);
-//        productDao.add(product2);
-//        List<Product> allProducts = productDao.getAll();
-//
-//        assertEquals(expectedAllProducts, allProducts);
-//    }
-
     @Test
     void getBy_whenSupplierHasNoProduct_shouldReturnEmptyList() {
         Supplier supplierWithoutProduct = supplier1;
@@ -192,29 +136,6 @@ class ProductDaoTest {
         List<Product> productsList = productDao.getBy(productCategoryWithoutProduct);
         assertEquals(expectedList, productsList);
     }
-
-//    @Test
-//    void getBy_whenSupplierHasProduct_shouldReturnThatProduct() {
-//        List<Product> expectedList = new ArrayList<>();
-//        expectedList.add(product1);
-//
-//        productDao.add(product1);
-//        List<Product> productsList = productDao.getBy(supplier1);
-//
-//        assertEquals(expectedList, productsList);
-//    }
-//
-//    @Test
-//    void getBy_whenProductCategoryHasProduct_shouldReturnThatProduct() {
-//        ProductCategory testProductCategory = productCategory1;
-//        List<Product> expectedList = new ArrayList<>();
-//        expectedList.add(product1);
-//
-//        productDao.add(product1);
-//        List<Product> productsList = productDao.getBy(testProductCategory);
-//
-//        assertEquals(expectedList, productsList);
-//    }
 
     private List convertObjectToList(Product product) {
         List<Object> productList = new ArrayList<>();
