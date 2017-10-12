@@ -163,4 +163,15 @@ class ProductDaoTest {
 //        assertTrue(expectedAllProducts.equals(allProducts));
         assertEquals(expectedAllProducts, allProducts);
     }
+
+    @Test
+    void getBy_whenSupplierHasNoProduct_shouldReturnEmptyList() {
+        Supplier supplierWithoutProduct = new Supplier("TestSupplier", "Description");
+        List<Product> expectedList = new ArrayList<>();
+        List<Product> productsList = productDao.getBy(supplierWithoutProduct);
+        assertEquals(expectedList, productsList);
+    }
+
+
+
 }
