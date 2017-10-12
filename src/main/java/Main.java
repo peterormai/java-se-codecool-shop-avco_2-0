@@ -21,7 +21,7 @@ public class Main {
         // populate some data for the memory storage
 
         //Create data in database
-        populateData();
+        //populateData();
 
         // Always start with more specific routes
         get("/add-to-cart/:id", ProductPageController.getInstance()::addNewItemToCart);
