@@ -1,5 +1,7 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.LineItemDao;
+import com.codecool.shop.dao.implementation.LineItemDaoJdbc;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import org.json.simple.JSONObject;
@@ -25,12 +27,13 @@ public class CartPageController extends Controller {
 
     @Override
     public String render(Request req, Response res) {
-        Order orderDataStore = Order.getInstance();
+        LineItemDao orderDataStore = LineItemDaoJdbc.getInstance();
         Map<String, Object> params = new HashMap<>();
 
         if (req.queryParams("id") != null) {
             int id = Integer.parseInt(req.queryParams("id"));
-            orderDataStore.removeLineItem(id);
+
+            LineItemDaoJdbc.getInstance().removeLineItem(id);
         }
 
         if (orderDataStore.getAll().isEmpty()) {
@@ -43,15 +46,15 @@ public class CartPageController extends Controller {
     }
 
     public JSONObject renderChangeItemQuantity(Request req, Response res) {
-        Order orderDataStore = Order.getInstance();
-        String id = req.queryParams("id");
-        orderDataStore.changeItemQuantity(id, req.queryParams("quantity"));
-        LineItem lineItem = orderDataStore.getLineItem(Integer.parseInt(id));
+        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
+        int id = Integer.parseInt(req.queryParams("id"));
+        lineItemDao.changeItemQuantity(id,Integer.parseInt(req.queryParams("quantity")));
+        LineItem lineItem = LineItemDaoJdbc.getInstance().get(id);
         JSONObject obj = new JSONObject();
-        float total = orderDataStore.getTotalPrice();
+        float total = lineItemDao.getTotalPrice();
         obj.put("total", total);
         if (lineItem != null) {
-            float value = lineItem.getLineItemsPrice();
+            float value = lineItemDao.getTotalPrice();
             obj.put("value", value);
         } else {
             obj.put("value", 0);

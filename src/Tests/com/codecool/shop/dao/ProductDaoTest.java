@@ -41,7 +41,7 @@ class ProductDaoTest {
         int expectedNumberOfProducts = 1;
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier exampleSupplier = new Supplier("Supplier", "Description");
-        Product exampleProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, exampleSupplier);
+        Product exampleProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, exampleSupplier, "");
 
         productDao.add(exampleProduct);
 
@@ -53,7 +53,7 @@ class ProductDaoTest {
     void add_whenAddProduct_shouldStoreThatProduct() {
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier testSupplier = new Supplier("TestSupplier", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);
+        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier, "");
 
         productDao.add(expectedProduct);
 
@@ -65,7 +65,7 @@ class ProductDaoTest {
     void find_whenSearchForExistingId_shouldFindRelatedProduct() {
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier testSupplier = new Supplier("TestSupplier", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);
+        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier, "");
 
         productDao.add(expectedProduct);
 
@@ -87,7 +87,7 @@ class ProductDaoTest {
 
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier testSupplier = new Supplier("TestSupplier", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);
+        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier, "");
 
         productDao.add(expectedProduct);
         int testId = productDao.getBy(testSupplier).get(0).getId();
@@ -101,11 +101,11 @@ class ProductDaoTest {
     void remove_whenRemoveProduct_shouldRemoveRelatedProduct() {
         ProductCategory productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier supplier1 = new Supplier("TestSupplier", "Description");
-        Product product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1);
+        Product product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1, "");
 
         ProductCategory productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier supplier2 = new Supplier("TestSupplier", "Description");
-        Product product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2);
+        Product product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2, "");
 
         List<Product> expectedAllProducts = new ArrayList<>();
         expectedAllProducts.add(product2);
@@ -144,11 +144,11 @@ class ProductDaoTest {
     void getAll_shouldGiveBackAllProductsInList() {
         ProductCategory productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier supplier1 = new Supplier("TestSupplier", "Description");
-        Product product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1);
+        Product product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1, "");
 
         ProductCategory productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier supplier2 = new Supplier("TestSupplier", "Description");
-        Product product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2);
+        Product product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2, "");
 
         List<Product> expectedAllProducts = new ArrayList<>();
         expectedAllProducts.add(product1);
@@ -182,7 +182,7 @@ class ProductDaoTest {
     void getBy_whenSupplierHasProduct_shouldReturnThatProduct() {
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier testSupplier = new Supplier("TestSupplier", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);
+        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier, "");
         productDao.add(expectedProduct);
 
         List<Product> expectedList = new ArrayList<>();
@@ -197,7 +197,7 @@ class ProductDaoTest {
     void getBy_whenProductCategoryHasProduct_shouldReturnThatProduct() {
         Supplier exampleSupplier = new Supplier("Supplier", "Description");
         ProductCategory testProductCategory = new ProductCategory("TestProductCategory", "Department", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", testProductCategory, exampleSupplier);
+        Product expectedProduct = new Product("Product", 0, "USD", "Description", testProductCategory, exampleSupplier, "");
         productDao.add(expectedProduct);
 
         List<Product> expectedList = new ArrayList<>();

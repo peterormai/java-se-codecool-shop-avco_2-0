@@ -1,9 +1,11 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
@@ -11,6 +13,8 @@ import com.codecool.shop.model.ProductCategory;
 import spark.Request;
 import spark.Response;
 
+import javax.net.ssl.SSLContext;
+import java.sql.SQLSyntaxErrorException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +35,7 @@ public class ProductPageController extends Controller {
     public String render(Request req, Response res) {
         ProductDao productDataStore = ProductDaoJdbc.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDAOJdbc.getInstance();
-        Order orderDataStore = Order.getInstance();
+        LineItemDao orderDataStore = LineItemDaoJdbc.getInstance();
         SupplierDao supplierDataStore = SupplierDaoJdbc.getInstance();
 
         Map<String, Object> params = new HashMap<>();
@@ -43,7 +47,7 @@ public class ProductPageController extends Controller {
         params.put("selected", productCategoryDataStore.find(id));
         params.put("suppliers", supplierDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
-        params.put("numberOfItems", orderDataStore.numberOfItems());
+        params.put("numberOfItems", orderDataStore.getNumberOfItem());
         if (req.queryParams("selected") != null) {
             params.put("category", req.queryParams("selected"));
             params.put("selected", req.queryParams("selected"));
@@ -67,12 +71,11 @@ public class ProductPageController extends Controller {
     }
 
     public Object addNewItemToCart(Request req, Response res) {
-        Order order = Order.getInstance();
-        String itemId = req.params("id");
-        Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
-        order.add(product);
+        int itemId =Integer.parseInt(req.params("id"));
+        Product product = ProductDaoJdbc.getInstance().find(itemId+1);
+        LineItemDaoJdbc.getInstance().add(product);
         Map<String, Object> params = new HashMap<>();
-        params.put("numberOfItems", order.numberOfItems());
+        params.put("numberOfItems", LineItemDaoJdbc.getInstance().getNumberOfItem());
         return renderTemplate(params, "cartButton");
     }
 }

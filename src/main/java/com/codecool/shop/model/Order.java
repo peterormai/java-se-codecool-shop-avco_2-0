@@ -35,7 +35,7 @@ public class Order {
             }
         }
         if (isNotIn) {
-            LineItem newLineItem = new LineItem(product);
+            LineItem newLineItem = new LineItem(1,product,1,1);
             lineItems.add(newLineItem);
         }
     }
