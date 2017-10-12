@@ -18,7 +18,6 @@ $(document).ready(function () {
         })
     }
 
-
     function changeItemQuantity() {
         var id = $(this).attr("id");
         var quantity = $(this).val();
@@ -33,17 +32,17 @@ $(document).ready(function () {
             success: function (response) {
                 if (quantity === "0") {
                     $("tr#" + id).remove();
-                    if ($('input').val() === undefined) {
-                        $.get('/review-cart', function(resp) {
+                    if ($('.item-quantity').val() === undefined) {
+                        $.get('/review-cart', function (resp) {
                             var tempDiv = $('<div>').append($.parseHTML(resp));
                             var content = $('.container', tempDiv);
                             $('.container').replaceWith(content);
                         })
                     }
                 } else {
-                    $("." + id).text("$" + response["value"].toLocaleString(undefined, {maximumFractionDigits:2}) + ".00");
+                    $("." + id).text("$" + response["value"].toLocaleString(undefined, {maximumFractionDigits: 2}) + ".00");
                 }
-                $("#total").text("Total $" + response["total"].toLocaleString(undefined, {maximumFractionDigits:2}) + ".00");
+                $("#total").text("Total $" + response["total"].toLocaleString(undefined, {maximumFractionDigits: 2}) + ".00");
             }
         });
     }
@@ -57,12 +56,62 @@ $(document).ready(function () {
         })
     }
 
-
     function addListeners() {
         $('.filter').on('click', filter);
         $('.addToCart-button').on('click', addToCart);
-        $("input").on("change", changeItemQuantity);
-        $('.removeButton').click(removeItem);
+        $('.item-quantity').on('change', changeItemQuantity);
+        $('.removeButton').on('click', removeItem);
+        $('#checkbox').on('click', setShipping);
+        if (window.location.pathname === '/payment') {
+            cardDataFormatting();
+        }
+        if (window.location.pathname === '/checkout' || window.location.pathname === "/editCheckout") {
+            phoneNumberFormatting();
+        }
+    }
+
+    function cardDataFormatting() {
+        var selectedCardIcon = null;
+        new Cleave('#cardNumber', {
+            creditCard: true,
+            onCreditCardTypeChanged: function (type) {
+                if (selectedCardIcon) {
+                    selectedCardIcon.removeClass('active');
+                }
+
+                selectedCardIcon = $('#icon-' + type);
+
+                if (selectedCardIcon) {
+                    selectedCardIcon.addClass('active');
+                }
+            }
+        });
+        new Cleave('#cardExpiry', {
+            date: true,
+            datePattern: ['m', 'y']
+        });
+    }
+
+    function phoneNumberFormatting() {
+        new Cleave('#phoneNumber', {
+            phone: true,
+            phoneRegionCode: 'HU'
+        })
+    }
+
+    function setShipping() {
+        var checked = $('#checkbox').is(':checked');
+        if (checked) {
+            $('#shippingCountry').val($('#billingCountry').val());
+            $('#shippingCity').val($('#billingCity').val());
+            $('#shippingZipCode').val($('#billingZipCode').val());
+            $('#shippingAddress').val($('#billingAddress').val());
+        } else {
+            $('#shippingCountry').val('');
+            $('#shippingCity').val('');
+            $('#shippingZipCode').val('');
+            $('#shippingAddress').val('');
+        }
     }
 
     addListeners()

@@ -78,15 +78,6 @@ h4 {
     font-size: 16px;
 }
 
-.equal {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -webkit-align-content: flex-end;
-    align-content: flex-end;
-}
-
 .jumbotron {
     background-color: steelblue;
     margin-bottom: 0;
@@ -148,16 +139,21 @@ h4 {
     background: lightcoral;
 }
 
+.equal {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-align-content: flex-end;
+    align-content: flex-end;
+}
+
 #cartButton {
     height: 40px;
 }
 
 .nav-buttons {
     padding: 20px 0;
-}
-
-.cart-button-container {
-    padding: 20px;
 }
 
 .fa-shopping-basket {
@@ -329,6 +325,26 @@ input[type=text], input[type=email] {
     border-width: 3px;
     border-color: white;
     box-shadow: 3px 3px 5px #D3D3D3;
+}
+
+.card-logos {
+    display: inline;
+    font-size: 2.5em;
+    color: #999;
+    margin: 0 auto;
+}
+
+.icon {
+    padding: 0 3px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.icon.active {
+    color: steelblue;
+    -ms-transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
 }
 
 /* Confirmation page
