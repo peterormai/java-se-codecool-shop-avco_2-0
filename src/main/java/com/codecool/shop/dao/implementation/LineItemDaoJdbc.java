@@ -229,7 +229,7 @@ public class LineItemDaoJdbc implements LineItemDao {
 
     @Override
     public int getNumberOfItem() {
-
+        
         List<LineItem> lineItems = getAll();
 
         int number = 0;

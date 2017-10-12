@@ -2,7 +2,6 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.model.LineItem;
-import com.codecool.shop.model.Order;
 import com.codecool.shop.model.OrderStatus;
 import com.codecool.shop.model.Product;
 import org.json.simple.JSONArray;
@@ -14,9 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LineItemDaoMem implements LineItemDao {
-    private static Order orderInstance = null;
+    private static LineItemDaoMem lineItemDaoMem = null;
     private static List<LineItem> lineItems = new ArrayList<>();
     private OrderStatus status = OrderStatus.NEW;
+
+    private LineItemDaoMem() {
+    }
+
+    public static LineItemDaoMem getInstance() {
+        if ( lineItemDaoMem == null) {
+            lineItemDaoMem = new LineItemDaoMem();
+        }
+        return lineItemDaoMem;
+    }
 
     @Override
     public void add(Product product) {

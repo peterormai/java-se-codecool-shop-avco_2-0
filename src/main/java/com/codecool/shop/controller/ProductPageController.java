@@ -21,22 +21,30 @@ import java.util.Map;
 public class ProductPageController extends Controller {
 
     private static ProductPageController productPageController = null;
+    private ProductDao productDao;
+    private ProductCategoryDao productCategoryDao;
+    private LineItemDao lineItemDao;
+    private SupplierDao supplierDao;
 
-    private ProductPageController() {
+    private ProductPageController(ProductDao productDao, ProductCategoryDao productCategoryDao, LineItemDao lineItemDao, SupplierDao supplierDao) {
+        this.productDao = productDao;
+        this.productCategoryDao = productCategoryDao;
+        this.lineItemDao = lineItemDao;
+        this.supplierDao = supplierDao;
     }
 
-    public static ProductPageController getInstance() {
+    public static ProductPageController getInstance(ProductDao productDao, ProductCategoryDao productCategoryDao, LineItemDao lineItemDao, SupplierDao supplierDao) {
         if (productPageController == null) {
-            productPageController = new ProductPageController();
+            productPageController = new ProductPageController(productDao,productCategoryDao,lineItemDao,supplierDao);
         }
         return productPageController;
     }
 
     public String render(Request req, Response res) {
-        ProductDao productDao = ProductDaoJdbc.getInstance();
-        ProductCategoryDao productCategoryDao = ProductCategoryDAOJdbc.getInstance();
-        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
-        SupplierDao supplierDao = SupplierDaoJdbc.getInstance();
+        ProductDao productDao = this.productDao;
+        ProductCategoryDao productCategoryDao = this.productCategoryDao;
+        LineItemDao lineItemDao = this.lineItemDao;
+        SupplierDao supplierDao = this.supplierDao;
 
         Map<String, Object> params = new HashMap<>();
         int id = 1;
@@ -70,12 +78,12 @@ public class ProductPageController extends Controller {
         return renderTemplate(params, "index");
     }
 
-    public Object addNewItemToCart(Request req, Response res) {
+    public Object addNewItemToCart(Request req, Response res ) {
         int itemId =Integer.parseInt(req.params("id"));
-        Product product = ProductDaoJdbc.getInstance().find(itemId+1);
-        LineItemDaoJdbc.getInstance().add(product);
+        Product product = productDao.find(itemId+1);
+        this.lineItemDao.add(product);
         Map<String, Object> params = new HashMap<>();
-        params.put("numberOfItems", LineItemDaoJdbc.getInstance().getNumberOfItem());
+        params.put("numberOfItems", lineItemDao.getNumberOfItem());
         return renderTemplate(params, "cartButton");
     }
 }
