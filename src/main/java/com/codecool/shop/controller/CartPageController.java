@@ -50,13 +50,18 @@ public class CartPageController extends Controller {
     public JSONObject renderChangeItemQuantity(Request req, Response res) {
         LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
         int id = Integer.parseInt(req.queryParams("id"));
-        lineItemDao.changeItemQuantity(id, Integer.parseInt(req.queryParams("quantity")));
+        int quantity = Integer.parseInt(req.queryParams("quantity"));
+
+        lineItemDao.changeItemQuantity(id, quantity);
+
         LineItem lineItem = LineItemDaoJdbc.getInstance().get(id);
         JSONObject obj = new JSONObject();
+
         float total = lineItemDao.getTotalPrice();
         obj.put("total", total);
+
         if (lineItem != null) {
-            float value = lineItemDao.getTotalPrice();
+            float value = lineItem.getProduct().getDefaultPrice() * quantity;
             obj.put("value", value);
         } else {
             obj.put("value", 0);
