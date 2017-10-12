@@ -40,7 +40,10 @@ public class ProductDaoJdbc implements ProductDao {
             statement.setInt(7, SupplierDaoJdbc.getInstance().findIdByName(product.getSupplier().getName()));
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("The database is already filled with data ");
+            throw new IllegalArgumentException(e);
+        } catch (IllegalArgumentException ie) {
+
         }
     }
 

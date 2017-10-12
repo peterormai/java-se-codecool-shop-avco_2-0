@@ -33,7 +33,10 @@ public class SupplierDaoJdbc implements SupplierDao {
             statement.setString(2, supplier.getDescription());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("The database is already filled with data ");
+            throw new IllegalArgumentException(e);
+        } catch (IllegalArgumentException ie){
+
         }
     }
 
