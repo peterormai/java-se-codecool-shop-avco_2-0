@@ -30,13 +30,13 @@ class ProductDaoTest {
 
     @BeforeEach
     void setUp() {
-        productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
-        supplier1 = new Supplier("TestSupplier", "Description");
-        product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1, "");
+        productCategory1 = new ProductCategory("ProductCategory1", "Department", "Description");
+        supplier1 = new Supplier("TestSupplier1", "Description");
+        product1 = new Product("Product1", 0, "USD", "Description", productCategory1, supplier1, "");
 
-        productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
-        supplier2 = new Supplier("TestSupplier", "Description");
-        product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2, "");
+        productCategory2 = new ProductCategory("ProductCategory2", "Department", "Description");
+        supplier2 = new Supplier("TestSupplier2", "Description");
+        product2 = new Product("Product2", 0, "USD", "Description", productCategory2, supplier2, "");
 
         dataHandler = Switch.getInstance().getDataHandling();
         if (dataHandler == DataHandler.MEMORY) {
@@ -51,7 +51,7 @@ class ProductDaoTest {
     public void tearDown() {
         // delete test data
         if (dataHandler == DataHandler.DATABASE) {
-            ProductDaoJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE productcategories CASCADE;");
+            ProductDaoJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE products CASCADE;");
         }
     }
 
@@ -62,7 +62,14 @@ class ProductDaoTest {
 
     @Test
     void add_whenAddNull_shouldThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> productDao.add(null));
+        String expectedExceptionMessage = "Added: null, Expected: Product";
+        String exceptionMessage = null;
+        try {
+            productDao.add(null);
+        } catch (IllegalArgumentException e) {
+            exceptionMessage = e.getMessage();
+        }
+        assertEquals(expectedExceptionMessage, exceptionMessage);
     }
 
     @Test
