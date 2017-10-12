@@ -1,9 +1,9 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.dao.implementation.SupplierDaoJdbc;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,11 +14,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SupplierDaoTest {
 
-    private SupplierDao supplierDao = SupplierDaoMem.getInstance();
+    private Enum dataHandler;
+    private SupplierDao supplierDao;
 
     @BeforeEach
     void setUp() {
-        supplierDao.getAll().clear();
+        dataHandler = Switch.getInstance().getDataHandling();
+        if(dataHandler == DataHandler.MEMORY) {
+            supplierDao = SupplierDaoMem.getInstance();
+            supplierDao.getAll().clear();
+        } else {
+            supplierDao = SupplierDaoJdbc.getInstance();
+        }
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // delete test data
+        if(dataHandler == DataHandler.DATABASE) {
+            SupplierDaoJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE suppliers CASCADE;");
+        }
     }
 
     @Test

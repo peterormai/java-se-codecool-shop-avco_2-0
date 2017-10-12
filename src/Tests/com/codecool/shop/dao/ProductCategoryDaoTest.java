@@ -33,7 +33,7 @@ class ProductCategoryDaoTest {
     public void tearDown() {
         // delete test data
         if(dataHandler == DataHandler.DATABASE) {
-            ProductCategoryDAOJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE productcategories CASCADE;");
+            ProductCategoryDAOJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE productcs CASCADE;");
         }
     }
 
