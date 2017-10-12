@@ -63,26 +63,40 @@ $(document).ready(function () {
         $('.removeButton').on('click', removeItem);
         $('#checkbox').on('click', setShipping);
         if (window.location.pathname === '/payment') {
-            var selectedCardIcon = null;
-            new Cleave('#cardNumber', {
-                creditCard: true,
-                onCreditCardTypeChanged: function (type) {
-                    if (selectedCardIcon) {
-                        selectedCardIcon.removeClass('active');
-                    }
-
-                    selectedCardIcon = $('#icon-' + type);
-
-                    if (selectedCardIcon) {
-                        selectedCardIcon.addClass('active');
-                    }
-                }
-            });
-            new Cleave('#cardExpiry', {
-                date: true,
-                datePattern: ['m', 'y']
-            });
+            cardDataFormatting();
         }
+        if (window.location.pathname === '/checkout' || window.location.pathname === "/editCheckout") {
+            phoneNumberFormatting();
+        }
+    }
+
+    function cardDataFormatting() {
+        var selectedCardIcon = null;
+        new Cleave('#cardNumber', {
+            creditCard: true,
+            onCreditCardTypeChanged: function (type) {
+                if (selectedCardIcon) {
+                    selectedCardIcon.removeClass('active');
+                }
+
+                selectedCardIcon = $('#icon-' + type);
+
+                if (selectedCardIcon) {
+                    selectedCardIcon.addClass('active');
+                }
+            }
+        });
+        new Cleave('#cardExpiry', {
+            date: true,
+            datePattern: ['m', 'y']
+        });
+    }
+
+    function phoneNumberFormatting() {
+        new Cleave('#phoneNumber', {
+            phone: true,
+            phoneRegionCode: 'HU'
+        })
     }
 
     function setShipping() {
