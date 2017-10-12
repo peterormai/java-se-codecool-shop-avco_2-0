@@ -50,20 +50,20 @@ public class ProductDaoJdbc implements ProductDao {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
                 int prodId = resultSet.getInt("product_category_id");
                 ProductCategory cat = ProductCategoryDAOJdbc.getInstance().find(prodId);
                 int suppId = resultSet.getInt("supplier_id");
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
 
-                Product result = new Product(resultSet.getString("name"),
+                Product product = new Product(resultSet.getString("name"),
                         resultSet.getInt("price"),
                         resultSet.getString("currency"),
                         resultSet.getString("description"),
                         cat, supp,
                         resultSet.getString("picture"));
-                return result;
+                product.setId(resultSet.getInt("id"));
+                return product;
             }
 
         } catch (SQLException e) {
@@ -99,7 +99,7 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getString("description"),
                         cat, supp,
                         resultSet.getString("picture"));
-
+                result.setId(resultSet.getInt("id"));
                 products.add(result);
             }
             return products;
@@ -128,6 +128,7 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getString("description"),
                         cat, supp,
                         resultSet.getString("picture"));
+                result.setId(resultSet.getInt("id"));
                 products.add(result);
 
                 System.out.println("Got all prods");
@@ -157,6 +158,7 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getString("currency"),
                         cat, supp,
                         resultSet.getString("picture"));
+                result.setId(resultSet.getInt("id"));
                 products.add(result);
 
             }

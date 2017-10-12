@@ -13,6 +13,8 @@ import com.codecool.shop.model.ProductCategory;
 import spark.Request;
 import spark.Response;
 
+import javax.net.ssl.SSLContext;
+import java.sql.SQLSyntaxErrorException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,12 +71,11 @@ public class ProductPageController extends Controller {
     }
 
     public Object addNewItemToCart(Request req, Response res) {
-        Order order = Order.getInstance();
-        String itemId = req.params("id");
-        Product product = ProductDaoMem.getInstance().find(Integer.parseInt(itemId));
-        order.add(product);
+        int itemId =Integer.parseInt(req.params("id"));
+        Product product = ProductDaoJdbc.getInstance().find(itemId+1);
+        LineItemDaoJdbc.getInstance().add(product);
         Map<String, Object> params = new HashMap<>();
-        params.put("numberOfItems", order.numberOfItems());
+        params.put("numberOfItems", LineItemDaoJdbc.getInstance().getNumberOfItem());
         return renderTemplate(params, "cartButton");
     }
 }

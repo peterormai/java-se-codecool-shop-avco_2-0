@@ -27,7 +27,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
 
     public void add(ProductCategory category) {
         String query = "INSERT INTO productCategories (name, department, description) " +
-                "VALUES(?,?,?)";
+                "VALUES(?,?,?);";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, category.getName());
@@ -40,7 +40,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
     }
 
     public ProductCategory find(int id) {
-        String query = "SELECT * FROM productCategories WHERE id = ?";
+        String query = "SELECT * FROM productCategories WHERE id = ?;";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
@@ -59,7 +59,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
     }
 
     public int findIdByName(String name) {
-        String query = "SELECT id FROM productCategories WHERE name = ?";
+        String query = "SELECT id FROM productCategories WHERE name = ?;";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, name);
@@ -76,7 +76,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
     }
 
     public void remove(int id) {
-        String query = "DELETE * FROM productCategories WHERE id = ?";
+        String query = "DELETE * FROM productCategories WHERE id = ?;";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
@@ -88,7 +88,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
     }
 
     public List<ProductCategory> getAll() {
-        String query = "SELECT * FROM productCategories";
+        String query = "SELECT * FROM productCategories;";
         try (Connection connection = getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);

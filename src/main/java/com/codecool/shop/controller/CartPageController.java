@@ -5,10 +5,12 @@ import com.codecool.shop.dao.implementation.LineItemDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
+import com.codecool.shop.model.Product;
 import org.json.simple.JSONObject;
 import spark.Request;
 import spark.Response;
 
+import java.sql.SQLSyntaxErrorException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +35,8 @@ public class CartPageController extends Controller {
 
         if (req.queryParams("id") != null) {
             int id = Integer.parseInt(req.queryParams("id"));
-            orderDataStore.remove(ProductDaoJdbc.getInstance().find(id));
+
+            LineItemDaoJdbc.getInstance().removeLineItem(id);
         }
 
         if (orderDataStore.getAll().isEmpty()) {
