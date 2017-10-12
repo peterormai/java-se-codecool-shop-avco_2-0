@@ -18,10 +18,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ProductDaoTest {
 
     private ProductDao productDao = ProductDaoMem.getInstance();
+    private ProductCategory productCategory1;
+    private ProductCategory productCategory2;
+    private Supplier supplier1;
+    private Supplier supplier2;
+    private Product product1;
+    private Product product2;
 
     @BeforeEach
     void setUp() {
         productDao.getAll().clear();
+
+        // Initiate test products
+        productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
+        supplier1 = new Supplier("TestSupplier", "Description");
+        product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1, "");
+
+        productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
+        supplier2 = new Supplier("TestSupplier", "Description");
+        product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2, "");
+
     }
 
     @Test
@@ -31,47 +47,30 @@ class ProductDaoTest {
 
     @Test
     void add_whenAddNull_shouldThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            productDao.add(null);
-        });
+        assertThrows(IllegalArgumentException.class, () -> productDao.add(null));
     }
 
     @Test
     void add_whenAddProduct_shouldStoreOneMore() {
         int expectedNumberOfProducts = 1;
-        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier exampleSupplier = new Supplier("Supplier", "Description");
-        Product exampleProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, exampleSupplier, "");
-
-        productDao.add(exampleProduct);
-
+        productDao.add(product1);
         int numberOfProducts = productDao.getAll().size();
         assertEquals(expectedNumberOfProducts, numberOfProducts);
     }
 
     @Test
     void add_whenAddProduct_shouldStoreThatProduct() {
-        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier testSupplier = new Supplier("TestSupplier", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier, "");
-
-        productDao.add(expectedProduct);
-
-        Product product = productDao.getBy(testSupplier).get(0);
-        assertEquals(expectedProduct, product);
+        productDao.add(product1);
+        Product product = productDao.getBy(supplier1).get(0);
+        assertEquals(product1, product);
     }
 
     @Test
     void find_whenSearchForExistingId_shouldFindRelatedProduct() {
-        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier testSupplier = new Supplier("TestSupplier", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier, "");
-
-        productDao.add(expectedProduct);
-
-        int testId = productDao.getBy(testSupplier).get(0).getId();
+        productDao.add(product1);
+        int testId = productDao.getBy(supplier1).get(0).getId();
         Product product = productDao.find(testId);
-        assertEquals(expectedProduct, product);
+        assertEquals(product1, product);
     }
 
     @Test
@@ -84,38 +83,22 @@ class ProductDaoTest {
     @Test
     void remove_whenRemoveProduct_shouldStoreOneLess() {
         int expectedNumberOfProducts = 0;
-
-        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier testSupplier = new Supplier("TestSupplier", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier, "");
-
-        productDao.add(expectedProduct);
-        int testId = productDao.getBy(testSupplier).get(0).getId();
+        productDao.add(product1);
+        int testId = productDao.getBy(supplier1).get(0).getId();
         productDao.remove(testId);
-
         int numberOfProducts = productDao.getAll().size();
         assertEquals(expectedNumberOfProducts, numberOfProducts);
     }
 
     @Test
     void remove_whenRemoveProduct_shouldRemoveRelatedProduct() {
-        ProductCategory productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier supplier1 = new Supplier("TestSupplier", "Description");
-        Product product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1, "");
-
-        ProductCategory productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier supplier2 = new Supplier("TestSupplier", "Description");
-        Product product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2, "");
-
         List<Product> expectedAllProducts = new ArrayList<>();
         expectedAllProducts.add(product2);
 
         productDao.add(product1);
         productDao.add(product2);
-
         int product1Id = productDao.getBy(supplier1).get(0).getId();
         productDao.remove(product1Id);
-
         List<Product> allProducts = productDao.getAll();
 
         assertEquals(expectedAllProducts, allProducts);
@@ -137,26 +120,18 @@ class ProductDaoTest {
     void getAll_whenNoProducts_shouldGiveBackEmptyList() {
         List<Product> expectedList = new ArrayList<>();
         List<Product> productsList = productDao.getAll();
+
         assertEquals(expectedList, productsList);
     }
 
     @Test
     void getAll_shouldGiveBackAllProductsInList() {
-        ProductCategory productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier supplier1 = new Supplier("TestSupplier", "Description");
-        Product product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1, "");
-
-        ProductCategory productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier supplier2 = new Supplier("TestSupplier", "Description");
-        Product product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2, "");
-
         List<Product> expectedAllProducts = new ArrayList<>();
         expectedAllProducts.add(product1);
         expectedAllProducts.add(product2);
 
         productDao.add(product1);
         productDao.add(product2);
-
         List<Product> allProducts = productDao.getAll();
 
         assertEquals(expectedAllProducts, allProducts);
@@ -164,7 +139,7 @@ class ProductDaoTest {
 
     @Test
     void getBy_whenSupplierHasNoProduct_shouldReturnEmptyList() {
-        Supplier supplierWithoutProduct = new Supplier("TestSupplier", "Description");
+        Supplier supplierWithoutProduct = supplier1;
         List<Product> expectedList = new ArrayList<>();
         List<Product> productsList = productDao.getBy(supplierWithoutProduct);
         assertEquals(expectedList, productsList);
@@ -172,7 +147,7 @@ class ProductDaoTest {
 
     @Test
     void getBy_whenProductCategoryHasNoProduct_shouldReturnEmptyList() {
-        ProductCategory productCategoryWithoutProduct = new ProductCategory("ProductCategory", "Department", "Description");
+        ProductCategory productCategoryWithoutProduct = productCategory1;
         List<Product> expectedList = new ArrayList<>();
         List<Product> productsList = productDao.getBy(productCategoryWithoutProduct);
         assertEquals(expectedList, productsList);
@@ -180,32 +155,24 @@ class ProductDaoTest {
 
     @Test
     void getBy_whenSupplierHasProduct_shouldReturnThatProduct() {
-        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-        Supplier testSupplier = new Supplier("TestSupplier", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier, "");
-        productDao.add(expectedProduct);
-
         List<Product> expectedList = new ArrayList<>();
-        expectedList.add(expectedProduct);
+        expectedList.add(product1);
 
-        List<Product> productsList = productDao.getBy(testSupplier);
+        productDao.add(product1);
+        List<Product> productsList = productDao.getBy(supplier1);
 
         assertEquals(expectedList, productsList);
     }
 
     @Test
     void getBy_whenProductCategoryHasProduct_shouldReturnThatProduct() {
-        Supplier exampleSupplier = new Supplier("Supplier", "Description");
-        ProductCategory testProductCategory = new ProductCategory("TestProductCategory", "Department", "Description");
-        Product expectedProduct = new Product("Product", 0, "USD", "Description", testProductCategory, exampleSupplier, "");
-        productDao.add(expectedProduct);
-
+        ProductCategory testProductCategory = productCategory1;
         List<Product> expectedList = new ArrayList<>();
-        expectedList.add(expectedProduct);
+        expectedList.add(product1);
 
+        productDao.add(product1);
         List<Product> productsList = productDao.getBy(testProductCategory);
 
         assertEquals(expectedList, productsList);
     }
-
 }

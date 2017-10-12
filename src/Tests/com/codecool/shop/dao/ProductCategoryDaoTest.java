@@ -13,10 +13,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductCategoryDaoTest {
 
     private ProductCategoryDao productCategoryDao = ProductCategoryDaoMem.getInstance();
+    private ProductCategory productCategory1;
+    private ProductCategory productCategory2;
+
 
     @BeforeEach
     void setUp() {
         productCategoryDao.getAll().clear();
+
+        productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
+        productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
     }
 
     @Test
@@ -34,33 +40,24 @@ class ProductCategoryDaoTest {
     @Test
     void add_whenAddProductCategory_shouldStoreOneMore() {
         int expectedNumberOfProductCategories = 1;
-        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-
-        productCategoryDao.add(exampleProductCategory);
-
+        productCategoryDao.add(productCategory1);
         int numberOfProductCategories = productCategoryDao.getAll().size();
         assertEquals(expectedNumberOfProductCategories, numberOfProductCategories);
     }
 //
     @Test
     void add_whenAddNewProductCategory_shouldStoreThatProductCategory() {
-        ProductCategory expectedProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-
-        productCategoryDao.add(expectedProductCategory);
-
+        productCategoryDao.add(productCategory1);
         ProductCategory productCategory = productCategoryDao.getAll().get(0);
-        assertEquals(expectedProductCategory, productCategory);
+        assertEquals(productCategory1, productCategory);
     }
 //
     @Test
     void find_whenSearchForExistingId_shouldFindRelatedProductCategory() {
-        ProductCategory expectedProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-
-        productCategoryDao.add(expectedProductCategory);
-
+        productCategoryDao.add(productCategory1);
         int testId = productCategoryDao.getAll().get(0).getId();
         ProductCategory productCategory = productCategoryDao.find(testId);
-        assertEquals(expectedProductCategory, productCategory);
+        assertEquals(productCategory1, productCategory);
     }
 //
     @Test
@@ -74,21 +71,16 @@ class ProductCategoryDaoTest {
     void remove_whenRemoveProductCategory_shouldStoreOneLess() {
         int expectedNumberOfProductCategories = 0;
 
-        ProductCategory expectedProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
-
-        productCategoryDao.add(expectedProductCategory);
+        productCategoryDao.add(productCategory1);
         int testId = productCategoryDao.getAll().get(0).getId();
         productCategoryDao.remove(testId);
-
         int numberOfProductCategories = productCategoryDao.getAll().size();
+
         assertEquals(expectedNumberOfProductCategories, numberOfProductCategories);
     }
 //
     @Test
     void remove_whenRemoveProductCategories_shouldRemoveRelatedProductCategory() {
-        ProductCategory productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
-        ProductCategory productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
-
         List<ProductCategory> expectedAllProductCategories = new ArrayList<>();
         expectedAllProductCategories.add(productCategory2);
 
@@ -124,9 +116,6 @@ class ProductCategoryDaoTest {
 //
     @Test
     void getAll_shouldGiveBackAllProductCategoriesInList() {
-        ProductCategory productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
-        ProductCategory productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
-
         List<ProductCategory> expectedAllProductCategories = new ArrayList<>();
         expectedAllProductCategories.add(productCategory1);
         expectedAllProductCategories.add(productCategory2);
