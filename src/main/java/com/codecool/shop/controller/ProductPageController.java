@@ -1,9 +1,11 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
@@ -31,7 +33,7 @@ public class ProductPageController extends Controller {
     public String render(Request req, Response res) {
         ProductDao productDataStore = ProductDaoJdbc.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDAOJdbc.getInstance();
-        Order orderDataStore = Order.getInstance();
+        LineItemDao orderDataStore = LineItemDaoJdbc.getInstance();
         SupplierDao supplierDataStore = SupplierDaoJdbc.getInstance();
 
         Map<String, Object> params = new HashMap<>();
@@ -43,7 +45,7 @@ public class ProductPageController extends Controller {
         params.put("selected", productCategoryDataStore.find(id));
         params.put("suppliers", supplierDataStore.getAll());
         params.put("categories", productCategoryDataStore.getAll());
-        params.put("numberOfItems", orderDataStore.numberOfItems());
+        params.put("numberOfItems", orderDataStore.getNumberOfItem());
         if (req.queryParams("selected") != null) {
             params.put("category", req.queryParams("selected"));
             params.put("selected", req.queryParams("selected"));

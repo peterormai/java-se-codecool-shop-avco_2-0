@@ -3,7 +3,6 @@ package com.codecool.shop.model;
 
 public class LineItem {
 
-    private static int idCounter = 0;
     private int id;
     private Product product;
     private int quantity;

@@ -59,8 +59,8 @@ public class ProductDaoJdbc implements ProductDao {
 
                 Product result = new Product(resultSet.getString("name"),
                         resultSet.getInt("price"),
-                        resultSet.getString("description"),
                         resultSet.getString("currency"),
+                        resultSet.getString("description"),
                         cat, supp,
                         resultSet.getString("picture"));
                 return result;

@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LineItemDaoJdbc implements LineItemDao {
-    private LineItemDaoJdbc lineItemDaoJdbc = null;
+    private static LineItemDaoJdbc lineItemDaoJdbc = null;
 
     private LineItemDaoJdbc() {
     }
 
-    public LineItemDaoJdbc getInstance() {
+    public static LineItemDaoJdbc getInstance() {
         if (lineItemDaoJdbc == null) {
             lineItemDaoJdbc = new LineItemDaoJdbc();
         }
@@ -28,11 +28,11 @@ public class LineItemDaoJdbc implements LineItemDao {
         for (LineItem lineItem : lineItems) {
             if (lineItem.getProduct().equals(product)) {
                 query = "UPDATE linteitem SET quantity = ? WHERE product_id = ?";
-                values.add(lineItem.getQuantity()+1);
+                values.add(lineItem.getQuantity() + 1);
                 break;
             }
         }
-        if (query == ""){
+        if (query == "") {
             query = "INSERT INTO lineitem(product_id,quantity,order_id";
             values.add(product.getId());
             values.add(1);
@@ -43,6 +43,7 @@ public class LineItemDaoJdbc implements LineItemDao {
 
 
     }
+
     @Override
     public void remove(Product product) {
         List<LineItem> lineItems = this.getAll();
@@ -50,11 +51,11 @@ public class LineItemDaoJdbc implements LineItemDao {
         String query = "";
         for (LineItem lineItem : lineItems) {
             if (lineItem.getProduct().equals(product)) {
-                if (lineItem.getQuantity()-1 == 0){
+                if (lineItem.getQuantity() - 1 == 0) {
                     query = "DELETE FROM lineitem WHERE id = ?";
                 } else {
                     query = "UPDATE linteitem SET quantity = ? WHERE product_id = ?";
-                    values.add(lineItem.getQuantity()-1);
+                    values.add(lineItem.getQuantity() - 1);
                     values.add(product.getId());
 
                 }
@@ -77,10 +78,10 @@ public class LineItemDaoJdbc implements LineItemDao {
 
     private void manageLinItemDataConnection(List<Integer> values, String query) {
 
-        try(Connection connection= getConnection()) {
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             for (int i = 0; i < values.size(); i++) {
-                statement.setInt(i+1,values.get(i));
+                statement.setInt(i + 1, values.get(i));
             }
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -91,18 +92,19 @@ public class LineItemDaoJdbc implements LineItemDao {
     @Override
     public List<LineItem> getAll() {
 
-        String query = "SELECT * FROM linteItem";
+        String query = "SELECT * FROM lineitem;";
         try (Connection connection = getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             List<LineItem> lineItemList = new ArrayList<>();
+
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 int product_id = resultSet.getInt("product_id");
                 Product product = ProductDaoJdbc.getInstance().find(product_id);
                 int quantity = resultSet.getInt("quantity");
                 int order_id = resultSet.getInt("order_id");
-                LineItem result = new LineItem(id,product,quantity,order_id);
+                LineItem result = new LineItem(id, product, quantity, order_id);
                 lineItemList.add(result);
             }
             return lineItemList;
@@ -111,6 +113,29 @@ public class LineItemDaoJdbc implements LineItemDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public int getTotalPrice() {
+        List<LineItem> lineItems = getAll();
+        int totalPrice = 0;
+        for (LineItem lineItem : lineItems) {
+            totalPrice += lineItem.getLineItemsPrice();
+        }
+        return totalPrice;
+
+    }
+
+    @Override
+    public int getNumberOfItem() {
+
+        List<LineItem> lineItems = getAll();
+
+        int number = 0;
+        for (LineItem lineItem : lineItems) {
+            number += lineItem.getQuantity();
+        }
+        return number;
     }
 
     private Connection getConnection() throws SQLException {
