@@ -180,7 +180,6 @@ class ProductDaoTest {
         assertEquals(expectedList, productsList);
     }
 
-    
     @Test
     void getBy_whenSupplierHasProduct_shouldReturnThatProduct() {
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
@@ -195,4 +194,20 @@ class ProductDaoTest {
 
         assertEquals(expectedList, productsList);
     }
+
+    @Test
+    void getBy_whenProductCategoryHasProduct_shouldReturnThatProduct() {
+        Supplier exampleSupplier = new Supplier("Supplier", "Description");
+        ProductCategory testProductCategory = new ProductCategory("TestProductCategory", "Department", "Description");
+        Product expectedProduct = new Product("Product", 0, "USD", "Description", testProductCategory, exampleSupplier);
+        productDao.add(expectedProduct);
+
+        List<Product> expectedList = new ArrayList<>();
+        expectedList.add(expectedProduct);
+
+        List<Product> productsList = productDao.getBy(testProductCategory);
+
+        assertEquals(expectedList, productsList);
+    }
+
 }
