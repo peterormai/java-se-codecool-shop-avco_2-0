@@ -50,7 +50,7 @@ class ProductDaoTest {
     }
 
     @Test
-    void add_whenAddNewProduct_shouldStoreThatProduct() {
+    void add_whenAddProduct_shouldStoreThatProduct() {
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier testSupplier = new Supplier("TestSupplier", "Description");
         Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);
@@ -75,7 +75,7 @@ class ProductDaoTest {
     }
 
     @Test
-    void find_whenIdDoesNotExist_shouldReturnNull() {
+    void find_whenProductIdDoesNotExist_shouldReturnNull() {
         int nonExistentId = 1;
         Product product = productDao.find(nonExistentId);
         assertEquals(null, product);
@@ -118,7 +118,6 @@ class ProductDaoTest {
 
         List<Product> allProducts = productDao.getAll();
 
-//        assertTrue(expectedAllProducts.equals(allProducts));
         assertEquals(expectedAllProducts, allProducts);
     }
 
@@ -160,7 +159,6 @@ class ProductDaoTest {
 
         List<Product> allProducts = productDao.getAll();
 
-//        assertTrue(expectedAllProducts.equals(allProducts));
         assertEquals(expectedAllProducts, allProducts);
     }
 
