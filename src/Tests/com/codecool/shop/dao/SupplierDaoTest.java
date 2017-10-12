@@ -62,4 +62,11 @@ class SupplierDaoTest {
         assertEquals(expectedSupplier, supplier);
     }
 
+    @Test
+    void find_whenSupplierIdDoesNotExist_shouldReturnNull() {
+        int nonExistentId = 1;
+        Supplier supplier = supplierDao.find(nonExistentId);
+        assertEquals(null, supplier);
+    }
+
 }
