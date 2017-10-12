@@ -154,8 +154,8 @@ public class ProductDaoJdbc implements ProductDao {
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
                 Product result = new Product(resultSet.getString("name"),
                         resultSet.getInt("price"),
-                        resultSet.getString("description"),
                         resultSet.getString("currency"),
+                        resultSet.getString("description"),
                         cat, supp,
                         resultSet.getString("picture"));
                 result.setId(resultSet.getInt("id"));

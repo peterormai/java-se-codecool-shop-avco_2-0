@@ -54,7 +54,6 @@ public class ProductPageController extends Controller {
             params.put("selected", req.queryParams("selected"));
             System.out.println(params.get("selected"));
         }
-
         if (req.queryParams("type") != null) {
             if (req.queryParams("type").equals("supplier")) {
                 id = Integer.parseInt(req.queryParams("id"));
@@ -68,6 +67,7 @@ public class ProductPageController extends Controller {
             }
             params.put("selected", req.queryParams("name"));
         }
+
         return renderTemplate(params, "index");
     }
 

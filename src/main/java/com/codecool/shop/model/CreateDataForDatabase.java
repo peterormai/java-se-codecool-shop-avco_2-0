@@ -7,16 +7,16 @@ public class CreateDataForDatabase {
     public static void createDaoMem() {
 
         //setting up a new supplier
-        Supplier tSystem = new Supplier("t-System", "Digital content and services");
-        Supplier schmitTpal = new Supplier("SchmitTpál.zrt", "Corrupters");
-        Supplier demcsakZssss = new Supplier("DemcsákZssss.rt", "The alcohol is bad, okeeeee?");
-        Supplier felcsutCompany = new Supplier("Felcsút Company", "We have enough money for everything");
-        Supplier identityTChan = new Supplier("Identity-t Chan", "The biggest copy factory");
-        SupplierDaoMem.getInstance().add(tSystem);
-        SupplierDaoMem.getInstance().add(schmitTpal);
-        SupplierDaoMem.getInstance().add(demcsakZssss);
-        SupplierDaoMem.getInstance().add(felcsutCompany);
-        SupplierDaoMem.getInstance().add(identityTChan);
+        Supplier bkcCopy = new Supplier("Bkc-opy", "");
+        Supplier magicEductation = new Supplier("Magic Education", "Corrupters");
+        Supplier fastAndTheFurious = new Supplier("F&F", "Fast and the Furious");
+        Supplier personalityMaker = new Supplier("Personality Maker", "We have enough money for everything");
+        Supplier itc = new Supplier("ITC", "The biggest copy factory");
+        SupplierDaoMem.getInstance().add(bkcCopy);
+        SupplierDaoMem.getInstance().add(magicEductation);
+        SupplierDaoMem.getInstance().add(fastAndTheFurious);
+        SupplierDaoMem.getInstance().add(personalityMaker);
+        SupplierDaoMem.getInstance().add(itc);
 
         //setting up a new product category
         ProductCategory idCard = new ProductCategory("Identity Card", "Identity Card", "It's looks like the original hungarian Identity card.");
@@ -42,30 +42,30 @@ public class CreateDataForDatabase {
 
 
         //setting up products and printing it
-        Product product1 = (new Product("Identity Card (Womean)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, felcsutCompany, "/img/product_1.jpg"));
-        Product product2 = (new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, felcsutCompany, "/img/product_2.jpg"));
-        Product product3 = (new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, felcsutCompany, "/img/product_3.jpg"));
-        Product product4 = (new Product("Address Card (Family pack)", 180, "USD", "This pack include 4 address card what you can shear with your family or friends", addressCard, felcsutCompany, "/img/product_4.jpg"));
-        Product product5 = (new Product("Driver Licence", 230, "USD", "It's just looks like driver licence, without category ", driverLicence, demcsakZssss, "/img/product_5.jpg"));
-        Product product6 = (new Product("B category - Driver Licence ", 580, "USD", "With this driver licence you can use you slovakian car in the hungarian roads", driverLicence, demcsakZssss, "/img/product_6.jpg"));
-        Product product7 = (new Product("C category - Driver Licence ", 580, "USD", "With this driver licence is much easier to take the refugees in the country, and you should not  take car for police ", driverLicence, demcsakZssss, "/img/product_7.jpg"));
-        Product product8 = (new Product("Érettségi", 400, "USD", "With this amazing document much easier get a job at awesome McDonald's, TESCO, SPAR, or at your friends ", erettsegi, schmitTpal, "/img/product_8.jpg"));
-        Product product9 = (new Product("Idegenvezető - OKJ", 450, "USD", "If you have this document you can talk with tourists about nice building. They are going to pay for that  ", okj, schmitTpal, "/img/product_9.jpg"));
-        Product product10 = (new Product("Ingatlankezelő - OKJ", 430, "USD", "If will be Ingatlankezelő, you will be the boss of many realtor ", okj, schmitTpal, "/img/product_10.jpg"));
-        Product product11 = (new Product("Diploma", 4500, "USD", "It's just a simple diploma without university, if you boss will searching for your name ate the university he will be know it's a fail diploma", diploma, schmitTpal, "/img/product_11.jpg"));
-        Product product12 = (new Product("Közgazdász", 6300, "USD", "Gazdaságtudományi Műszaki és Gazdasági-és Társadalomtudományi Kar Gazdálkodási - Diploma", diploma, schmitTpal, "/img/product_12.jpg"));
-        Product product13 = (new Product("Logopédia szakos tanár és pszichopedagógia szakos terapeauta - Diploma", 6250, "USD", "If will be Ingatlankezelő, you will be the boss of many realtor ", diploma, schmitTpal, "/img/product_13.jpg"));
-        Product product14 = (new Product("Építészmérnök", 7200, "HUF", " Széchenyi István Egyetem Műszaki Tudományi Kar ", diploma, schmitTpal, "/img/product_14.jpg"));
-        Product product15 = (new Product("English - Language Exam", 200, "USD", "With this document you will be english language ninja (on the paper) ", language, schmitTpal, "/img/product_15.jpg"));
-        Product product16 = (new Product("Germany - Language Exam", 225, "USD", "With this document you will be germany language ninja (on the paper) ", language, schmitTpal, "/img/product_16.jpg"));
-        Product product17 = (new Product("French - Language Exam", 230, "USD", "With this document you will be french language ninja (on the paper) ", language, schmitTpal, "/img/product_17.jpg"));
-        Product product18 = (new Product("Spain - Language Exam", 230, "USD", "With this document you will be spain language ninja (on the paper) ", language, schmitTpal, "/img/product_17.jpg"));
-        Product product19 = (new Product("Digital ticket - 30 day", 10, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, tSystem, "/img/product_19.jpg"));
-        Product product20 = (new Product("Paper ticket - 30 day ", 15, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, tSystem, "/img/product_20.jpg"));
-        Product product21 = (new Product("Paper ticket - 1 way ", 1, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, tSystem, "/img/product_21.jpg"));
-        Product product22 = (new Product("Identity Card + Address Card ", 80, "USD", "Your identity will be more real ", pack, schmitTpal, "/img/product_22.jpg"));
-        Product product23 = (new Product("Printer + shipping to you home", 40000, "USD", "With this printer you will able to made your own busniess, but 40% of your proift will be ours ", franchise, identityTChan, "/img/product_23.jpg"));
-        Product product24 = (new Product("Printer + shipping to border of your country ", 35000, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", franchise, identityTChan, "/img/product_24.jpg"));
+        Product product1 = (new Product("Identity Card (Womean)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, personalityMaker, "/img/product_1.jpg"));
+        Product product2 = (new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, personalityMaker, "/img/product_2.jpg"));
+        Product product3 = (new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, personalityMaker, "/img/product_3.jpg"));
+        Product product4 = (new Product("Address Card (Family pack)", 180, "USD", "This pack include 4 address card what you can shear with your family or friends", addressCard, personalityMaker, "/img/product_4.jpg"));
+        Product product5 = (new Product("Driver Licence", 230, "USD", "It's just looks like driver licence, without category ", driverLicence, fastAndTheFurious, "/img/product_5.jpg"));
+        Product product6 = (new Product("B category - Driver Licence ", 580, "USD", "With this driver licence you can use you slovakian car in the hungarian roads", driverLicence, fastAndTheFurious, "/img/product_6.jpg"));
+        Product product7 = (new Product("C category - Driver Licence ", 580, "USD", "With this driver licence is much easier to take the refugees in the country, and you should not  take car for police ", driverLicence, fastAndTheFurious, "/img/product_7.jpg"));
+        Product product8 = (new Product("Érettségi", 400, "USD", "With this amazing document much easier get a job at awesome McDonald's, TESCO, SPAR, or at your friends ", erettsegi, magicEductation, "/img/product_8.jpg"));
+        Product product9 = (new Product("Idegenvezető - OKJ", 450, "USD", "If you have this document you can talk with tourists about nice building. They are going to pay for that  ", okj, magicEductation, "/img/product_9.jpg"));
+        Product product10 = (new Product("Ingatlankezelő - OKJ", 430, "USD", "If will be Ingatlankezelő, you will be the boss of many realtor ", okj, magicEductation, "/img/product_10.jpg"));
+        Product product11 = (new Product("Diploma", 4500, "USD", "It's just a simple diploma without university, if you boss will searching for your name ate the university he will be know it's a fail diploma", diploma, magicEductation, "/img/product_11.jpg"));
+        Product product12 = (new Product("Közgazdász", 6300, "USD", "Gazdaságtudományi Műszaki és Gazdasági-és Társadalomtudományi Kar Gazdálkodási - Diploma", diploma, magicEductation, "/img/product_12.jpg"));
+        Product product13 = (new Product("Logopédia szakos tanár és pszichopedagógia szakos terapeauta - Diploma", 6250, "USD", "If will be Ingatlankezelő, you will be the boss of many realtor ", diploma, magicEductation, "/img/product_13.jpg"));
+        Product product14 = (new Product("Építészmérnök", 7200, "HUF", " Széchenyi István Egyetem Műszaki Tudományi Kar ", diploma, magicEductation, "/img/product_14.jpg"));
+        Product product15 = (new Product("English - Language Exam", 200, "USD", "With this document you will be english language ninja (on the paper) ", language, magicEductation, "/img/product_15.jpg"));
+        Product product16 = (new Product("Germany - Language Exam", 225, "USD", "With this document you will be germany language ninja (on the paper) ", language, magicEductation, "/img/product_16.jpg"));
+        Product product17 = (new Product("French - Language Exam", 230, "USD", "With this document you will be french language ninja (on the paper) ", language, magicEductation, "/img/product_17.jpg"));
+        Product product18 = (new Product("Spain - Language Exam", 230, "USD", "With this document you will be spain language ninja (on the paper) ", language, magicEductation, "/img/product_17.jpg"));
+        Product product19 = (new Product("Digital ticket - 30 day", 10, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, bkcCopy, "/img/product_19.jpg"));
+        Product product20 = (new Product("Paper ticket - 30 day ", 15, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, bkcCopy, "/img/product_20.jpg"));
+        Product product21 = (new Product("Paper ticket - 1 way ", 1, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, bkcCopy, "/img/product_21.jpg"));
+        Product product22 = (new Product("Identity Card + Address Card ", 80, "USD", "Your identity will be more real ", pack, magicEductation, "/img/product_22.jpg"));
+        Product product23 = (new Product("Printer + shipping to you home", 40000, "USD", "With this printer you will able to made your own busniess, but 40% of your proift will be ours ", franchise, itc, "/img/product_23.jpg"));
+        Product product24 = (new Product("Printer + shipping to border of your country ", 35000, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", franchise, itc, "/img/product_24.jpg"));
         ProductDaoMem.getInstance().add(product1);
         ProductDaoMem.getInstance().add(product2);
         ProductDaoMem.getInstance().add(product3);
@@ -108,17 +108,18 @@ public class CreateDataForDatabase {
     }
     public static void createData() {
 
+
         //setting up a new supplier
-        Supplier tSystem = new Supplier("t-System", "Digital content and services");
-        Supplier schmitTpal = new Supplier("SchmitTpál.zrt", "Corrupters");
-        Supplier demcsakZssss = new Supplier("DemcsákZssss.rt", "The alcohol is bad, okeeeee?");
-        Supplier felcsutCompany = new Supplier("Felcsút Company", "We have enough money for everything");
-        Supplier identityTChan = new Supplier("Identity-t Chan", "The biggest copy factory");
-        SupplierDaoJdbc.getInstance().add(tSystem);
-        SupplierDaoJdbc.getInstance().add(schmitTpal);
-        SupplierDaoJdbc.getInstance().add(demcsakZssss);
-        SupplierDaoJdbc.getInstance().add(felcsutCompany);
-        SupplierDaoJdbc.getInstance().add(identityTChan);
+        Supplier bkcCopy = new Supplier("Bkc-opy", "Digital content and services");
+        Supplier magicEductation = new Supplier("Magic Education", "Corrupters");
+        Supplier fastAndTheFurious = new Supplier("F&F", "The alcohol is bad, okeeeee?");
+        Supplier personalityMaker = new Supplier("Personality Maker", "We have enough money for everything");
+        Supplier itc = new Supplier("ITC", "The biggest copy factory");
+        SupplierDaoJdbc.getInstance().add(bkcCopy);
+        SupplierDaoJdbc.getInstance().add(magicEductation);
+        SupplierDaoJdbc.getInstance().add(fastAndTheFurious);
+        SupplierDaoJdbc.getInstance().add(personalityMaker);
+        SupplierDaoJdbc.getInstance().add(itc);
 
         //setting up a new product category
         ProductCategory idCard = new ProductCategory("Identity Card", "Identity Card", "It's looks like the original hungarian Identity card.");
@@ -144,30 +145,30 @@ public class CreateDataForDatabase {
 
 
         //setting up products and printing it
-        Product product1 = (new Product("Identity Card (Womean)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, felcsutCompany, "/img/product_1.jpg"));
-        Product product2 = (new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, felcsutCompany, "/img/product_2.jpg"));
-        Product product3 = (new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, felcsutCompany, "/img/product_3.jpg"));
-        Product product4 = (new Product("Address Card (Family pack)", 180, "USD", "This pack include 4 address card what you can shear with your family or friends", addressCard, felcsutCompany, "/img/product_4.jpg"));
-        Product product5 = (new Product("Driver Licence", 230, "USD", "It's just looks like driver licence, without category ", driverLicence, demcsakZssss, "/img/product_5.jpg"));
-        Product product6 = (new Product("B category - Driver Licence ", 580, "USD", "With this driver licence you can use you slovakian car in the hungarian roads", driverLicence, demcsakZssss, "/img/product_6.jpg"));
-        Product product7 = (new Product("C category - Driver Licence ", 580, "USD", "With this driver licence is much easier to take the refugees in the country, and you should not  take car for police ", driverLicence, demcsakZssss, "/img/product_7.jpg"));
-        Product product8 = (new Product("Érettségi", 400, "USD", "With this amazing document much easier get a job at awesome McDonald's, TESCO, SPAR, or at your friends ", erettsegi, schmitTpal, "/img/product_8.jpg"));
-        Product product9 = (new Product("Idegenvezető - OKJ", 450, "USD", "If you have this document you can talk with tourists about nice building. They are going to pay for that  ", okj, schmitTpal, "/img/product_9.jpg"));
-        Product product10 = (new Product("Ingatlankezelő - OKJ", 430, "USD", "If will be Ingatlankezelő, you will be the boss of many realtor ", okj, schmitTpal, "/img/product_10.jpg"));
-        Product product11 = (new Product("Diploma", 4500, "USD", "It's just a simple diploma without university, if you boss will searching for your name ate the university he will be know it's a fail diploma", diploma, schmitTpal, "/img/product_11.jpg"));
-        Product product12 = (new Product("Közgazdász", 6300, "USD", "Gazdaságtudományi Műszaki és Gazdasági-és Társadalomtudományi Kar Gazdálkodási - Diploma", diploma, schmitTpal, "/img/product_12.jpg"));
-        Product product13 = (new Product("Logopédia szakos tanár és pszichopedagógia szakos terapeauta - Diploma", 6250, "USD", "If will be Ingatlankezelő, you will be the boss of many realtor ", diploma, schmitTpal, "/img/product_13.jpg"));
-        Product product14 = (new Product("Építészmérnök", 7200, "HUF", " Széchenyi István Egyetem Műszaki Tudományi Kar ", diploma, schmitTpal, "/img/product_14.jpg"));
-        Product product15 = (new Product("English - Language Exam", 200, "USD", "With this document you will be english language ninja (on the paper) ", language, schmitTpal, "/img/product_15.jpg"));
-        Product product16 = (new Product("Germany - Language Exam", 225, "USD", "With this document you will be germany language ninja (on the paper) ", language, schmitTpal, "/img/product_16.jpg"));
-        Product product17 = (new Product("French - Language Exam", 230, "USD", "With this document you will be french language ninja (on the paper) ", language, schmitTpal, "/img/product_17.jpg"));
-        Product product18 = (new Product("Spain - Language Exam", 230, "USD", "With this document you will be spain language ninja (on the paper) ", language, schmitTpal, "/img/product_17.jpg"));
-        Product product19 = (new Product("Digital ticket - 30 day", 10, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, tSystem, "/img/product_19.jpg"));
-        Product product20 = (new Product("Paper ticket - 30 day ", 15, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, tSystem, "/img/product_20.jpg"));
-        Product product21 = (new Product("Paper ticket - 1 way ", 1, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, tSystem, "/img/product_21.jpg"));
-        Product product22 = (new Product("Identity Card + Address Card ", 80, "USD", "Your identity will be more real ", pack, schmitTpal, "/img/product_22.jpg"));
-        Product product23 = (new Product("Printer + shipping to you home", 40000, "USD", "With this printer you will able to made your own busniess, but 40% of your proift will be ours ", franchise, identityTChan, "/img/product_23.jpg"));
-        Product product24 = (new Product("Printer + shipping to border of your country ", 35000, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", franchise, identityTChan, "/img/product_24.jpg"));
+        Product product1 = (new Product("Identity Card (Womean)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, personalityMaker, "/img/product_1.jpg"));
+        Product product2 = (new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, personalityMaker, "/img/product_2.jpg"));
+        Product product3 = (new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, personalityMaker, "/img/product_3.jpg"));
+        Product product4 = (new Product("Address Card (Family pack)", 180, "USD", "This pack include 4 address card what you can shear with your family or friends", addressCard, personalityMaker, "/img/product_4.jpg"));
+        Product product5 = (new Product("Driver Licence", 230, "USD", "It's just looks like driver licence, without category ", driverLicence, fastAndTheFurious, "/img/product_5.jpg"));
+        Product product6 = (new Product("B category - Driver Licence ", 580, "USD", "With this driver licence you can use you slovakian car in the hungarian roads", driverLicence, fastAndTheFurious, "/img/product_6.jpg"));
+        Product product7 = (new Product("C category - Driver Licence ", 580, "USD", "With this driver licence is much easier to take the refugees in the country, and you should not  take car for police ", driverLicence, fastAndTheFurious, "/img/product_7.jpg"));
+        Product product8 = (new Product("Érettségi", 400, "USD", "With this amazing document much easier get a job at awesome McDonald's, TESCO, SPAR, or at your friends ", erettsegi, magicEductation, "/img/product_8.jpg"));
+        Product product9 = (new Product("Idegenvezető - OKJ", 450, "USD", "If you have this document you can talk with tourists about nice building. They are going to pay for that  ", okj, magicEductation, "/img/product_9.jpg"));
+        Product product10 = (new Product("Ingatlankezelő - OKJ", 430, "USD", "If will be Ingatlankezelő, you will be the boss of many realtor ", okj, magicEductation, "/img/product_10.jpg"));
+        Product product11 = (new Product("Diploma", 4500, "USD", "It's just a simple diploma without university, if you boss will searching for your name ate the university he will be know it's a fail diploma", diploma, magicEductation, "/img/product_11.jpg"));
+        Product product12 = (new Product("Közgazdász", 6300, "USD", "Gazdaságtudományi Műszaki és Gazdasági-és Társadalomtudományi Kar Gazdálkodási - Diploma", diploma, magicEductation, "/img/product_12.jpg"));
+        Product product13 = (new Product("Logopédia szakos tanár és pszichopedagógia szakos terapeauta - Diploma", 6250, "USD", "If will be Ingatlankezelő, you will be the boss of many realtor ", diploma, magicEductation, "/img/product_13.jpg"));
+        Product product14 = (new Product("Építészmérnök", 7200, "HUF", " Széchenyi István Egyetem Műszaki Tudományi Kar ", diploma, magicEductation, "/img/product_14.jpg"));
+        Product product15 = (new Product("English - Language Exam", 200, "USD", "With this document you will be english language ninja (on the paper) ", language, magicEductation, "/img/product_15.jpg"));
+        Product product16 = (new Product("Germany - Language Exam", 225, "USD", "With this document you will be germany language ninja (on the paper) ", language, magicEductation, "/img/product_16.jpg"));
+        Product product17 = (new Product("French - Language Exam", 230, "USD", "With this document you will be french language ninja (on the paper) ", language, magicEductation, "/img/product_17.jpg"));
+        Product product18 = (new Product("Spain - Language Exam", 230, "USD", "With this document you will be spain language ninja (on the paper) ", language, magicEductation, "/img/product_17.jpg"));
+        Product product19 = (new Product("Digital ticket - 30 day", 10, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, bkcCopy, "/img/product_19.jpg"));
+        Product product20 = (new Product("Paper ticket - 30 day ", 15, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, bkcCopy, "/img/product_20.jpg"));
+        Product product21 = (new Product("Paper ticket - 1 way ", 1, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", bkk, bkcCopy, "/img/product_21.jpg"));
+        Product product22 = (new Product("Identity Card + Address Card ", 80, "USD", "Your identity will be more real ", pack, magicEductation, "/img/product_22.jpg"));
+        Product product23 = (new Product("Printer + shipping to you home", 40000, "USD", "With this printer you will able to made your own busniess, but 40% of your proift will be ours ", franchise, itc, "/img/product_23.jpg"));
+        Product product24 = (new Product("Printer + shipping to border of your country ", 35000, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", franchise, itc, "/img/product_24.jpg"));
         ProductDaoJdbc.getInstance().add(product1);
         ProductDaoJdbc.getInstance().add(product2);
         ProductDaoJdbc.getInstance().add(product3);
