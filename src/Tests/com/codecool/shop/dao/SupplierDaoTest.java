@@ -21,8 +21,8 @@ class SupplierDaoTest {
 
     @BeforeEach
     void setUp() {
-        supplier1 = new Supplier("TestSupplier", "Description");
-        supplier2 = new Supplier("TestSupplier", "Description");
+        supplier1 = new Supplier("TestSupplier1", "Description1");
+        supplier2 = new Supplier("TestSupplier2", "Description2");
 
         dataHandler = Switch.getInstance().getDataHandling();
         if (dataHandler == DataHandler.MEMORY) {
@@ -48,9 +48,14 @@ class SupplierDaoTest {
 
     @Test
     void add_whenAddNull_shouldThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        String expectedExceptionMessage = "Added: null, Expected: Supplier";
+        String exceptionMessage = null;
+        try {
             supplierDao.add(null);
-        });
+        } catch (IllegalArgumentException e) {
+            exceptionMessage = e.getMessage();
+        }
+        assertEquals(expectedExceptionMessage, exceptionMessage);
     }
 
     @Test
