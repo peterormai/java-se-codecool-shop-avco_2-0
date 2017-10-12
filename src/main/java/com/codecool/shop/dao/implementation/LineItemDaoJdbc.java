@@ -50,11 +50,10 @@ public class LineItemDaoJdbc implements LineItemDao {
             }
         }
         if (query.equals("")) {
-            query = "INSERT INTO lineitem(product_id,quantity,order_id)VALUES(?,?,?);";
+            query = "INSERT INTO lineitem(product_id,quantity,order_id) VALUES(?,?,?);";
             values.add(product.getId());
             values.add(1);
             values.add(1);
-
         }
         manageLineItemDataConnection(values, query);
     }
@@ -120,19 +119,6 @@ public class LineItemDaoJdbc implements LineItemDao {
         return null;
     }
 
-    private void manageLineItemDataConnection(List<Integer> values, String query) {
-        try (Connection connection = getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            for (int i = 0; i < values.size(); i++) {
-                statement.setInt(i + 1, values.get(i));
-            }
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public List<LineItem> getAll() {
 
@@ -185,11 +171,21 @@ public class LineItemDaoJdbc implements LineItemDao {
     }
 
     @Override
-    public void JSONFileWrite() {
+    public int getNumberOfItem() {
+        List<LineItem> lineItems = getAll();
+        int number = 0;
+        for (LineItem lineItem : lineItems) {
+            number += lineItem.getQuantity();
+        }
+        return number;
+    }
 
+    @Override
+    public void JSONFileWrite() {
         JSONObject orders = new JSONObject();
         JSONObject order = new JSONObject();
         JSONArray lineItemsOfOrder = new JSONArray();
+
         for (LineItem lineItem : getAll()) {
             JSONObject lineItemObj = new JSONObject();
             JSONObject productObj = new JSONObject();
@@ -213,17 +209,19 @@ public class LineItemDaoJdbc implements LineItemDao {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    @Override
-    public int getNumberOfItem() {
-        List<LineItem> lineItems = getAll();
-        int number = 0;
-        for (LineItem lineItem : lineItems) {
-            number += lineItem.getQuantity();
+    private void manageLineItemDataConnection(List<Integer> values, String query) {
+        try (Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            for (int i = 0; i < values.size(); i++) {
+                statement.setInt(i + 1, values.get(i));
+            }
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return number;
     }
 
     private Connection getConnection() throws SQLException {
