@@ -7,6 +7,9 @@ import com.codecool.shop.model.Supplier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SupplierDaoTest {
@@ -49,6 +52,14 @@ class SupplierDaoTest {
         assertEquals(expectedSupplier, supplier);
     }
 
-    
+    @Test
+    void find_whenSearchForExistingId_shouldFindRelatedSupplier() {
+        Supplier expectedSupplier = new Supplier("TestSupplier", "Description");
+        supplierDao.add(expectedSupplier);
+
+        int expectedSupplierId = supplierDao.getAll().get(0).getId();
+        Supplier supplier = supplierDao.find(expectedSupplierId);
+        assertEquals(expectedSupplier, supplier);
+    }
 
 }
