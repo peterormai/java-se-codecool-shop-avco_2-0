@@ -32,7 +32,7 @@ class ProductCategoryDaoTest {
     }
 
     @Test
-    void add_whenAddProduct_shouldStoreOneMore() {
+    void add_whenAddProductCategory_shouldStoreOneMore() {
         int expectedNumberOfProductCategories = 1;
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
 
@@ -43,7 +43,7 @@ class ProductCategoryDaoTest {
     }
 //
     @Test
-    void add_whenAddNewProduct_shouldStoreThatProduct() {
+    void add_whenAddNewProduct_shouldStoreThatProductCategory() {
         ProductCategory expectedProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
 
         productCategoryDao.add(expectedProductCategory);
@@ -53,7 +53,7 @@ class ProductCategoryDaoTest {
     }
 //
     @Test
-    void find_whenSearchForExistingId_shouldFindRelatedProduct() {
+    void find_whenSearchForExistingId_shouldFindRelatedProductCategory() {
         ProductCategory expectedProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
 
         productCategoryDao.add(expectedProductCategory);
@@ -71,7 +71,7 @@ class ProductCategoryDaoTest {
     }
 //
     @Test
-    void remove_whenRemoveProduct_shouldStoreOneLess() {
+    void remove_whenRemoveProductCategory_shouldStoreOneLess() {
         int expectedNumberOfProductCategories = 0;
 
         ProductCategory expectedProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
@@ -85,7 +85,7 @@ class ProductCategoryDaoTest {
     }
 //
     @Test
-    void remove_whenRemoveProduct_shouldRemoveRelatedProduct() {
+    void remove_whenRemoveProductCategories_shouldRemoveRelatedProductCategory() {
         ProductCategory productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
         ProductCategory productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
 
@@ -116,14 +116,14 @@ class ProductCategoryDaoTest {
     }
 //
     @Test
-    void getAll_whenNoProducts_shouldGiveBackEmptyList() {
+    void getAll_whenNoProductCategories_shouldGiveBackEmptyList() {
         List<ProductCategory> expectedCategoryList = new ArrayList<>();
         List<ProductCategory> productCategoryList = productCategoryDao.getAll();
         assertEquals(expectedCategoryList, productCategoryList);
     }
 //
     @Test
-    void getAll_shouldGiveBackAllProductsInList() {
+    void getAll_shouldGiveBackAllProductCategoriesInList() {
         ProductCategory productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
         ProductCategory productCategory2 = new ProductCategory("ProductCategory", "Department", "Description");
 
