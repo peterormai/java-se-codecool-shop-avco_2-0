@@ -101,4 +101,16 @@ class SupplierDaoTest {
         assertEquals(expectedAllSuppliers, allSuppliers);
     }
 
+    @Test
+    void remove_whenSupplierIdDoesNotExist_shouldNotThrowException() {
+        int nonexistentId = 0;
+        Exception exception = null;
+        try {
+            supplierDao.remove(nonexistentId);
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertEquals(null, exception);
+    }
+
 }
