@@ -25,8 +25,12 @@ public class SupplierDaoMem implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        supplier.setId(DATA.size() + 1);
-        DATA.add(supplier);
+        try {
+            supplier.setId(DATA.size() + 1);
+            DATA.add(supplier);
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException("Added: null, Expected: Supplier");
+        }
     }
 
     @Override
