@@ -114,7 +114,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
         return new ConnectionManager("src/main/resources/sql/config.txt").getConnection();
     }
 
-    private void executeQueryWithNoReturnValue(String query) {
+    public void executeQueryWithNoReturnValue(String query) {
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.executeQuery();

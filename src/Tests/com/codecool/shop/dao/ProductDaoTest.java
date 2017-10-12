@@ -1,9 +1,11 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductDaoTest {
 
-    private ProductDao productDao = ProductDaoMem.getInstance();
+    private Enum dataHandler;
+    private ProductDao productDao;
     private ProductCategory productCategory1;
     private ProductCategory productCategory2;
     private Supplier supplier1;
@@ -27,9 +30,6 @@ class ProductDaoTest {
 
     @BeforeEach
     void setUp() {
-        productDao.getAll().clear();
-
-        // Initiate test products
         productCategory1 = new ProductCategory("ProductCategory", "Department", "Description");
         supplier1 = new Supplier("TestSupplier", "Description");
         product1 = new Product("Product", 0, "USD", "Description", productCategory1, supplier1, "");
@@ -38,6 +38,21 @@ class ProductDaoTest {
         supplier2 = new Supplier("TestSupplier", "Description");
         product2 = new Product("Product", 0, "USD", "Description", productCategory2, supplier2, "");
 
+        dataHandler = Switch.getInstance().getDataHandling();
+        if (dataHandler == DataHandler.MEMORY) {
+            productDao = ProductDaoMem.getInstance();
+            productDao.getAll().clear();
+        } else {
+            productDao = ProductDaoJdbc.getInstance();
+        }
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // delete test data
+        if (dataHandler == DataHandler.DATABASE) {
+            ProductDaoJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE productcategories CASCADE;");
+        }
     }
 
     @Test
