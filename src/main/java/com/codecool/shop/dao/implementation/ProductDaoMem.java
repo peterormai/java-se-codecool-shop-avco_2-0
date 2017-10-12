@@ -29,8 +29,12 @@ public class ProductDaoMem implements ProductDao {
 
     @Override
     public void add(Product product) {
-        product.setId(DATA.size() + 1);
-        DATA.add(product);
+        try {
+            product.setId(DATA.size() + 1);
+            DATA.add(product);
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException("Added: null, Expected: Product");
+        }
     }
 
     @Override
