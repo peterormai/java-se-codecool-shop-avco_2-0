@@ -42,8 +42,8 @@ public class ProductDaoJdbc implements ProductDao {
         } catch (SQLException e) {
             System.out.println("The database is already filled with data ");
             throw new IllegalArgumentException(e);
-        } catch (IllegalArgumentException ie) {
-
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException("Added: null, Expected: Product");
         }
     }
 
@@ -177,7 +177,7 @@ public class ProductDaoJdbc implements ProductDao {
     public void executeQueryWithNoReturnValue(String query) {
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
