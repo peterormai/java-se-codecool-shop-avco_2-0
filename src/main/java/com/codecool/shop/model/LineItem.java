@@ -6,12 +6,14 @@ public class LineItem {
     private static int idCounter = 0;
     private int id;
     private Product product;
-    private int quantity = 1;
+    private int quantity;
+    private int order_id;
 
-    public LineItem(Product product) {
-        this.id = idCounter;
+    public LineItem(int id, Product product, int quantity, int order_id) {
+        this.id = id;
         this.product = product;
-        idCounter++;
+        this.quantity = quantity;
+        this.order_id = order_id;
     }
 
     public int getId() {
