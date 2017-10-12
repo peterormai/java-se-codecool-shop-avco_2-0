@@ -21,7 +21,7 @@ public class LineItemDaoMem implements LineItemDao {
     }
 
     public static LineItemDaoMem getInstance() {
-        if ( lineItemDaoMem == null) {
+        if (lineItemDaoMem == null) {
             lineItemDaoMem = new LineItemDaoMem();
         }
         return lineItemDaoMem;
@@ -67,8 +67,8 @@ public class LineItemDaoMem implements LineItemDao {
 
     @Override
     public LineItem get(int id) {
-        for (LineItem lineItem: lineItems){
-            if (lineItem.getId() == id){
+        for (LineItem lineItem : lineItems) {
+            if (lineItem.getId() == id) {
                 return lineItem;
             }
         }

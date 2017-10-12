@@ -1,7 +1,6 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.LineItemDao;
-import com.codecool.shop.dao.implementation.LineItemDaoJdbc;
 import com.codecool.shop.model.Checkout;
 import com.codecool.shop.model.OrderStatus;
 import spark.Request;
@@ -30,7 +29,7 @@ public class PaymentPageController extends Controller {
     public String render(Request req, Response res) {
 
         Map<String, Object> params = new HashMap<>();
-        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
+        LineItemDao lineItemDao = this.lineItemDao;
 
         if (req.queryParams("checkout") == null) {
             res.redirect("/");
@@ -38,7 +37,7 @@ public class PaymentPageController extends Controller {
         }
         if (lineItemDao.getNumberOfItem() > 0 && req.queryParams("checkout").equals("done") && lineItemDao.getStatus() != OrderStatus.CHECKEDOUT) {
             lineItemDao.setStatus(OrderStatus.CHECKEDOUT);
-        } else if (!req.queryParams("checkout").equals("done")){
+        } else if (!req.queryParams("checkout").equals("done")) {
             res.redirect("/");
             return "";
         }
