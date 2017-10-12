@@ -78,11 +78,11 @@ public class SupplierDaoJdbc implements SupplierDao {
     }
 
     public void remove(int id) {
-        String query = "DELETE * FROM suppliers WHERE id = ?";
+        String query = "DELETE FROM suppliers WHERE id = ?";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
-            statement.executeQuery();
+            statement.executeUpdate();
             System.out.println("Deleted!");
         } catch (SQLException e) {
             e.printStackTrace();
