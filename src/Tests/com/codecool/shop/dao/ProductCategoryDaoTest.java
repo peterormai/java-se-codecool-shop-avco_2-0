@@ -43,7 +43,7 @@ class ProductCategoryDaoTest {
     }
 //
     @Test
-    void add_whenAddNewProduct_shouldStoreThatProductCategory() {
+    void add_whenAddNewProductCategory_shouldStoreThatProductCategory() {
         ProductCategory expectedProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
 
         productCategoryDao.add(expectedProductCategory);
