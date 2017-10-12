@@ -19,4 +19,11 @@ class SupplierDaoTest {
     void constructor_whenGetInstance_shouldNotBeNull() {
         assertTrue(supplierDao != null);
     }
+
+    @Test
+    void add_whenAddNull_shouldThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            supplierDao.add(null);
+        });
+    }
 }
