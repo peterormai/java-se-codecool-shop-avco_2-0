@@ -1,9 +1,11 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,11 +19,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductDaoTest {
 
-    private ProductDao productDao = ProductDaoMem.getInstance();
+    private Enum dataHandler;
+    private ProductDao productDao;
 
     @BeforeEach
     void setUp() {
-        productDao.getAll().clear();
+        dataHandler = Switch.getInstance().getDataHandling();
+        if(dataHandler == DataHandler.MEMORY) {
+            productDao = ProductDaoMem.getInstance();
+            productDao.getAll().clear();
+        } else {
+            productDao = ProductDaoJdbc.getInstance();
+        }
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // delete test data
+        if(dataHandler == DataHandler.DATABASE) {
+            ProductDaoJdbc.getInstance().executeQueryWithNoReturnValue("TRUNCATE TABLE productcategories CASCADE;");
+        }
     }
 
     @Test
