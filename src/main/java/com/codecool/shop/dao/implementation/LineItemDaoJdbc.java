@@ -3,10 +3,7 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.model.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,25 +21,71 @@ public class LineItemDaoJdbc implements LineItemDao {
     }
 
     @Override
-    public void add(LineItem newLineItem) {
-        List<LineItem> lineItemList = this.getAll();
-        for (LineItem lineItem : lineItemList) {
-            if (lineItem.getProduct().equals(newLineItem.getProduct())) {
-                lineItem.setQuantity(lineItem.getQuantity() + 1);
+    public void add(Product product) {
+        List<LineItem> lineItems = this.getAll();
+        List<Integer> values = new ArrayList<>();
+        String query = "";
+        for (LineItem lineItem : lineItems) {
+            if (lineItem.getProduct().equals(product)) {
+                query = "UPDATE linteitem SET quantity = ? WHERE product_id = ?";
+                values.add(lineItem.getQuantity()+1);
+                break;
             }
         }
-        String query = "UPDATE ";
+        if (query == ""){
+            query = "INSERT INTO lineitem(product_id,quantity,order_id";
+            values.add(product.getId());
+            values.add(1);
+            values.add(1);
+        }
+
+        manageLinItemDataConnection(values, query);
+
+
+    }
+    @Override
+    public void remove(Product product) {
+        List<LineItem> lineItems = this.getAll();
+        List<Integer> values = new ArrayList<>();
+        String query = "";
+        for (LineItem lineItem : lineItems) {
+            if (lineItem.getProduct().equals(product)) {
+                if (lineItem.getQuantity()-1 == 0){
+                    query = "DELETE FROM lineitem WHERE id = ?";
+                } else {
+                    query = "UPDATE linteitem SET quantity = ? WHERE product_id = ?";
+                    values.add(lineItem.getQuantity()-1);
+                    values.add(product.getId());
+
+                }
+                break;
+            }
+        }
+        manageLinItemDataConnection(values, query);
 
     }
 
     @Override
-    public void remove(int id) {
+    public void removeAll(int id) {
 
     }
 
     @Override
     public LineItem get(int id) {
         return null;
+    }
+
+    private void manageLinItemDataConnection(List<Integer> values, String query) {
+
+        try(Connection connection= getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            for (int i = 0; i < values.size(); i++) {
+                statement.setInt(i+1,values.get(i));
+            }
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
