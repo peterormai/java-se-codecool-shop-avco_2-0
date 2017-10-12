@@ -181,5 +181,18 @@ class ProductDaoTest {
     }
 
     
+    @Test
+    void getBy_whenSupplierHasProduct_shouldReturnThatProduct() {
+        ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
+        Supplier testSupplier = new Supplier("TestSupplier", "Description");
+        Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);
+        productDao.add(expectedProduct);
 
+        List<Product> expectedList = new ArrayList<>();
+        expectedList.add(expectedProduct);
+
+        List<Product> productsList = productDao.getBy(testSupplier);
+
+        assertEquals(expectedList, productsList);
+    }
 }
