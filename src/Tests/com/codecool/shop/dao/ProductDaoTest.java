@@ -118,7 +118,6 @@ class ProductDaoTest {
 
         List<Product> allProducts = productDao.getAll();
 
-//        assertTrue(expectedAllProducts.equals(allProducts));
         assertEquals(expectedAllProducts, allProducts);
     }
 
@@ -160,7 +159,6 @@ class ProductDaoTest {
 
         List<Product> allProducts = productDao.getAll();
 
-//        assertTrue(expectedAllProducts.equals(allProducts));
         assertEquals(expectedAllProducts, allProducts);
     }
 
