@@ -59,8 +59,9 @@ $(document).ready(function () {
     function addListeners() {
         $('.filter').on('click', filter);
         $('.addToCart-button').on('click', addToCart);
-        $(".item-quantity").on("change", changeItemQuantity);
-        $('.removeButton').click(removeItem);
+        $('.item-quantity').on('change', changeItemQuantity);
+        $('.removeButton').on('click', removeItem);
+        $('#checkbox').on('click', setShipping);
         if (window.location.pathname === '/payment') {
             var selectedCardIcon = null;
             new Cleave('#cardNumber', {
@@ -81,6 +82,21 @@ $(document).ready(function () {
                 date: true,
                 datePattern: ['m', 'y']
             });
+        }
+    }
+
+    function setShipping() {
+        var checked = $('#checkbox').is(':checked');
+        if (checked) {
+            $('#shippingCountry').val($('#billingCountry').val());
+            $('#shippingCity').val($('#billingCity').val());
+            $('#shippingZipCode').val($('#billingZipCode').val());
+            $('#shippingAddress').val($('#billingAddress').val());
+        } else {
+            $('#shippingCountry').val('');
+            $('#shippingCity').val('');
+            $('#shippingZipCode').val('');
+            $('#shippingAddress').val('');
         }
     }
 
