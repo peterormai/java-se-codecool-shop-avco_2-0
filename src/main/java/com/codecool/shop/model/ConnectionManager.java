@@ -28,11 +28,12 @@ public class ConnectionManager {
     }
 
     private Connection createConnectionConfig() throws SQLException {
-        String DATABASE = readIndexOfLines(1);
-        String DB_USER = readIndexOfLines(2);
-        String DB_PASSWORD = readIndexOfLines(3);
+        String DB_URL = readIndexOfLines(1).replace("\n","");
+        String DB_NAME = readIndexOfLines(2);
+        String DB_USER = readIndexOfLines(3);
+        String DB_PASSWORD = readIndexOfLines(4);
         return DriverManager.getConnection(
-                DATABASE,
+                DB_URL + DB_NAME,
                 DB_USER,
                 DB_PASSWORD);
     }

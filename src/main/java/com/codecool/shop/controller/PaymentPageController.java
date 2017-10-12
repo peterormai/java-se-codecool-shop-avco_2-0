@@ -3,7 +3,6 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.implementation.LineItemDaoJdbc;
 import com.codecool.shop.model.Checkout;
-import com.codecool.shop.model.Order;
 import com.codecool.shop.model.OrderStatus;
 import spark.Request;
 import spark.Response;
@@ -14,13 +13,15 @@ import java.util.Map;
 public class PaymentPageController extends Controller {
 
     private static PaymentPageController paymentPageController = null;
+    private LineItemDao lineItemDao;
 
-    private PaymentPageController() {
+    private PaymentPageController(LineItemDao lineItemDao) {
+        this.lineItemDao = lineItemDao;
     }
 
-    public static PaymentPageController getInstance() {
+    public static PaymentPageController getInstance(LineItemDao lineItemDao) {
         if (paymentPageController == null) {
-            paymentPageController = new PaymentPageController();
+            paymentPageController = new PaymentPageController(lineItemDao);
         }
         return paymentPageController;
     }

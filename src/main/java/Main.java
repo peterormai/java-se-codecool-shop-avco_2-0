@@ -19,11 +19,10 @@ public class Main {
         port(8888);
 
         //Create data in database
-        String LOGIC = "MEM";
+        String LOGIC = "JDBC";
         if (LOGIC == "MEM"){
 
             CreateDataForDatabase.createDaoMem();
-
             ProductDao productDao = ProductDaoMem.getInstance();
             ProductCategoryDao productCategoryDao = ProductCategoryDaoMem.getInstance();
             LineItemDao lineItemDao = LineItemDaoMem.getInstance();
@@ -42,23 +41,19 @@ public class Main {
             SupplierDao supplierDao = SupplierDaoJdbc.getInstance();
             renderRoute(productDao, productCategoryDao,lineItemDao,supplierDao);
         }
-
-
-
-
     }
 
     private static void renderRoute(ProductDao productDao, ProductCategoryDao productCategoryDao, LineItemDao lineItemDao, SupplierDao supplierDao) {
         // Always start with more specific routes
         get("/add-to-cart/:id", ProductPageController.getInstance(productDao,productCategoryDao,lineItemDao,supplierDao)::addNewItemToCart);
         get("/filter", ProductPageController.getInstance(productDao,productCategoryDao,lineItemDao,supplierDao)::render);
-        get("/review-cart", CartPageController.getInstance()::render);
-        put("/review-cart", CartPageController.getInstance()::renderChangeItemQuantity);
-        get("/checkout", CheckoutPageController.getInstance()::render);
-        get("/payment", PaymentPageController.getInstance()::render);
-        post("/payment", PaymentPageController.getInstance()::render);
-        get("/confirmation", ConfirmationPageController.getInstance()::render);
-        post("/confirmation", ConfirmationPageController.getInstance()::render);
+        get("/review-cart", CartPageController.getInstance(lineItemDao)::render);
+        put("/review-cart", CartPageController.getInstance(lineItemDao)::renderChangeItemQuantity);
+        get("/checkout", CheckoutPageController.getInstance(lineItemDao)::render);
+        get("/payment", PaymentPageController.getInstance(lineItemDao)::render);
+        post("/payment", PaymentPageController.getInstance(lineItemDao)::render);
+        get("/confirmation", ConfirmationPageController.getInstance(lineItemDao)::render);
+        post("/confirmation", ConfirmationPageController.getInstance(lineItemDao)::render);
 
         // Always add generic   routes to the end
         get("/index", ProductPageController.getInstance(productDao,productCategoryDao,lineItemDao,supplierDao)::render);

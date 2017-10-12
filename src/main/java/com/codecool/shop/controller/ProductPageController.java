@@ -4,17 +4,10 @@ import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.*;
-import com.codecool.shop.model.LineItem;
-import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
-
-import com.codecool.shop.model.ProductCategory;
 import spark.Request;
 import spark.Response;
 
-import javax.net.ssl.SSLContext;
-import java.sql.SQLSyntaxErrorException;
 import java.util.HashMap;
 import java.util.Map;
 
