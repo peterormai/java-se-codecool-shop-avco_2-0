@@ -50,7 +50,7 @@ class ProductDaoTest {
     }
 
     @Test
-    void add_whenAddNewProduct_shouldStoreThatProduct() {
+    void add_whenAddProduct_shouldStoreThatProduct() {
         ProductCategory exampleProductCategory = new ProductCategory("ProductCategory", "Department", "Description");
         Supplier testSupplier = new Supplier("TestSupplier", "Description");
         Product expectedProduct = new Product("Product", 0, "USD", "Description", exampleProductCategory, testSupplier);

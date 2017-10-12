@@ -1,6 +1,8 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,5 +39,16 @@ class SupplierDaoTest {
         int numberOfSuppliers = supplierDao.getAll().size();
         assertEquals(expectedNumberOfSuppliers, numberOfSuppliers);
     }
+
+    @Test
+    void add_whenAddSupplier_shouldStoreThatSupplier() {
+        Supplier expectedSupplier = new Supplier("TestSupplier", "Description");
+        supplierDao.add(expectedSupplier);
+
+        Supplier supplier = supplierDao.getAll().get(0);
+        assertEquals(expectedSupplier, supplier);
+    }
+
+    
 
 }
