@@ -26,7 +26,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
     }
 
     public void add(ProductCategory category) {
-        String query = "INSERT INTO productCategories (name, department, description) " +
+        String query = "INSERT INTO productcategories (name, department, description) " +
                 "VALUES(?,?,?);";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -37,13 +37,13 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
         } catch (SQLException e) {
             System.out.println("The database is already filled with data ");
             throw new IllegalArgumentException(e);
-        } catch (IllegalArgumentException ie) {
-
+        } catch (NullPointerException ie) {
+           throw new IllegalArgumentException("Added: null, Expected: ProductCategory");
         }
     }
 
     public ProductCategory find(int id) {
-        String query = "SELECT * FROM productCategories WHERE id = ?;";
+        String query = "SELECT * FROM productcategories WHERE id = ?;";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
@@ -62,7 +62,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
     }
 
     public int findIdByName(String name) {
-        String query = "SELECT id FROM productCategories WHERE name = ?;";
+        String query = "SELECT id FROM productcategories WHERE name = ?;";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, name);
@@ -79,11 +79,11 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
     }
 
     public void remove(int id) {
-        String query = "DELETE * FROM productCategories WHERE id = ?;";
+        String query = "DELETE FROM productcategories WHERE id = ?;";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
-            statement.executeQuery();
+            statement.executeUpdate();
             System.out.println("removed!");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
     }
 
     public List<ProductCategory> getAll() {
-        String query = "SELECT * FROM productCategories;";
+        String query = "SELECT * FROM productcategories;";
         try (Connection connection = getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -117,7 +117,7 @@ public class ProductCategoryDAOJdbc implements ProductCategoryDao {
     public void executeQueryWithNoReturnValue(String query) {
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
