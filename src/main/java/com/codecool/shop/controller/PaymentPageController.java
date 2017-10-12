@@ -1,5 +1,7 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.LineItemDao;
+import com.codecool.shop.dao.implementation.LineItemDaoJdbc;
 import com.codecool.shop.model.Checkout;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.OrderStatus;
@@ -27,14 +29,14 @@ public class PaymentPageController extends Controller {
     public String render(Request req, Response res) {
 
         Map<String, Object> params = new HashMap<>();
-        Order orderDataStore = Order.getInstance();
+        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
 
         if (req.queryParams("checkout") == null) {
             res.redirect("/");
             return "";
         }
-        if (orderDataStore.numberOfItems() > 0 && req.queryParams("checkout").equals("done") && orderDataStore.getStatus() != OrderStatus.CHECKEDOUT) {
-            orderDataStore.setStatus(OrderStatus.CHECKEDOUT);
+        if (lineItemDao.getNumberOfItem() > 0 && req.queryParams("checkout").equals("done") && lineItemDao.getStatus() != OrderStatus.CHECKEDOUT) {
+            lineItemDao.setStatus(OrderStatus.CHECKEDOUT);
         } else if (!req.queryParams("checkout").equals("done")){
             res.redirect("/");
             return "";
@@ -67,8 +69,7 @@ public class PaymentPageController extends Controller {
         Checkout.getInstance(params).setShippingZipCode(req.queryParams("shippingZipCode"));
         Checkout.getInstance(params).setShippingAddress(req.queryParams("shippingAddress"));
 
-        params.put("totalPrice", orderDataStore.getTotalPrice());
-
+        params.put("totalPrice", lineItemDao.getTotalPrice());
         return renderTemplate(params, "payment");
     }
 }

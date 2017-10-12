@@ -27,7 +27,7 @@ public class CartPageController extends Controller {
 
     @Override
     public String render(Request req, Response res) {
-        LineItemDao orderDataStore = LineItemDaoJdbc.getInstance();
+        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
         Map<String, Object> params = new HashMap<>();
 
         if (req.queryParams("id") != null) {
@@ -36,12 +36,12 @@ public class CartPageController extends Controller {
             LineItemDaoJdbc.getInstance().removeLineItem(id);
         }
 
-        if (orderDataStore.getAll().isEmpty()) {
+        if (lineItemDao.getAll().isEmpty()) {
             params.put("emptyCart", "Your cart is empty.");
         }
 
-        params.put("lineItems", orderDataStore.getAll());
-        params.put("totalPrice", orderDataStore.getTotalPrice());
+        params.put("lineItems", lineItemDao.getAll());
+        params.put("totalPrice", lineItemDao.getTotalPrice());
         return renderTemplate(params, "cart");
     }
 

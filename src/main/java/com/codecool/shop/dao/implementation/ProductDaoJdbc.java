@@ -40,7 +40,10 @@ public class ProductDaoJdbc implements ProductDao {
             statement.setInt(7, SupplierDaoJdbc.getInstance().findIdByName(product.getSupplier().getName()));
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("The database is already filled with data ");
+            throw new IllegalArgumentException(e);
+        } catch (IllegalArgumentException ie) {
+
         }
     }
 
@@ -56,12 +59,7 @@ public class ProductDaoJdbc implements ProductDao {
                 int suppId = resultSet.getInt("supplier_id");
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
 
-                Product product = new Product(resultSet.getString("name"),
-                        resultSet.getInt("price"),
-                        resultSet.getString("currency"),
-                        resultSet.getString("description"),
-                        cat, supp,
-                        resultSet.getString("picture"));
+                Product product = getResult(resultSet, cat, supp);
                 product.setId(resultSet.getInt("id"));
                 return product;
             }
@@ -91,14 +89,9 @@ public class ProductDaoJdbc implements ProductDao {
             List<Product> products = new ArrayList<>();
             while (resultSet.next()) {
                 ProductCategory cat = ProductCategoryDAOJdbc.getInstance().find(resultSet.getInt("product_category_id"));
-                int suppId = resultSet.getInt("supplier_id");
+                int suppId = getSuppId(resultSet);
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
-                Product result = new Product(resultSet.getString("name"),
-                        resultSet.getInt("price"),
-                        resultSet.getString("currency"),
-                        resultSet.getString("description"),
-                        cat, supp,
-                        resultSet.getString("picture"));
+                Product result = getResult(resultSet, cat, supp);
                 result.setId(resultSet.getInt("id"));
                 products.add(result);
             }
@@ -108,6 +101,10 @@ public class ProductDaoJdbc implements ProductDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private int getSuppId(ResultSet resultSet) throws SQLException {
+        return resultSet.getInt("supplier_id");
     }
 
     public List<Product> getBy(ProductCategory productCategory) {
@@ -122,22 +119,25 @@ public class ProductDaoJdbc implements ProductDao {
                 ProductCategory cat = ProductCategoryDAOJdbc.getInstance().find(resultSet.getInt("product_category_id"));
                 int suppId = resultSet.getInt("supplier_id");
                 Supplier supp = SupplierDaoJdbc.getInstance().find(suppId);
-                Product result = new Product(resultSet.getString("name"),
-                        resultSet.getInt("price"),
-                        resultSet.getString("currency"),
-                        resultSet.getString("description"),
-                        cat, supp,
-                        resultSet.getString("picture"));
+                Product result = getResult(resultSet, cat, supp);
                 result.setId(resultSet.getInt("id"));
                 products.add(result);
 
-                System.out.println("Got all prods");
             }
             return products;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private Product getResult(ResultSet resultSet, ProductCategory cat, Supplier supp) throws SQLException {
+        return new Product(resultSet.getString("name"),
+                resultSet.getInt("price"),
+                resultSet.getString("currency"),
+                resultSet.getString("description"),
+                cat, supp,
+                resultSet.getString("picture"));
     }
 
     public List<Product> getBy(Supplier supplier) {

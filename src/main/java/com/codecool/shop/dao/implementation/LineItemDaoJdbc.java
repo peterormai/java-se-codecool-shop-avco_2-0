@@ -14,6 +14,19 @@ import java.util.List;
 
 public class LineItemDaoJdbc implements LineItemDao {
     private static LineItemDaoJdbc lineItemDaoJdbc = null;
+    private OrderStatus status = OrderStatus.NEW;
+
+
+    @Override
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    @Override
+    public void setStatus(OrderStatus orderStatus) {
+        this.status = orderStatus;
+    }
+
 
     private LineItemDaoJdbc() {
     }
@@ -168,11 +181,18 @@ public class LineItemDaoJdbc implements LineItemDao {
 
     @Override
     public void changeItemQuantity(int id, int quantity) {
-        String query = "UPDATE lineitem SET quantity = ? WHERE id = ?";
+        String query;
         List<Integer> values = new ArrayList<>();
-        values.add(quantity);
-        values.add(id);
-        manageLinItemDataConnection(values,query);
+        if (quantity == 0){
+            query = "DELETE FROM lineitem WHERE id = ?";
+            values.add(id);
+        } else {
+
+            query = "UPDATE lineitem SET quantity = ? WHERE id = ?";
+            values.add(quantity);
+            values.add(id);
+        }
+        manageLinItemDataConnection(values, query);
     }
 
     @Override

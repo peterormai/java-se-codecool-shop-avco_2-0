@@ -1,8 +1,9 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.LineItemDao;
+import com.codecool.shop.dao.implementation.LineItemDaoJdbc;
 import com.codecool.shop.model.Checkout;
 import com.codecool.shop.model.LineItem;
-import com.codecool.shop.model.Order;
 import com.codecool.shop.model.OrderStatus;
 import spark.Request;
 import spark.Response;
@@ -10,9 +11,11 @@ import spark.Response;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class ConfirmationPageController extends Controller {
 
@@ -31,11 +34,11 @@ public class ConfirmationPageController extends Controller {
     @Override
     public String render(Request req, Response res) throws IOException {
 
-        Order orderDataStore = Order.getInstance();
-        List<LineItem> order = orderDataStore.getAll();
+        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
+        List<LineItem> order = lineItemDao.getAll();
 
-        if (orderDataStore.getStatus() == OrderStatus.CHECKEDOUT) {
-            orderDataStore.setStatus(OrderStatus.PAID);
+        if (lineItemDao.getStatus() == OrderStatus.CHECKEDOUT) {
+            lineItemDao.setStatus(OrderStatus.PAID);
         } else {
             res.redirect("/");
             return "";
@@ -58,9 +61,9 @@ public class ConfirmationPageController extends Controller {
         params.put("shippingAddress", checkoutData.get("shippingAddress"));
 
         // Save log file
-        orderDataStore.JSONFileWrite();
-        params.put("cart", orderDataStore.getAll());
-        params.put("totalPrice", orderDataStore.getTotalPrice());
+        lineItemDao.JSONFileWrite();
+        params.put("cart", lineItemDao.getAll());
+        params.put("totalPrice", lineItemDao.getTotalPrice());
 
         // Send email to user
         final String username = "aviation.codecoolers@gmail.com";
@@ -105,8 +108,8 @@ public class ConfirmationPageController extends Controller {
                     "Order:\n" +
                     orderText +
                     "\nTotal: " +
-                    orderDataStore.getTotalPrice() + " " +
-                    orderDataStore.getAll().stream().findFirst().get().getProduct().getDefaultCurrency() +
+                    lineItemDao.getTotalPrice() + " " +
+                    lineItemDao.getAll().stream().findFirst().get().getProduct().getDefaultCurrency() +
                     "\n\nBilling Address:\n" +
                     checkoutData.get("firstName") + " " + checkoutData.get("lastName") + "\n" +
                     checkoutData.get("billingCountry") + "\n" +
@@ -130,8 +133,8 @@ public class ConfirmationPageController extends Controller {
         }
 
 
-        orderDataStore.removeAll();
-        orderDataStore.setStatus(OrderStatus.NEW);
+        lineItemDao.removeAll();
+        lineItemDao.setStatus(OrderStatus.NEW);
 
         return renderTemplate(params, "confirmation");
     }

@@ -33,21 +33,21 @@ public class ProductPageController extends Controller {
     }
 
     public String render(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoJdbc.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDAOJdbc.getInstance();
-        LineItemDao orderDataStore = LineItemDaoJdbc.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoJdbc.getInstance();
+        ProductDao productDao = ProductDaoJdbc.getInstance();
+        ProductCategoryDao productCategoryDao = ProductCategoryDAOJdbc.getInstance();
+        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
+        SupplierDao supplierDao = SupplierDaoJdbc.getInstance();
 
         Map<String, Object> params = new HashMap<>();
         int id = 1;
         params.put("supplier", "notRelevant");
         params.put("type", "category");
-        params.put("products", productDataStore.getBy(productCategoryDataStore.find(id)));
-        params.put("category", productCategoryDataStore.find(id));
-        params.put("selected", productCategoryDataStore.find(id));
-        params.put("suppliers", supplierDataStore.getAll());
-        params.put("categories", productCategoryDataStore.getAll());
-        params.put("numberOfItems", orderDataStore.getNumberOfItem());
+        params.put("products", productDao.getBy(productCategoryDao.find(id)));
+        params.put("category", productCategoryDao.find(id));
+        params.put("selected", productCategoryDao.find(id));
+        params.put("suppliers", supplierDao.getAll());
+        params.put("categories", productCategoryDao.getAll());
+        params.put("numberOfItems", lineItemDao.getNumberOfItem());
         if (req.queryParams("selected") != null) {
             params.put("category", req.queryParams("selected"));
             params.put("selected", req.queryParams("selected"));
@@ -58,12 +58,12 @@ public class ProductPageController extends Controller {
             if (req.queryParams("type").equals("supplier")) {
                 id = Integer.parseInt(req.queryParams("id"));
                 params.put("type", "supplier");
-                params.put("supplier", supplierDataStore.find(id));
-                params.put("products", productDataStore.getBy(supplierDataStore.find(id)));
+                params.put("supplier", supplierDao.find(id));
+                params.put("products", productDao.getBy(supplierDao.find(id)));
             } else if (req.queryParams("type").equals("category")) {
                 int categoryID = Integer.parseInt(req.queryParams("id"));
-                params.put("category", productCategoryDataStore.find(categoryID));
-                params.put("products", productDataStore.getBy(productCategoryDataStore.find(categoryID)));
+                params.put("category", productCategoryDao.find(categoryID));
+                params.put("products", productDao.getBy(productCategoryDao.find(categoryID)));
             }
             params.put("selected", req.queryParams("name"));
         }
