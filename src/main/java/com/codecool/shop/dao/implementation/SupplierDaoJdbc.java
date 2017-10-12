@@ -35,8 +35,8 @@ public class SupplierDaoJdbc implements SupplierDao {
         } catch (SQLException e) {
             System.out.println("The database is already filled with data ");
             throw new IllegalArgumentException(e);
-        } catch (IllegalArgumentException ie){
-
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException("Added: null, Expected: Supplier");
         }
     }
 
@@ -78,11 +78,11 @@ public class SupplierDaoJdbc implements SupplierDao {
     }
 
     public void remove(int id) {
-        String query = "DELETE * FROM suppliers WHERE id = ?";
+        String query = "DELETE FROM suppliers WHERE id = ?";
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
-            statement.executeQuery();
+            statement.executeUpdate();
             System.out.println("Deleted!");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class SupplierDaoJdbc implements SupplierDao {
     public void executeQueryWithNoReturnValue(String query) {
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
