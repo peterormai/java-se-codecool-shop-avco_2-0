@@ -70,16 +70,26 @@ class SupplierDaoTest {
     @Test
     void add_whenAddSupplier_shouldStoreThatSupplier() {
         supplierDao.add(supplier1);
+        int beforeId = supplierDao.getAll().get(0).getId();
+        supplierDao.remove(beforeId);
+        supplier2.setId(beforeId + 1);
+
+        supplierDao.add(supplier2);
         Supplier supplier = supplierDao.getAll().get(0);
-        assertEquals(supplier1, supplier);
+        assertEquals(convertObjectToList(supplier2), convertObjectToList(supplier));
     }
 
     @Test
     void find_whenSearchForExistingId_shouldFindRelatedSupplier() {
         supplierDao.add(supplier1);
-        int expectedSupplierId = supplierDao.getAll().get(0).getId();
-        Supplier supplier = supplierDao.find(expectedSupplierId);
-        assertEquals(supplier1, supplier);
+        int beforeId = supplierDao.getAll().get(0).getId();
+        supplierDao.remove(beforeId);
+
+        supplierDao.add(supplier2);
+        int productCategory2Id = beforeId + 1;
+        supplier2.setId(productCategory2Id);
+        Supplier productCategory = supplierDao.find(productCategory2Id);
+        assertEquals(convertObjectToList(supplier2), convertObjectToList(productCategory));
     }
 
     @Test
@@ -91,11 +101,11 @@ class SupplierDaoTest {
 
     @Test
     void remove_whenRemoveSupplier_shouldStoreOneLess() {
-        int expectedNumberOfSuppliers = 0;
-
         supplierDao.add(supplier1);
-        int testSupplierId = supplierDao.getAll().get(0).getId();
-        supplierDao.remove(testSupplierId);
+        int testId = supplierDao.getAll().get(0).getId();
+        supplierDao.remove(testId);
+
+        int expectedNumberOfSuppliers = 0;
         int numberOfSuppliers = supplierDao.getAll().size();
 
         assertEquals(expectedNumberOfSuppliers, numberOfSuppliers);
@@ -103,18 +113,21 @@ class SupplierDaoTest {
 
     @Test
     void remove_whenRemoveSupplier_shouldRemoveRelatedSupplier() {
-        List<Supplier> expectedAllSuppliers = new ArrayList<>();
-        expectedAllSuppliers.add(supplier2);
+        List<Supplier> expectedAllProductCategories = new ArrayList<>();
 
         supplierDao.add(supplier1);
+        int beforeId = supplierDao.getAll().get(0).getId();
         supplierDao.add(supplier2);
 
-        int supplier1Id = supplierDao.getAll().get(0).getId();
-        supplierDao.remove(supplier1Id);
+        supplierDao.remove(beforeId);
 
-        List<Supplier> allSuppliers = supplierDao.getAll();
+        int productCategory2Id = beforeId + 1;
+        supplier2.setId(productCategory2Id);
+        expectedAllProductCategories.add(supplier2);
 
-        assertEquals(expectedAllSuppliers, allSuppliers);
+        List<Supplier> allProductCategories = supplierDao.getAll();
+
+        assertEquals(convertObjectToList(expectedAllProductCategories.get(0)), convertObjectToList(allProductCategories.get(0)));
     }
 
     @Test
@@ -138,15 +151,31 @@ class SupplierDaoTest {
 
     @Test
     void getAll_shouldGiveBackAllSuppliersInList() {
-        List<Supplier> expectedAllSuppliers = new ArrayList<>();
-        expectedAllSuppliers.add(supplier1);
-        expectedAllSuppliers.add(supplier2);
-
+        List<List> expectedAllSuppliers = new ArrayList<>();
         supplierDao.add(supplier1);
         supplierDao.add(supplier2);
 
-        List<Supplier> allSuppliers = supplierDao.getAll();
+        int productCategory1Id = supplierDao.getAll().get(0).getId();
+        int productCategory2Id = supplierDao.getAll().get(1).getId();
 
-        assertEquals(expectedAllSuppliers, allSuppliers);
+        supplier1.setId(productCategory1Id);
+        supplier2.setId(productCategory2Id);
+
+        expectedAllSuppliers.add(convertObjectToList(supplier1));
+        expectedAllSuppliers.add(convertObjectToList(supplier2));
+
+        List<List> allProductCategories = new ArrayList<>();
+        for (Supplier prodCat: supplierDao.getAll()) {
+            allProductCategories.add(convertObjectToList(prodCat));
+        }
+        assertEquals(expectedAllSuppliers, allProductCategories);
+    }
+
+    private List convertObjectToList(Supplier supplier) {
+        List<String> supplierList = new ArrayList<>();
+        supplierList.add(Integer.toString(supplier.getId()));
+        supplierList.add(supplier.getName());
+        supplierList.add(supplier.getDescription());
+        return supplierList;
     }
 }
