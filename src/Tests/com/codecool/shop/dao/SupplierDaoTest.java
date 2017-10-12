@@ -120,4 +120,21 @@ class SupplierDaoTest {
         assertEquals(expectedList, suppliersList);
     }
 
+    @Test
+    void getAll_shouldGiveBackAllSuppliersInList() {
+        Supplier supplier1 = new Supplier("TestSupplier", "Description");
+        Supplier supplier2 = new Supplier("TestSupplier", "Description");
+
+        List<Supplier> expectedAllSuppliers = new ArrayList<>();
+        expectedAllSuppliers.add(supplier1);
+        expectedAllSuppliers.add(supplier2);
+
+        supplierDao.add(supplier1);
+        supplierDao.add(supplier2);
+
+        List<Supplier> allSuppliers = supplierDao.getAll();
+
+        assertEquals(expectedAllSuppliers, allSuppliers);
+    }
+
 }
