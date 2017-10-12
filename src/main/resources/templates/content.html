@@ -6,10 +6,19 @@
             <h1>AVco.py "SHOP"</h1>
         </div>
         <div class="container" id="products" th:fragment="container">
-            <h2 class="text-center">Products</h2>
-            <div class="cart-button-container text-center">
-                <div th:replace="cartButton :: cart"></div>
-            </div>
+            <h2 class="">
+                <div class="" th:fragment="navbar">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4 text-center">Products</div>
+                            <div class="col-xs-4 pull-right text-right">
+                                <div th:replace="cartButton :: cart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h2>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="well well-sm text-center-sm">
