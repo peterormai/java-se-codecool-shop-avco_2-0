@@ -3,7 +3,7 @@ package com.codecool.shop.dao;
 public class Switch {
 
     private static Switch instance = null;
-    private static Enum dataHandling = DataHandler.MEMORY;
+    private static Enum dataHandling = DataHandler.DATABASE;
 
     /* A private Constructor prevents any other class from instantiating.
      */
