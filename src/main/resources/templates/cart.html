@@ -41,7 +41,7 @@
                        th:value="${item.quantity}">
             </td>
             <td data-th="Subtotal" id="subtotal"  th:attr="class='text-center ' + ${item.id}"
-                th:text="${#numbers.formatCurrency(item.getLineItemsPrice)}">1.99
+                th:text="${#numbers.formatCurrency(item.quantity * item.getProduct.getDefaultPrice)}">1.99
             </td>
             <td class="actions text-center">
                 <button class="btn btn-danger btn-sm button-sm removeButton" th:attr="data-id=${item.getId()}">

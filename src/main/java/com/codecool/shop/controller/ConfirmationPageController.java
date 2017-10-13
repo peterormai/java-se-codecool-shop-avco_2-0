@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.Properties;
 
 public class ConfirmationPageController extends Controller {
-    private LineItemDao lineItemDao;
 
+    private LineItemDao lineItemDao;
     private static ConfirmationPageController confirmationPageController = null;
 
     private ConfirmationPageController(LineItemDao lineItemDao) {
@@ -84,7 +84,6 @@ public class ConfirmationPageController extends Controller {
                 });
 
         try {
-
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
@@ -122,17 +121,15 @@ public class ConfirmationPageController extends Controller {
                     checkoutData.get("shippingCity") + "\n" +
                     checkoutData.get("shippingZipCode") + "\n" +
                     checkoutData.get("shippingAddress");
-            System.out.println(messageText);
             message.setText(messageText);
 
             Transport.send(message);
 
-            System.out.println("Done");
+            System.out.println("E-mail sent");
 
         } catch (MessagingException e) {
-           System.out.println(e);
+            System.err.println(e.getMessage());
         }
-
 
         lineItemDao.removeAll();
         lineItemDao.setStatus(OrderStatus.NEW);

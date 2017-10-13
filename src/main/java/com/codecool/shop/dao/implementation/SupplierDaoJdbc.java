@@ -2,7 +2,6 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.ConnectionManager;
-import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Supplier;
 
 import java.sql.*;
@@ -13,8 +12,6 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     private static SupplierDaoJdbc instance = null;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
     private SupplierDaoJdbc() {
     }
 
@@ -33,7 +30,7 @@ public class SupplierDaoJdbc implements SupplierDao {
             statement.setString(2, supplier.getDescription());
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("The database is already filled with data ");
+            System.out.println("The database is already filled with data");
             throw new IllegalArgumentException(e);
         } catch (NullPointerException e) {
             throw new IllegalArgumentException("Added: null, Expected: Supplier");
@@ -65,12 +62,10 @@ public class SupplierDaoJdbc implements SupplierDao {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
-            Supplier supplier = null;
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 return id;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,10 +103,8 @@ public class SupplierDaoJdbc implements SupplierDao {
         return null;
     }
 
-
     private Connection getConnection() throws SQLException {
         return new ConnectionManager("src/main/resources/sql/config.txt").getConnection();
-
     }
 
     public void executeQueryWithNoReturnValue(String query) {
