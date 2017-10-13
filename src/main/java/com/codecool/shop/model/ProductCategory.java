@@ -9,6 +9,7 @@ public class ProductCategory extends BaseModel {
     public ProductCategory(String name, String department, String description) {
         super(name);
         this.department = department;
+        this.description = description;
         this.products = new ArrayList<>();
     }
 
@@ -32,9 +33,10 @@ public class ProductCategory extends BaseModel {
         this.products.add(product);
     }
 
+
+    @Override
     public String toString() {
-        return String.format(
-                "id: %1$d," +
+        return String.format("id: %1$d," +
                         "name: %2$s, " +
                         "department: %3$s, " +
                         "description: %4$s",

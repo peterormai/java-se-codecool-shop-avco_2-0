@@ -5,21 +5,18 @@ public class LineItem {
 
     private int id;
     private Product product;
-    private int quantity = 1;
-    private float price;
+    private int quantity;
+    private int order_id;
 
-    public LineItem(int id, Product product, float price) {
+    public LineItem(int id, Product product, int quantity, int order_id) {
         this.id = id;
         this.product = product;
-        this.price = price;
+        this.quantity = quantity;
+        this.order_id = order_id;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Product getProduct() {
@@ -34,8 +31,8 @@ public class LineItem {
         this.quantity = quantity;
     }
 
-    public float getPrice() {
-        return price;
+    public float getLineItemsPrice() {
+        return product.getDefaultPrice() * quantity;
     }
 
 }
