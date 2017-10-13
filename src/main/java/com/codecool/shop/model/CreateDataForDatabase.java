@@ -6,7 +6,7 @@ public class CreateDataForDatabase {
 
     public static void createDaoMem() {
 
-        //setting up a new supplier
+        // Setting up a new supplier
         Supplier bkcCopy = new Supplier("Bkc-opy", "");
         Supplier magicEductation = new Supplier("Magic Education", "Corrupters");
         Supplier fastAndTheFurious = new Supplier("F&F", "Fast and the Furious");
@@ -18,7 +18,7 @@ public class CreateDataForDatabase {
         SupplierDaoMem.getInstance().add(personalityMaker);
         SupplierDaoMem.getInstance().add(itc);
 
-        //setting up a new product category
+        // Setting up a new product category
         ProductCategory idCard = new ProductCategory("Identity Card", "Identity Card", "It's looks like the original hungarian Identity card.");
         ProductCategory addressCard = new ProductCategory("Address Card", "Address Card", "This card contain official address");
         ProductCategory driverLicence = new ProductCategory("Driver Licence", "Driver Licence", "With this awesome card, you can driving in Hungary");
@@ -40,8 +40,7 @@ public class CreateDataForDatabase {
         ProductCategoryDaoMem.getInstance().add(pack);
         ProductCategoryDaoMem.getInstance().add(franchise);
 
-
-        //setting up products and printing it
+        // Setting up products and printing it
         Product product1 = (new Product("Identity Card (Womean)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, personalityMaker, "/img/product_1.jpg"));
         Product product2 = (new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, personalityMaker, "/img/product_2.jpg"));
         Product product3 = (new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, personalityMaker, "/img/product_3.jpg"));
@@ -66,6 +65,7 @@ public class CreateDataForDatabase {
         Product product22 = (new Product("Identity Card + Address Card ", 80, "USD", "Your identity will be more real ", pack, magicEductation, "/img/product_22.jpg"));
         Product product23 = (new Product("Printer + shipping to you home", 40000, "USD", "With this printer you will able to made your own busniess, but 40% of your proift will be ours ", franchise, itc, "/img/product_23.jpg"));
         Product product24 = (new Product("Printer + shipping to border of your country ", 35000, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", franchise, itc, "/img/product_24.jpg"));
+
         ProductDaoMem.getInstance().add(product1);
         ProductDaoMem.getInstance().add(product2);
         ProductDaoMem.getInstance().add(product3);
@@ -108,8 +108,7 @@ public class CreateDataForDatabase {
     }
     public static void createData() {
 
-
-        //setting up a new supplier
+        // Setting up a new supplier
         Supplier bkcCopy = new Supplier("Bkc-opy", "Digital content and services");
         Supplier magicEductation = new Supplier("Magic Education", "Corrupters");
         Supplier fastAndTheFurious = new Supplier("F&F", "The alcohol is bad, okeeeee?");
@@ -121,7 +120,7 @@ public class CreateDataForDatabase {
         SupplierDaoJdbc.getInstance().add(personalityMaker);
         SupplierDaoJdbc.getInstance().add(itc);
 
-        //setting up a new product category
+        // Setting up a new product category
         ProductCategory idCard = new ProductCategory("Identity Card", "Identity Card", "It's looks like the original hungarian Identity card.");
         ProductCategory addressCard = new ProductCategory("Address Card", "Address Card", "This card contain official address");
         ProductCategory driverLicence = new ProductCategory("Driver Licence", "Driver Licence", "With this awesome card, you can driving in Hungary");
@@ -144,7 +143,7 @@ public class CreateDataForDatabase {
         ProductCategoryDAOJdbc.getInstance().add(franchise);
 
 
-        //setting up products and printing it
+        // Setting up products and printing it
         Product product1 = (new Product("Identity Card (Womean)", 41, "USD", "If you are don't like yourself, than you can be anybody", idCard, personalityMaker, "/img/product_1.jpg"));
         Product product2 = (new Product("Identity Card (Man)", 42, "USD", "If you are ugly, or maybe just you can not leave your country, with new ID card you can do that ", idCard, personalityMaker, "/img/product_2.jpg"));
         Product product3 = (new Product("Address Card", 180, "USD", "You can live everywhere with this card", addressCard, personalityMaker, "/img/product_3.jpg"));
@@ -169,6 +168,7 @@ public class CreateDataForDatabase {
         Product product22 = (new Product("Identity Card + Address Card ", 80, "USD", "Your identity will be more real ", pack, magicEductation, "/img/product_22.jpg"));
         Product product23 = (new Product("Printer + shipping to you home", 40000, "USD", "With this printer you will able to made your own busniess, but 40% of your proift will be ours ", franchise, itc, "/img/product_23.jpg"));
         Product product24 = (new Product("Printer + shipping to border of your country ", 35000, "USD", "With this printer you will able to made your own busniess, but 20% of your proift will be ours", franchise, itc, "/img/product_24.jpg"));
+
         ProductDaoJdbc.getInstance().add(product1);
         ProductDaoJdbc.getInstance().add(product2);
         ProductDaoJdbc.getInstance().add(product3);

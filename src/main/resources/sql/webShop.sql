@@ -10,7 +10,7 @@ CREATE TABLE products (
     description varchar(255) default 'No description',
     price numeric CHECK (price > 0),
     currency varchar(255) NOT NULL,
-    picture varchar(255) NOT NULL default 'not ye',
+    picture varchar(255) NOT NULL default 'No Picture',
     product_category_id int NOT NULL,
     supplier_id int NOT NULL
 );
@@ -26,7 +26,7 @@ CREATE TABLE productCategories (
 CREATE TABLE orders (
     id serial NOT NULL primary key,
     user_id serial NOT Null,
-    status varchar(255) NOT NULL CHECK (status IN ('New','Done','Checked','Payed') )default 'New',
+    status varchar(255) NOT NULL CHECK (status IN ('New','Done','Checked','Paid')) default 'New',
     OrderDate char(16) default to_char(LOCALTIMESTAMP, 'YYYY-MM-DD HH24:MI')
 
 );

@@ -72,6 +72,7 @@ h2 {
     border-radius: 2px;
     background-color: #eee;
     padding: 10px;
+    margin-bottom: 20px;
 }
 
 h4 {
@@ -162,11 +163,13 @@ h4 {
 
 .footer {
     background-color: lightsteelblue;
+    margin-top: 20px;
+    margin-bottom: 0;
 }
 
 label {
     display: block;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 input[type=text], input[type=email] {
@@ -266,7 +269,6 @@ input[type=text], input[type=email] {
 
 /* Responsive styles
 *********************/
-
 @media (max-width: 768px) {
     .text-center-sm {
         text-align: center;
@@ -277,10 +279,8 @@ input[type=text], input[type=email] {
     }
 }
 
-
 /* Payment form
  ***************/
-
 .credit-card-box {
     margin-top: 20px;
 }
@@ -349,7 +349,6 @@ input[type=text], input[type=email] {
 
 /* Confirmation page
  *********************/
-
 #payment-success > div > div {
     font-size: 16px;
     margin-top: 30px;

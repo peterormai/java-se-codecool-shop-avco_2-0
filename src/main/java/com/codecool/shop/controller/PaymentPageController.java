@@ -35,7 +35,8 @@ public class PaymentPageController extends Controller {
             res.redirect("/");
             return "";
         }
-        if (lineItemDao.getNumberOfItem() > 0 && req.queryParams("checkout").equals("done") && lineItemDao.getStatus() != OrderStatus.CHECKEDOUT) {
+        if (lineItemDao.getNumberOfItem() > 0 && req.queryParams("checkout").equals("done") &&
+                lineItemDao.getStatus() != OrderStatus.CHECKEDOUT) {
             lineItemDao.setStatus(OrderStatus.CHECKEDOUT);
         } else if (!req.queryParams("checkout").equals("done")) {
             res.redirect("/");
@@ -70,6 +71,7 @@ public class PaymentPageController extends Controller {
         Checkout.getInstance(params).setShippingAddress(req.queryParams("shippingAddress"));
 
         params.put("totalPrice", lineItemDao.getTotalPrice());
+
         return renderTemplate(params, "payment");
     }
 }
