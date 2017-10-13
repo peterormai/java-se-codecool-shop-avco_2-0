@@ -28,13 +28,12 @@ public class CartPageController extends Controller {
 
     @Override
     public String render(Request req, Response res) {
-        LineItemDao lineItemDao = this.lineItemDao;
         Map<String, Object> params = new HashMap<>();
 
         if (req.queryParams("id") != null) {
             int id = Integer.parseInt(req.queryParams("id"));
 
-            LineItemDaoJdbc.getInstance().removeLineItem(id);
+            lineItemDao.removeLineItem(id);
         }
 
         if (lineItemDao.getAll().isEmpty()) {
@@ -48,13 +47,12 @@ public class CartPageController extends Controller {
     }
 
     public JSONObject renderChangeItemQuantity(Request req, Response res) {
-        LineItemDao lineItemDao = LineItemDaoJdbc.getInstance();
         int id = Integer.parseInt(req.queryParams("id"));
         int quantity = Integer.parseInt(req.queryParams("quantity"));
 
         lineItemDao.changeItemQuantity(id, quantity);
 
-        LineItem lineItem = LineItemDaoJdbc.getInstance().get(id);
+        LineItem lineItem = lineItemDao.get(id);
         JSONObject obj = new JSONObject();
 
         float total = lineItemDao.getTotalPrice();

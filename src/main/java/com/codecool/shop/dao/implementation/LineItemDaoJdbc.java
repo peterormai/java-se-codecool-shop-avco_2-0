@@ -59,7 +59,7 @@ public class LineItemDaoJdbc implements LineItemDao {
     }
 
     @Override
-    public void remove(Product product) {
+    public void removeByProduct(Product product) {
         List<LineItem> lineItems = this.getAll();
         List<Integer> values = new ArrayList<>();
         String query = "";

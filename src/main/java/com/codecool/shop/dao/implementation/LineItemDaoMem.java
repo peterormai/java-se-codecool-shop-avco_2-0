@@ -17,6 +17,8 @@ public class LineItemDaoMem implements LineItemDao {
     private static LineItemDaoMem lineItemDaoMem = null;
     private static List<LineItem> lineItems = new ArrayList<>();
     private OrderStatus status = OrderStatus.NEW;
+    private static int instanceCounter = 0;
+    private int id;
 
     private LineItemDaoMem() {
     }
@@ -40,13 +42,14 @@ public class LineItemDaoMem implements LineItemDao {
             }
         }
         if (isNotIn) {
-            LineItem newLineItem = new LineItem(1, product, 1, 1);
+            id = instanceCounter++;
+            LineItem newLineItem = new LineItem(id, product, 1, 1);
             lineItems.add(newLineItem);
         }
     }
 
     @Override
-    public void remove(Product product) {
+    public void removeByProduct(Product product) {
 
     }
 
