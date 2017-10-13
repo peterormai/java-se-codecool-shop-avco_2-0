@@ -20,6 +20,7 @@ $(document).ready(function () {
 
     function changeItemQuantity() {
         var id = $(this).attr("id");
+        console.log(id);
         var quantity = $(this).val();
         $.ajax({
             url: "/review-cart",
