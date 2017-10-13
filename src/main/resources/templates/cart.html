@@ -35,12 +35,12 @@
             </td>
             <td data-th="Price" th:text="${#numbers.formatCurrency(item.getProduct.getDefaultPrice)}">$1.99</td>
             <td data-th="Quantity">
-                <input min="0" th:attr="id=${item.getId()}" type="number"
+                <input min="0" th:attr="id=${item.getId}" type="number"
                        class="form-control text-center item-quantity"
                        name="quantity"
                        th:value="${item.quantity}">
             </td>
-            <td data-th="Subtotal" id="subtotal"  th:attr="class='text-center ' + ${item.id}"
+            <td data-th="Subtotal" id="subtotal"  th:attr="class='text-center ' + ${item.getId}"
                 th:text="${#numbers.formatCurrency(item.quantity * item.getProduct.getDefaultPrice)}">1.99
             </td>
             <td class="actions text-center">

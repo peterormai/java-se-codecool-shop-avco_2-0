@@ -9,7 +9,7 @@ import java.util.List;
 public interface LineItemDao {
     void add(Product product);
 
-    void remove(Product product);
+    void removeByProduct(Product product);
 
     void removeLineItem(int id);
 
