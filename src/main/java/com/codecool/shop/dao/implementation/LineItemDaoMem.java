@@ -6,6 +6,8 @@ import com.codecool.shop.model.OrderStatus;
 import com.codecool.shop.model.Product;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LineItemDaoMem implements LineItemDao {
+
+    private static final Logger logger = LoggerFactory.getLogger(LineItemDaoMem.class);
 
     private static LineItemDaoMem lineItemDaoMem = null;
     private static List<LineItem> lineItems = new ArrayList<>();
@@ -33,7 +37,7 @@ public class LineItemDaoMem implements LineItemDao {
     @Override
     public void add(Product product) {
         boolean isNotIn = true;
-
+        logger.error("Added product!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         for (LineItem lineItem : lineItems) {
             if (lineItem.getProduct().equals(product)) {
                 int newQuantity = lineItem.getQuantity() + 1;
