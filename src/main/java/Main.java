@@ -6,12 +6,18 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.CreateDataForDatabase;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Main {
 
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
+        logger.info("I am informative!");
 
         // Default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
@@ -19,7 +25,7 @@ public class Main {
         port(8888);
 
         // Create data in database
-        String LOGIC = "JDBC";
+        String LOGIC = "MEM";
         if (LOGIC == "MEM") {
             CreateDataForDatabase.createDaoMem();
             ProductDao productDao = ProductDaoMem.getInstance();
